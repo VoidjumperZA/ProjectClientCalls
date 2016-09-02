@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     private float _sanityPoints;
     private float _xRotationValue = 0.0f;
 
+    private AudioSource[] _clips;
+
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();
@@ -31,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
+        _clips = GetComponents<AudioSource>();
     }
     // Use this for initialization
     private void Start()
@@ -84,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
             _grounded = false;
             _camera.Shake(0.4f);
             print("Jump");
+            _clips[0].Play();
         }
     }
 
@@ -138,6 +142,7 @@ public class PlayerMovement : MonoBehaviour
                 _sanityPoints = 160.0f;
             }
             Destroy(col.gameObject);
+            _clips[1].Play();
         }
     }
 }
