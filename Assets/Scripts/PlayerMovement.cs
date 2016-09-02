@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody _rigidBody;
     private ChaseCamera _camera;
-    private float _moveSpeed = 5f;
+    private float _moveSpeed = 3.0f;
     private float _jumpHeight = 8.0f;
     private bool _grounded = false;
 
@@ -15,10 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private Texture2D _sanityTexture;
 
     private float _sanityPoints;
-
-
-   private float _xRotationValue = 0.0f;
-   
+    private float _xRotationValue = 0.0f;
 
     private void Awake()
     {
@@ -47,7 +44,6 @@ public class PlayerMovement : MonoBehaviour
         Movement();
         SlowDownTime();
 
-        print(Screen.height);
     }
 
     private void Update()
@@ -59,12 +55,12 @@ public class PlayerMovement : MonoBehaviour
     {
         float yRotationValue = 0.0f;
 
-        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A)) { yRotationValue -= 1.0f; _xRotationValue += 1.0f; }
-        else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D)) { yRotationValue += 1.0f; _xRotationValue += 1.0f; }
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A)) { yRotationValue -= 1.0f; _xRotationValue += 1.0f; }
+        else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D)) { yRotationValue += 1.0f; _xRotationValue += 1.0f; }
         else if (Input.GetKey(KeyCode.A)) { yRotationValue -= 1.0f; }
         else if (Input.GetKey(KeyCode.D)) { yRotationValue += 1.0f; }
-        else if (Input.GetKey(KeyCode.S)) { _xRotationValue += 1.0f; }
-        else if (Input.GetKey(KeyCode.W)) { _xRotationValue -= 1.0f; }
+        else if (Input.GetKey(KeyCode.W)) { _xRotationValue += 1.0f; }
+        else if (Input.GetKey(KeyCode.S)) { _xRotationValue -= 1.0f; }
 
         transform.Rotate(0.0f, yRotationValue, 0.0f);
         _camera.CameraXRotation(_xRotationValue);
@@ -74,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            transform.Translate((_camera.transform.forward * _moveSpeed) * Time.deltaTime, Space.Self);
+            transform.Translate(_camera.transform.forward * Time.deltaTime, Space.World);
         }
     }
 
@@ -82,7 +78,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_grounded && Input.GetKeyDown(KeyCode.Space))
         {
-            //_rigidBody.AddForce(0, _jumpHeight, 0, ForceMode.Impulse);
             Vector3 jumpVector = _camera.transform.forward;
             jumpVector.y += 1.5f;
             _rigidBody.AddForce(jumpVector * 5, ForceMode.Impulse);
@@ -110,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SlowDownTime()
     {
-        if(Input.GetMouseButton(0) && _sanityPoints > 0.0f)
+        if (Input.GetMouseButton(0) && _sanityPoints > 0.0f)
         {
             if (Time.timeScale > 0.2f)
             {
@@ -118,8 +113,6 @@ public class PlayerMovement : MonoBehaviour
                 Time.fixedDeltaTime = 0.02f * Time.timeScale;
             }
             _sanityPoints -= 0.1f;
-            //print(Time.fixedDeltaTime);
-            //print(Time.deltaTime);
         }
         else if (Time.timeScale < 1.0f)
         {
