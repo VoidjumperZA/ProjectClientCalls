@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody _rigidBody;
     private ChaseCamera _camera;
-    private float _moveSpeed = 3.0f;
+    private float _moveSpeed = 8.0f;
     private float _jumpHeight = 8.0f;
     private bool _grounded = false;
 
