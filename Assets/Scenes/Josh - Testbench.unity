@@ -743,6 +743,11 @@ Prefab:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011132576550, guid: 4437be5529711274b872fcbfabc8c163,
+        type: 2}
+      propertyPath: activeTargetTracking
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4437be5529711274b872fcbfabc8c163, type: 2}
   m_IsPrefabParent: 0
@@ -1294,7 +1299,7 @@ MonoBehaviour:
   framesBetweenSpawns: 300
   maxObjectsAWave: 1
   maxObjectsAWaveRandom: 0
-  spawnFromCentre: 1
+  spawnFromCentre: 0
   addScript: 0
   scriptsToAdd: []
   chanceOfRescalingObject: 5
