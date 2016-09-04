@@ -8,8 +8,8 @@ public class ChaseCamera : MonoBehaviour
 
     private void Awake()
     {
-        _Target = GameObject.Find("Player").transform;
-        _TargetsRigidbody = GameObject.Find("Player").GetComponent<Rigidbody>();
+        _Target = GameObject.FindGameObjectWithTag("Player").transform;
+        _TargetsRigidbody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()

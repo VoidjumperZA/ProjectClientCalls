@@ -58,12 +58,12 @@ public class PlayerMovement : MonoBehaviour
     {
         float yRotationValue = 0.0f;
 
-        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A)) { yRotationValue -= 1.0f; _xRotationValue += 1.0f; }
-        else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D)) { yRotationValue += 1.0f; _xRotationValue += 1.0f; }
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A)) { yRotationValue -= 1.0f; _xRotationValue += 1.0f; }
+        else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D)) { yRotationValue += 1.0f; _xRotationValue += 1.0f; }
         else if (Input.GetKey(KeyCode.A)) { yRotationValue -= 1.0f; }
         else if (Input.GetKey(KeyCode.D)) { yRotationValue += 1.0f; }
-        else if (Input.GetKey(KeyCode.W)) { _xRotationValue += 1.0f; }
-        else if (Input.GetKey(KeyCode.S)) { _xRotationValue -= 1.0f; }
+        else if (Input.GetKey(KeyCode.S)) { _xRotationValue += 1.0f; }
+        else if (Input.GetKey(KeyCode.W)) { _xRotationValue -= 1.0f; }
 
         transform.Rotate(0.0f, yRotationValue, 0.0f);
         _camera.CameraXRotation(_xRotationValue);
