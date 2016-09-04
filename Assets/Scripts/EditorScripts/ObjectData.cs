@@ -29,7 +29,7 @@ public class ObjectData : MonoBehaviour
         _tag = tag;
         _name = gameObject.name;
         _position = transform.position;
-        _localscale = transform.localScale;
+        _localscale = transform.lossyScale;
         _rotation = transform.rotation;
     }
 
@@ -38,7 +38,7 @@ public class ObjectData : MonoBehaviour
         _tag = tag;
         _name = gameObject.name;
         _position = transform.position;
-        _localscale = transform.localScale;
+        _localscale = transform.lossyScale;
         _rotation = transform.rotation;
     }
 }

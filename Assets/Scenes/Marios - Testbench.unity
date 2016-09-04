@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44692528, g: 0.4967872, b: 0.5750856, a: 1}
+  m_IndirectSpecularColor: {r: 0.44692558, g: 0.49678743, b: 0.57508624, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -590,7 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5f50f9f3f47f214db565ddf418e7ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  underWaterObj: {fileID: 135282648}
+  underWaterObj: {fileID: 1233314173}
 --- !u!54 &1146666803
 Rigidbody:
   m_ObjectHideFlags: 0

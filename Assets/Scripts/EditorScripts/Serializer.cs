@@ -25,7 +25,8 @@ public class Serializer : MonoBehaviour
         for (int i = 0; i < objects.Length; i++)
         {
             objs[i] = new ObjData(objects[i].id, objects[i].gameObject.tag, objects[i].gameObject.name, objects[i].gameObject.layer, objects[i].gameObject.transform.position.x, objects[i].gameObject.transform.position.y, objects[i].gameObject.transform.position.z, objects[i].gameObject.transform.rotation.x, objects[i].gameObject.transform.rotation.y, objects[i].gameObject.transform.rotation.z, objects[i].gameObject.transform.rotation.w, objects[i].gameObject.transform.localScale.x, objects[i].gameObject.transform.localScale.y, objects[i].gameObject.transform.localScale.z, (int)objects[i]._type);
-
+            print(objs[i].tag);
+            print(objects[i].gameObject.tag);
         }
 
         //wrapper class
@@ -67,6 +68,7 @@ public class Serializer : MonoBehaviour
         finally
         {
             fileStream.Close();
+            DeleteExistingObjects();
             InstatiateObjects(newList);
             print("Level LoadeD");
         }
@@ -90,13 +92,28 @@ public class Serializer : MonoBehaviour
                     {
                         GameObject tempObj = (GameObject)Instantiate(ob[y], new Vector3(list.objects[i].positionX, list.objects[i].positionY, list.objects[i].positionZ), new Quaternion(list.objects[i].rotationX, list.objects[i].rotationY, list.objects[i].rotationZ, list.objects[i].rotationW));
                         if (list.objects[i].tag != null)
+                        {
                             tempObj.gameObject.tag = list.objects[i].tag;
+                        }
+                            
                         tempObj.gameObject.layer = list.objects[i].layer;
                         tempObj.gameObject.name = list.objects[i].name;
+                        tempObj.gameObject.transform.localScale = new Vector3(list.objects[i].scaleX, list.objects[i].scaleY, list.objects[i].scaleZ);
                     }
                 }
             }
         }
 
+    }
+
+    private void DeleteExistingObjects()
+    {
+        ObjectData[] objects = (ObjectData[])FindObjectsOfType(typeof(ObjectData));
+        //GameObject[] go = (GameObject[])FindObjectsOfType(typeof(ObjectData));
+
+        for (int i = objects.Length-1; i >= 0; i--)
+        {
+            DestroyImmediate(objects[i].gameObject);
+        }
     }
 }
