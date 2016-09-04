@@ -23,41 +23,45 @@ public class InstantiateObject : MonoBehaviour
     private int zMin;
     private int zMax;
 
-    /*
-    [SerializeField]
-    private int spawnFieldWidth;
-
-    [SerializeField]
-    private int spawnFieldHeight;
-
-    [SerializeField]
-    private int spawnFieldDepth;
-    */
+    //how many frames there are between an object's spawn
     [SerializeField]
     private int framesBetweenSpawns;
 
+    //maximum objects spawning per wave
     [SerializeField]
     private int maxObjectsAWave;
 
+    //choose a random number of objects to spawn per wave
+    //with maxObjectsAWave as the upper bound
     [SerializeField]
     private bool maxObjectsAWaveRandom;
 
+    //objects will spawn in the precise centre of the spawner
+    [SerializeField]
+    private bool spawnFromCentre;
+
+    //in development
     [SerializeField]
     private bool addScript;
 
+    //in development
     [SerializeField]
     private MonoBehaviour[] scriptsToAdd;
 
+    //percentage chance an object will be rescaled
     [SerializeField]
     [Range(0, 10)]
     private int chanceOfRescalingObject;
 
+    //lower bound of an object's scale change
     [SerializeField]
     private float rescalingLowerBound;
 
+    //upper bound of an object's scale change
     [SerializeField]
     private float rescalingUpperBound;
 
+    //hide the spawner's renderer if you wish it to be invisible
     [SerializeField]
     private bool hideRenderer;
 
@@ -103,7 +107,7 @@ public class InstantiateObject : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //for spawning
         counter++;
@@ -119,6 +123,7 @@ public class InstantiateObject : MonoBehaviour
 
     private void generateObject()
     {
+        //set how many objects are spawning and if it's random
         int numObjectsSpawning = maxObjectsAWave;
         if (maxObjectsAWaveRandom)
         {
@@ -139,11 +144,27 @@ public class InstantiateObject : MonoBehaviour
                 {
                     newObject.AddComponent(scriptsToAdd[i].GetType());
                 }
-            }                
+            }
 
-            int fieldX = Random.Range(xMin, xMax);
-            int fieldY = Random.Range(yMax, yMin); //y is inverted because it works top down
-            int fieldZ = Random.Range(zMin, zMax);
+            //create the x, y and z positions our objects will spawn at
+            int fieldX;
+            int fieldY;
+            int fieldZ;
+
+            //objects will spawn in the centre of the spawner
+            if (spawnFromCentre == true)
+            {
+                fieldX = (int)transform.position.x;
+                fieldY = (int)transform.position.y;
+                fieldZ = (int)transform.position.z;
+            }
+            //objects spawn anywhere in the spawner's bounds
+            else
+            {
+                fieldX = Random.Range(xMin, xMax);
+                fieldY = Random.Range(yMax, yMin); //y is inverted because it works top down
+                fieldZ = Random.Range(zMin, zMax);
+            }
 
             newObject.transform.position = new Vector3(fieldX, fieldY, fieldZ);
 

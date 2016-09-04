@@ -3,13 +3,20 @@ using System.Collections;
 
 public class ChaseCamera : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject _TargetObject;
+
     private Transform _Target;
     private Rigidbody _TargetsRigidbody;
 
     private void Awake()
     {
-        _Target = GameObject.FindGameObjectWithTag("Player").transform;
-        _TargetsRigidbody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+        //transform and rigidbody selection now no longer relies on manual getting
+        //through tags, instead you can just assign an object in the inspector
+        //this helps as you don't have to remember to tag your player and it can
+        //be more useful in other projects
+        _Target = _TargetObject.transform;
+        _TargetsRigidbody = _TargetObject.GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()

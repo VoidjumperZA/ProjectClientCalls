@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _grounded = false;
 
     private Vector3 _spawnPosition;
+    private Quaternion _spawnRotation;
     [SerializeField]
     private Color _sanityBarColour;
     private Texture2D _sanityTexture;
@@ -24,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
         _rigidBody = GetComponent<Rigidbody>();
         _camera = Camera.main.GetComponent<ChaseCamera>();
         _spawnPosition = transform.position;
+        _spawnRotation = transform.rotation;
 
         _sanityTexture = new Texture2D(1, 1);
         _sanityTexture.SetPixel(0, 0, _sanityBarColour);
@@ -103,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
         {
             print("You died");
             transform.position = _spawnPosition;
+            transform.rotation = _spawnRotation;
             _rigidBody.velocity = Vector3.zero;
         }
     }

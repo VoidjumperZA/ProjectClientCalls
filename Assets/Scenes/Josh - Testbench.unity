@@ -738,6 +738,11 @@ Prefab:
       propertyPath: disgardHeight
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 54000012540617860, guid: 4437be5529711274b872fcbfabc8c163,
+        type: 2}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4437be5529711274b872fcbfabc8c163, type: 2}
   m_IsPrefabParent: 0
@@ -1265,8 +1270,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 844969888}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 45.14, y: 6.78, z: 94.2}
-  m_LocalScale: {x: 4.944944, y: 1.000256, z: 4.3706684}
+  m_LocalPosition: {x: 45.14, y: 6.13, z: 94.2}
+  m_LocalScale: {x: 4.944944, y: 1.5634844, z: 4.3706684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1286,9 +1291,10 @@ MonoBehaviour:
   preInstantiate: 0
   preInstantiatePasses: 0
   preInstantiateDepth: 0
-  framesBetweenSpawns: 480
-  maxObjectsAWave: 2
+  framesBetweenSpawns: 50
+  maxObjectsAWave: 1
   maxObjectsAWaveRandom: 0
+  spawnFromCentre: 0
   addScript: 0
   scriptsToAdd: []
   chanceOfRescalingObject: 5
@@ -2387,6 +2393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e95e8748b52d794bbab11c8d4f705e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _TargetObject: {fileID: 1439244676}
 --- !u!1 &1498797112
 GameObject:
   m_ObjectHideFlags: 0
