@@ -1270,8 +1270,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 844969888}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 45.14, y: 6.13, z: 94.2}
-  m_LocalScale: {x: 4.944944, y: 1.5634844, z: 4.3706684}
+  m_LocalPosition: {x: 45.14, y: 4.86, z: 94.2}
+  m_LocalScale: {x: 4.944944, y: 4.7938313, z: 4.3706684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1291,10 +1291,10 @@ MonoBehaviour:
   preInstantiate: 0
   preInstantiatePasses: 0
   preInstantiateDepth: 0
-  framesBetweenSpawns: 50
+  framesBetweenSpawns: 300
   maxObjectsAWave: 1
   maxObjectsAWaveRandom: 0
-  spawnFromCentre: 0
+  spawnFromCentre: 1
   addScript: 0
   scriptsToAdd: []
   chanceOfRescalingObject: 5
