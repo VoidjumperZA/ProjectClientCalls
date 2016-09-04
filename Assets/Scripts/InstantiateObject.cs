@@ -56,7 +56,10 @@ public class InstantiateObject : MonoBehaviour
     private float rescalingLowerBound;
 
     [SerializeField]
-    private float rescalingUpperBound;    
+    private float rescalingUpperBound;
+
+    [SerializeField]
+    private bool hideRenderer;
 
     private int counter = 0;
     private Vector3[] worldSpaceVertices = new Vector3[8];
@@ -80,6 +83,12 @@ public class InstantiateObject : MonoBehaviour
         //disable the spawner's collider otherwise objects will be trapped inside it
         BoxCollider collider = gameObject.GetComponent<BoxCollider>();
         collider.enabled = false;
+
+        if (hideRenderer == true)
+        {
+            MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+            meshRenderer.enabled = false;
+        }
     }
     // Use this for initialization
     void Start()

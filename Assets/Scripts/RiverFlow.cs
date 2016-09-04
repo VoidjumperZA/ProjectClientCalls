@@ -4,12 +4,25 @@ using System.Collections.Generic;
 
 public class RiverFlow : MonoBehaviour
 {
+    //objects will not flow in the y direction,
+    //enable if you want them to flow up or downwards in 3D space
     [SerializeField]
     private bool disgardHeight;
 
+    //either being repulsed or attracted to a marker
     [SerializeField]
     private bool invertVector;
 
+    //calculate difference vector every frame, useful
+    //if marker's are moving
+    [SerializeField]
+    private bool activeTargetTracking;
+
+    //either continue with the previous velocity or draw to a stop
+    [SerializeField]
+    private bool stopAtLastMarker;
+
+    //modifies how fast an object flows between markers
     [SerializeField]
     private float flowSpeed;
 
@@ -37,8 +50,20 @@ public class RiverFlow : MonoBehaviour
         markerManager = GameObject.FindGameObjectWithTag("FlowMarkerManager").GetComponent<FlowMarkerManager>();
         target = markerManager.GetWaypointTransform(waypointIndex);
         targetPos = target.position;
+        differenceVec = transform.position - targetPos;
+        modifyVector();
         markerManager.Report();
     }
+
+    //if objects are instantiated, make sure their vector's are right
+    //as they don't call Awake
+    void Start()
+    {
+        targetPos = target.position;
+        differenceVec = transform.position - targetPos;
+        modifyVector();
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -59,22 +84,45 @@ public class RiverFlow : MonoBehaviour
         if (markerManager.GetWaypointList().Length > waypointIndex)
         {
             target = markerManager.GetWaypointTransform(waypointIndex);
+           
+            //for non-active tracking, calculate vectors only on reaching a marker:
+            //update our target position
+            targetPos = target.position;
+            //find the difference between our current position and our target's
+            differenceVec = transform.position - targetPos;
+            modifyVector();
             Debug.Log("Assigning a new target marker.");
         }
         else
         {
             Debug.Log("Reached the end of our list of markers.");
+            if (stopAtLastMarker == true)
+            {
+                differenceVec = new Vector3(0, 0, 0);
+            }
         }
     }
 
     //moves our object smoothly towards or away from our marker
     private void flowToMarker()
     {
-        //update our target position
-        targetPos = target.position;
-        //find the difference between our current position and our target's
-        differenceVec = transform.position - targetPos;
+        //get the difference vector once, unless we want to calculate every frame
+        if (activeTargetTracking == true)
+        {
+            //update our target position
+            targetPos = target.position;
+            //find the difference between our current position and our target's
+            differenceVec = transform.position - targetPos;
+            modifyVector();
+        }
 
+        //apply a constant force mimicking a river's flow
+        rigidBod.AddForce(differenceVec, ForceMode.Force);
+    }
+
+    //scales, flips and modifies the vector based on properties or options
+    private void modifyVector()
+    {
         //generic option to ignore y value if you're on a static plane
         if (disgardHeight == true)
         {
@@ -86,12 +134,11 @@ public class RiverFlow : MonoBehaviour
             differenceVec = -differenceVec;
         }
 
+        //scale our flow speed to flow faster or slower
         if (flowSpeed != 1)
         {
             differenceVec.Scale(new Vector3(flowSpeed, flowSpeed, flowSpeed));
         }
-
-        //apply a constant force
-        rigidBod.AddForce(differenceVec, ForceMode.Force);
     }
+
 }

@@ -688,7 +688,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013548843538, guid: 4437be5529711274b872fcbfabc8c163, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 7.17
+      value: 7.18
       objectReference: {fileID: 0}
     - target: {fileID: 4000013548843538, guid: 4437be5529711274b872fcbfabc8c163, type: 2}
       propertyPath: m_LocalPosition.z
@@ -732,6 +732,11 @@ Prefab:
         type: 2}
       propertyPath: m_Constraints
       value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011132576550, guid: 4437be5529711274b872fcbfabc8c163,
+        type: 2}
+      propertyPath: disgardHeight
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4437be5529711274b872fcbfabc8c163, type: 2}
@@ -1211,7 +1216,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 844969888}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
@@ -1282,13 +1287,14 @@ MonoBehaviour:
   preInstantiatePasses: 0
   preInstantiateDepth: 0
   framesBetweenSpawns: 480
-  maxObjectsAWave: 1
+  maxObjectsAWave: 2
   maxObjectsAWaveRandom: 0
   addScript: 0
   scriptsToAdd: []
   chanceOfRescalingObject: 5
   rescalingLowerBound: 1.5
   rescalingUpperBound: 0.75
+  hideRenderer: 1
 --- !u!1 &913203434
 GameObject:
   m_ObjectHideFlags: 0
