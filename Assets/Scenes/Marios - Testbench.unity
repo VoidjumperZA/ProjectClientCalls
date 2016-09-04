@@ -590,7 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5f50f9f3f47f214db565ddf418e7ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  underWaterObj: {fileID: 1233314173}
+  underWaterObj: {fileID: 135282648}
 --- !u!54 &1146666803
 Rigidbody:
   m_ObjectHideFlags: 0
