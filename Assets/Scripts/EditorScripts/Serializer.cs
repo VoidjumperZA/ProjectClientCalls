@@ -119,11 +119,73 @@ public class Serializer : MonoBehaviour
 
     public void SaveTerrainData()
     {
-        TerrainData TD = FindObjectOfType<Terrain>().terrainData;
+        Terrain TD = FindObjectOfType<Terrain>();
+
+        if(TD != null)
+        {
+            try
+            {
+                if (AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Resources/Prefabs/"+TD.name+".prefab"))
+                {
+                    Object fab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Resources/Prefabs/" + TD.name + ".prefab");
+                    PrefabUtility.ReplacePrefab(TD.gameObject, fab, ReplacePrefabOptions.Default);
+                    PrefabUtility.DisconnectPrefabInstance(TD.gameObject);
+                }
+                else
+                {
+                    Object fab = PrefabUtility.CreateEmptyPrefab("Assets/Resources/Prefabs/" + TD.name + ".prefab");
+                    PrefabUtility.ReplacePrefab(TD.gameObject, fab, ReplacePrefabOptions.Default);
+                    PrefabUtility.DisconnectPrefabInstance(TD.gameObject);
+                }
+            }
+            catch (SerializationException e)
+            {
+                print(e.Message);
+                throw;
+            }
+            finally
+            {
+                print("Terrain Saved");
+            }
+        }
+        else
+        {
+            print("No terrain found");
+        }
     }
 
     public void LoadTerrainData()
     {
+        Terrain TD = FindObjectOfType<Terrain>();
+        if (TD != null)
+        {
+            DestroyImmediate(TD.gameObject);
+        }
 
+        try
+        {
+            GameObject[] ob = Resources.LoadAll<GameObject>("Prefabs");
+
+            if (ob.Length > 0)
+            {
+                for (int i = 0; i < ob.Length; i++)
+                {
+                    if (ob[i].GetComponent<Terrain>())
+                    {
+                        GameObject fab = PrefabUtility.InstantiatePrefab(ob[i]) as GameObject;
+                        PrefabUtility.DisconnectPrefabInstance(fab);
+                    }
+                }
+            }
+        }
+        catch (SerializationException e)
+        {
+            print(e.Message);
+            throw;
+        }
+        finally
+        {
+            print("Terrain loaded");
+        }
     }
 }

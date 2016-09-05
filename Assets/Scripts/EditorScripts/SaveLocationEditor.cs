@@ -21,5 +21,13 @@ public class SaveLocationEditor : Editor
         {
             save.LoadData();
         }
+        if (GUILayout.Button("Save terrain"))
+        {
+            save.SaveTerrainData();
+        }
+        if (GUILayout.Button("Load terrain"))
+        {
+            save.LoadTerrainData();
+        }
     }
 }
