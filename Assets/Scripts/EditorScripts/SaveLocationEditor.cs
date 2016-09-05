@@ -7,7 +7,7 @@ public class SaveLocationEditor : Editor
 {
 
     public override void OnInspectorGUI()
-    {
+    { 
         //so we don't redo the whole inspector but only add to it
         DrawDefaultInspector();
 

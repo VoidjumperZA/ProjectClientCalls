@@ -116,4 +116,14 @@ public class Serializer : MonoBehaviour
             DestroyImmediate(objects[i].gameObject);
         }
     }
+
+    public void SaveTerrainData()
+    {
+        TerrainData TD = FindObjectOfType<Terrain>().terrainData;
+    }
+
+    public void LoadTerrainData()
+    {
+
+    }
 }
