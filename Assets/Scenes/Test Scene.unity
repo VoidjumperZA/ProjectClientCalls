@@ -1175,7 +1175,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 100.2
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1215,6 +1215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e95e8748b52d794bbab11c8d4f705e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _TargetObject: {fileID: 183711271}
 --- !u!4 &966966473 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000013674433742, guid: 41c3583b1ce7f7e47953714930934c5c,
