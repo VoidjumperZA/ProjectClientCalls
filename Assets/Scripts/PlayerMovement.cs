@@ -3,39 +3,54 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject _gameManagerObject;
+    [SerializeField]
+    private GameObject _firefly;
+
+    private GameManager _gameManager;
+
+
+
+
+
+
     private Rigidbody _rigidBody;
     private ChaseCamera _camera;
-    private float _moveSpeed = 8.0f;
-    private float _jumpHeight = 8.0f;
     private bool _grounded = false;
 
     private Vector3 _spawnPosition;
     private Quaternion _spawnRotation;
-    [SerializeField]
-    private Color _sanityBarColour;
-    private Texture2D _sanityTexture;
+    //[SerializeField]
+    //private Color _sanityBarColour;
+    //private Texture2D _sanityTexture;
 
-    private float _sanityPoints;
-    private float _xRotationValue = 0.0f;
+    //private float _sanityPoints;
+    //private float _xRotationValue = 0.0f;
 
-    private AudioSource[] _clips;
+    //private AudioSource[] _clips;
 
     private void Awake()
     {
+        _gameManager = _gameManagerObject.GetComponent<GameManager>();
+
+
+
+
+
         _rigidBody = GetComponent<Rigidbody>();
         _camera = Camera.main.GetComponent<ChaseCamera>();
         _spawnPosition = transform.position;
         _spawnRotation = transform.rotation;
 
-        _sanityTexture = new Texture2D(1, 1);
-        _sanityTexture.SetPixel(0, 0, _sanityBarColour);
-        _sanityTexture.Apply();
+        //_sanityTexture = new Texture2D(1, 1);
+        //_sanityTexture.SetPixel(0, 0, _sanityBarColour);
+        //_sanityTexture.Apply();
 
-        _sanityPoints = 20.0f;
+        //_sanityPoints = 20.0f;
 
-        QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 60;
-        _clips = GetComponents<AudioSource>();
+
+        //_clips = GetComponents<AudioSource>();
     }
     // Use this for initialization
     private void Start()
@@ -46,59 +61,37 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        Movement();
-        SlowDownTime();
-
+        ForcedMovement();
     }
 
     private void Update()
     {
-        Jump();
+        //Jump();
     }
 
-    private void Movement()
+    private void ForcedMovement()
     {
-        float yRotationValue = 0.0f;
-
-        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A)) { yRotationValue -= 1.0f; _xRotationValue += 1.0f; }
-        else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D)) { yRotationValue += 1.0f; _xRotationValue += 1.0f; }
-        else if (Input.GetKey(KeyCode.A)) { yRotationValue -= 1.0f; }
-        else if (Input.GetKey(KeyCode.D)) { yRotationValue += 1.0f; }
-        else if (Input.GetKey(KeyCode.S)) { _xRotationValue += 1.0f; }
-        else if (Input.GetKey(KeyCode.W)) { _xRotationValue -= 1.0f; }
-
-        transform.Rotate(0.0f, yRotationValue, 0.0f);
-        _camera.CameraXRotation(_xRotationValue);
-        if (_grounded)
-        {
-            transform.Translate(new Vector3(0, 0, _moveSpeed) * Time.deltaTime, Space.Self);
-        }
-        else
-        {
-            transform.Translate(_camera.transform.forward * Time.deltaTime, Space.World);
-        }
+        transform.Translate(new Vector3(0, 0, _gameManager.PlayerMovementSpeed) * Time.deltaTime, Space.Self);
     }
 
-    private void Jump()
+    public void Jump()
     {
-        if (_grounded && Input.GetKeyDown(KeyCode.Space))
-        {
-            Vector3 jumpVector = _camera.transform.forward;
-            jumpVector.y += 1.5f;
-            _rigidBody.AddForce(jumpVector * 5, ForceMode.Impulse);
-            _grounded = false;
-            _camera.Shake(0.4f);
-            print("Jump");
-            _clips[0].Play();
-        }
+        if (!_grounded) { return; }
+
+        //Vector3 jumpVector = _camera.transform.forward;
+        //jumpVector.y += 1.5f;
+        _rigidBody.AddForce(transform.up * _gameManager.PlayerJumpHeight, ForceMode.Impulse);
+        _grounded = false;
+        _camera.Shake(_gameManager.CameraShakeDistanceOnJump);
+        //_clips[0].Play();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "JumpableObject")
+        if (collision.transform.name == "Floor")
         {
             _grounded = true;
-            _camera.Shake(0.6f);
+            _camera.Shake(_gameManager.CameraShakeDistanceOnLand);
         }
 
         if (collision.transform.name == "Terrain")
@@ -110,28 +103,32 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void SlowDownTime()
+
+    public void SlowDown()
     {
-        if (Input.GetMouseButton(0) && _sanityPoints > 0.0f)
+        if (_gameManager.SanityPoints <= 0.0f) { return; }
+
+        if (Time.timeScale > _gameManager.SlowDownScale)
         {
-            if (Time.timeScale > 0.2f)
-            {
-                Time.timeScale -= 0.05f;
-                Time.fixedDeltaTime = 0.02f * Time.timeScale;
-            }
-            _sanityPoints -= 0.1f;
+            Time.timeScale -= _gameManager.SlowDownInterpolationValue;
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
         }
-        else if (Time.timeScale < 1.0f)
+        _gameManager.SanityPoints -= 0.1f;
+    }
+
+    public void SpeedUp()
+    {
+        if (Time.timeScale < 1.0f)
         {
-            Time.timeScale += 0.05f;
+            Time.timeScale += _gameManager.SlowDownInterpolationValue;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
         }
     }
 
-    private void OnGUI()
-    {
-        GUI.DrawTexture(new Rect(Screen.width - 236, 50, _sanityPoints, 20), _sanityTexture);
-    }
+    //private void OnGUI()
+    //{
+    //    GUI.DrawTexture(new Rect(Screen.width - 236, 50, _sanityPoints, 20), _sanityTexture);
+    //}
 
     void OnTriggerEnter(Collider col)
     {
@@ -139,13 +136,21 @@ public class PlayerMovement : MonoBehaviour
         if (col.tag == "Lume")
         {
             print("Colliders with Player");
-            _sanityPoints += 20.0f;
-            if (_sanityPoints > 160.0f)
+            _gameManager.SanityPoints += 20.0f;
+            //maybe use Clamp in the future
+            if (_gameManager.SanityPoints > 160.0f)
             {
-                _sanityPoints = 160.0f;
+                _gameManager.SanityPoints = 160.0f;
             }
             Destroy(col.gameObject);
-            _clips[1].Play();
+            //_clips[1].Play();
         }
+    }
+
+    public void Rotating(float pRotationValue)
+    {
+        pRotationValue *= _gameManager.PlayerRotationSpeed;
+        transform.Rotate(0.0f, pRotationValue, 0.0f);
+        _camera.transform.Rotate(0.0f, pRotationValue, 0.0f);
     }
 }

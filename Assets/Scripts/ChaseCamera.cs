@@ -33,12 +33,4 @@ public class ChaseCamera : MonoBehaviour
         Vector3 shakeDistance = new Vector3(0, -pShakeDistance, 0);
         transform.position += shakeDistance;
     }
-
-    public void CameraXRotation(float pXRotation)
-    {
-        Vector3 newRotation = new Vector3(pXRotation, _Target.eulerAngles.y, transform.eulerAngles.z);
-        transform.eulerAngles = newRotation;
-    }
-
-
 }
