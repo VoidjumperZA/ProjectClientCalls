@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,9 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private GameManager _gameManager;
 
 
-
-
-
+    private ScriptableData[] _scriptData;
 
     private Rigidbody _rigidBody;
     private ChaseCamera _camera;
@@ -34,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _gameManager = _gameManagerObject.GetComponent<GameManager>();
 
+        _scriptData = Resources.LoadAll<ScriptableData>("Data");
 
         _rigidBody = GetComponent<Rigidbody>();
         _camera = Camera.main.GetComponent<ChaseCamera>();
