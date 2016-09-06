@@ -2,7 +2,6 @@
 using System.Collections;
 using System.IO;
 using CCEditor;
-using UnityEditor;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 
@@ -109,14 +108,13 @@ public class Serializer : MonoBehaviour
     private void DeleteExistingObjects()
     {
         ObjectData[] objects = (ObjectData[])FindObjectsOfType(typeof(ObjectData));
-        //GameObject[] go = (GameObject[])FindObjectsOfType(typeof(ObjectData));
 
         for (int i = objects.Length-1; i >= 0; i--)
         {
             DestroyImmediate(objects[i].gameObject);
         }
     }
-
+#if UNITY_EDITOR
     public void SaveTerrainData()
     {
         Terrain TD = FindObjectOfType<Terrain>();
@@ -125,17 +123,17 @@ public class Serializer : MonoBehaviour
         {
             try
             {
-                if (AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Resources/Prefabs/"+TD.name+".prefab"))
+                if (UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Resources/Prefabs/"+TD.name+".prefab"))
                 {
-                    Object fab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Resources/Prefabs/" + TD.name + ".prefab");
-                    PrefabUtility.ReplacePrefab(TD.gameObject, fab, ReplacePrefabOptions.Default);
-                    PrefabUtility.DisconnectPrefabInstance(TD.gameObject);
+                    Object fab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Resources/Prefabs/" + TD.name + ".prefab");
+                    UnityEditor.PrefabUtility.ReplacePrefab(TD.gameObject, fab, UnityEditor.ReplacePrefabOptions.Default);
+                    UnityEditor.PrefabUtility.DisconnectPrefabInstance(TD.gameObject);
                 }
                 else
                 {
-                    Object fab = PrefabUtility.CreateEmptyPrefab("Assets/Resources/Prefabs/" + TD.name + ".prefab");
-                    PrefabUtility.ReplacePrefab(TD.gameObject, fab, ReplacePrefabOptions.Default);
-                    PrefabUtility.DisconnectPrefabInstance(TD.gameObject);
+                    Object fab = UnityEditor.PrefabUtility.CreateEmptyPrefab("Assets/Resources/Prefabs/" + TD.name + ".prefab");
+                    UnityEditor.PrefabUtility.ReplacePrefab(TD.gameObject, fab, UnityEditor.ReplacePrefabOptions.Default);
+                    UnityEditor.PrefabUtility.DisconnectPrefabInstance(TD.gameObject);
                 }
             }
             catch (SerializationException e)
@@ -172,8 +170,8 @@ public class Serializer : MonoBehaviour
                 {
                     if (ob[i].GetComponent<Terrain>())
                     {
-                        GameObject fab = PrefabUtility.InstantiatePrefab(ob[i]) as GameObject;
-                        PrefabUtility.DisconnectPrefabInstance(fab);
+                        GameObject fab = UnityEditor.PrefabUtility.InstantiatePrefab(ob[i]) as GameObject;
+                        UnityEditor.PrefabUtility.DisconnectPrefabInstance(fab);
                     }
                 }
             }
@@ -188,4 +186,5 @@ public class Serializer : MonoBehaviour
             print("Terrain loaded");
         }
     }
+#endif
 }
