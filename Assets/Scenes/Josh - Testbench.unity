@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43960288, g: 0.48795247, b: 0.5681205, a: 1}
+  m_IndirectSpecularColor: {r: 0.4396028, g: 0.48795223, b: 0.5681203, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -820,12 +820,16 @@ Prefab:
     - target: {fileID: 54000012540617860, guid: 4437be5529711274b872fcbfabc8c163,
         type: 2}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000011132576550, guid: 4437be5529711274b872fcbfabc8c163,
         type: 2}
       propertyPath: activeTargetTracking
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000012597768376, guid: 4437be5529711274b872fcbfabc8c163, type: 2}
+      propertyPath: m_TagString
+      value: JumpableObject
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4437be5529711274b872fcbfabc8c163, type: 2}
@@ -1375,7 +1379,7 @@ MonoBehaviour:
   preInstantiate: 0
   preInstantiatePasses: 0
   preInstantiateDepth: 0
-  framesBetweenSpawns: 300
+  framesBetweenSpawns: 100
   maxObjectsAWave: 1
   maxObjectsAWaveRandom: 0
   spawnFromCentre: 0
@@ -2282,13 +2286,14 @@ GameObject:
   - 23: {fileID: 1439244678}
   - 114: {fileID: 1439244677}
   - 54: {fileID: 1439244682}
+  - 114: {fileID: 1439244683}
   m_Layer: 0
   m_Name: Player Substitute
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1439244677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2300,7 +2305,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76170a62b90a5341b55b90780a2f8fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sanityBarColour: {r: 0, g: 0, b: 0, a: 0}
+  _gameManagerObject: {fileID: 1852301946}
+  _firefly: {fileID: 0}
 --- !u!23 &1439244678
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2378,6 +2384,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1439244683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1439244676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53dbcdaf7b7568846b59e9cbccde183f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 0}
 --- !u!1 &1496543045
 GameObject:
   m_ObjectHideFlags: 0
@@ -2390,6 +2408,7 @@ GameObject:
   - 92: {fileID: 1496543048}
   - 124: {fileID: 1496543047}
   - 81: {fileID: 1496543046}
+  - 114: {fileID: 1496543051}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2465,6 +2484,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1496543051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1496543045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e95e8748b52d794bbab11c8d4f705e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _TargetObject: {fileID: 1439244676}
 --- !u!1 &1498797112
 GameObject:
   m_ObjectHideFlags: 0
@@ -3216,6 +3247,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1925383088}
   m_RootOrder: 6
+--- !u!1 &1852301946
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1852301948}
+  - 114: {fileID: 1852301947}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1852301947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1852301946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 367d154d2faa5b44c9d2b9cdf3e07342, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerMovementSpeed: 10
+  _playerJumpHeight: 8
+  _playerRotationSpeed: 2
+  _cameraShakeDistanceOnJump: 0.4
+  _cameraShakeDistanceOnLand: 0.6
+  _sanityPoints: 0
+  _slowDownScale: 0.2
+  _slowDownInterpolationValue: 0.01
+--- !u!4 &1852301948
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1852301946}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 57.871105, y: 31.487461, z: 87.90273}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
 --- !u!1 &1877630002
 GameObject:
   m_ObjectHideFlags: 0
@@ -3314,7 +3393,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1881501121
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -35,9 +35,6 @@ public class PlayerMovement : MonoBehaviour
         _gameManager = _gameManagerObject.GetComponent<GameManager>();
 
 
-
-
-
         _rigidBody = GetComponent<Rigidbody>();
         _camera = Camera.main.GetComponent<ChaseCamera>();
         _spawnPosition = transform.position;
@@ -88,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.name == "Floor")
+        if (collision.transform.tag == "JumpableObject")
         {
             _grounded = true;
             _camera.Shake(_gameManager.CameraShakeDistanceOnLand);
