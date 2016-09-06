@@ -8,11 +8,11 @@ public class ScriptableData : ScriptableObject {
 
     public int sanityGain;
 
+    public int sanityPoints;
+
     public float playerMovementSpeed;
 
     public float playerJumpHeight;
-
-    public float sanityPoints;
 
     public float slowDownScale;
 
