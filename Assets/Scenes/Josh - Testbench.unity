@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4396028, g: 0.48795223, b: 0.5681203, a: 1}
+  m_IndirectSpecularColor: {r: 0.43960288, g: 0.48795247, b: 0.5681205, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -820,7 +820,7 @@ Prefab:
     - target: {fileID: 54000012540617860, guid: 4437be5529711274b872fcbfabc8c163,
         type: 2}
       propertyPath: m_UseGravity
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114000011132576550, guid: 4437be5529711274b872fcbfabc8c163,
         type: 2}
@@ -830,6 +830,18 @@ Prefab:
     - target: {fileID: 1000012597768376, guid: 4437be5529711274b872fcbfabc8c163, type: 2}
       propertyPath: m_TagString
       value: JumpableObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013548843538, guid: 4437be5529711274b872fcbfabc8c163, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1.7080438
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013548843538, guid: 4437be5529711274b872fcbfabc8c163, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 3.061234
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013548843538, guid: 4437be5529711274b872fcbfabc8c163, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1.7080439
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4437be5529711274b872fcbfabc8c163, type: 2}
@@ -1358,8 +1370,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 844969888}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 45.14, y: 4.86, z: 94.2}
-  m_LocalScale: {x: 4.944944, y: 4.7938313, z: 4.3706684}
+  m_LocalPosition: {x: 44.75, y: 4.86, z: 94.2}
+  m_LocalScale: {x: 2.107481, y: 2.0430787, z: 1.8627312}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1379,14 +1391,14 @@ MonoBehaviour:
   preInstantiate: 0
   preInstantiatePasses: 0
   preInstantiateDepth: 0
-  framesBetweenSpawns: 100
+  framesBetweenSpawns: 85
   maxObjectsAWave: 1
   maxObjectsAWaveRandom: 0
-  spawnFromCentre: 0
+  spawnFromCentre: 1
   addScript: 0
   scriptsToAdd: []
   chanceOfRescalingObject: 5
-  rescalingLowerBound: 1.5
+  rescalingLowerBound: 2
   rescalingUpperBound: 0.75
   hideRenderer: 1
 --- !u!1 &913203434
@@ -2128,7 +2140,7 @@ GameObject:
   - 23: {fileID: 1424812393}
   m_Layer: 0
   m_Name: Bridge
-  m_TagString: Untagged
+  m_TagString: JumpableObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2188,8 +2200,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1424812392}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 45.4, y: 8.6, z: 94.2}
-  m_LocalScale: {x: 16.424984, y: 1, z: 4.3706684}
+  m_LocalPosition: {x: 45.4, y: 8.6, z: 119.9}
+  m_LocalScale: {x: 16.424984, y: 1, z: 55.94218}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2363,7 +2375,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1439244676}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 44.92, y: 11.49, z: 94.41}
+  m_LocalPosition: {x: 44.92, y: 11.49, z: 141.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_Children: []
@@ -3275,7 +3287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerMovementSpeed: 10
-  _playerJumpHeight: 8
+  _playerJumpHeight: 9
   _playerRotationSpeed: 2
   _cameraShakeDistanceOnJump: 0.4
   _cameraShakeDistanceOnLand: 0.6
@@ -3405,7 +3417,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15e55e2dc025dfd4683f18cec19f0a48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accelerationObject: {fileID: 1600758597}
 --- !u!54 &1881501122
 Rigidbody:
   m_ObjectHideFlags: 0
