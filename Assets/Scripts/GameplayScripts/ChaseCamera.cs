@@ -7,7 +7,6 @@ public class ChaseCamera : MonoBehaviour
     private GameObject _TargetObject;
 
     private Transform _Target;
-    private Rigidbody _TargetsRigidbody;
 
     private void Awake()
     {
@@ -16,18 +15,18 @@ public class ChaseCamera : MonoBehaviour
         //this helps as you don't have to remember to tag your player and it can
         //be more useful in other projects
         _Target = _TargetObject.transform;
-        _TargetsRigidbody = _TargetObject.GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, _Target.position, 0.3f);
+        transform.position = _Target.position;
 
         //Vector3 newRotation = new Vector3(0.0f, _Target.eulerAngles.y, 0.0f);
         //transform.eulerAngles = newRotation;
 
     }
 
+    //Needs to lerp
     public void Shake(float pShakeDistance)
     {
         Vector3 shakeDistance = new Vector3(0, -pShakeDistance, 0);

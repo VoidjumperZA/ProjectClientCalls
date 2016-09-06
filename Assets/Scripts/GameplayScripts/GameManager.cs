@@ -15,11 +15,21 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float _cameraShakeDistanceOnLand = 0.6f;
     [SerializeField]
-    private float _sanityPoints = 0.0f;
+    private float _currentSanityPoints = 0.0f;
+    [SerializeField]
+    private float _sanityPerLume = 5.0f;
     [SerializeField]
     private float _slowDownScale = 0.2f;
     [SerializeField]
     private float _slowDownInterpolationValue = 0.01f;
+    [SerializeField]
+    private float _normalGravity = 9.8f;
+    [SerializeField]
+    private float _lowGravity = 2.0f;
+    [SerializeField]
+    private float _jumpBarPoints = 0.0f;
+    [SerializeField]
+    private float _jumpBarInterpolationValue = 1.0f;
 
     //All fields accessible through properties
     public float PlayerMovementSpeed
@@ -47,10 +57,15 @@ public class GameManager : MonoBehaviour
         get { return _cameraShakeDistanceOnLand; }
         set { _cameraShakeDistanceOnLand = value; }
     }
-    public float SanityPoints
+    public float CurrentSanityPoints
     {
-        get { return _sanityPoints; }
-        set { _sanityPoints = value; }
+        get { return _currentSanityPoints; }
+        set { _currentSanityPoints = value; }
+    }
+    public float SanityPerLume
+    {
+        get { return _sanityPerLume; }
+        set { _sanityPerLume = value; }
     }
     public float SlowDownScale
     {
@@ -61,6 +76,26 @@ public class GameManager : MonoBehaviour
     {
         get { return _slowDownInterpolationValue; }
         set { _slowDownInterpolationValue = value; }
+    }
+    public float NormalGravity
+    {
+        get { return _normalGravity; }
+        set { _normalGravity = value; }
+    }
+    public float LowGravity
+    {
+        get { return _lowGravity; }
+        set { _lowGravity = value; }
+    }
+    public float JumpBarPoints
+    {
+        get { return _jumpBarPoints; }
+        set { _jumpBarPoints = value; }
+    }
+    public float JumpBarInterpolationValue
+    {
+        get { return _jumpBarInterpolationValue; }
+        set { _jumpBarInterpolationValue = value; }
     }
 
     private void Awake()

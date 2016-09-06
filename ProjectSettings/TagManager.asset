@@ -6,6 +6,9 @@ TagManager:
   tags:
   - FlowMarker
   - FlowMarkerManager
+  - JumpableObject
+  - Lume
+  - DeathFloor
   layers:
   - Default
   - TransparentFX
