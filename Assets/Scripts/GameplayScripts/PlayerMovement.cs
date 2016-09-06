@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,65 +8,29 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private GameObject _firefly;
 
-    private GameManager _gameManager;
-
-
     private ScriptableData[] _scriptData;
 
+    private GameManager _gameManager;
     private Rigidbody _rigidBody;
     private ChaseCamera _camera;
-    private bool _grounded = false;
 
+    private bool _grounded = false;
     private Vector3 _spawnPosition;
     private Quaternion _spawnRotation;
-    //[SerializeField]
-    //private Color _sanityBarColour;
-    //private Texture2D _sanityTexture;
-
-    //private float _sanityPoints;
-    //private float _xRotationValue = 0.0f;
-
-    //private AudioSource[] _clips;
 
     private void Awake()
     {
         _gameManager = _gameManagerObject.GetComponent<GameManager>();
-
-        _scriptData = Resources.LoadAll<ScriptableData>("Data");
-
         _rigidBody = GetComponent<Rigidbody>();
         _camera = Camera.main.GetComponent<ChaseCamera>();
+
         _spawnPosition = transform.position;
         _spawnRotation = transform.rotation;
-
-        //_sanityTexture = new Texture2D(1, 1);
-        //_sanityTexture.SetPixel(0, 0, _sanityBarColour);
-        //_sanityTexture.Apply();
-
-        //_sanityPoints = 20.0f;
-
-
-        //_clips = GetComponents<AudioSource>();
-    }
-    // Use this for initialization
-    private void Start()
-    {
-
     }
 
-    // Update is called once per frame
     private void FixedUpdate()
     {
-        ForcedMovement();
-    }
-
-    private void Update()
-    {
-        //Jump();
-    }
-
-    private void ForcedMovement()
-    {
+        //Forced Movement
         transform.Translate(new Vector3(0, 0, _gameManager.PlayerMovementSpeed) * Time.deltaTime, Space.Self);
     }
 
@@ -75,12 +38,19 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_grounded) { return; }
 
-        //Vector3 jumpVector = _camera.transform.forward;
-        //jumpVector.y += 1.5f;
         _rigidBody.AddForce(transform.up * _gameManager.PlayerJumpHeight, ForceMode.Impulse);
         _grounded = false;
         _camera.Shake(_gameManager.CameraShakeDistanceOnJump);
-        //_clips[0].Play();
+    }
+
+    public void DecreaseGravity()
+    {
+        Physics.gravity = new Vector3(0.0f, -_gameManager.LowGravity, 0.0f);
+    }
+
+    public void IncreaseGravity()
+    {
+        Physics.gravity = new Vector3(0.0f, -_gameManager.NormalGravity, 0.0f);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -91,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
             _camera.Shake(_gameManager.CameraShakeDistanceOnLand);
         }
 
-        if (collision.transform.name == "Terrain")
+        if (collision.transform.tag == "DeathFloor")
         {
             print("You died");
             transform.position = _spawnPosition;
@@ -100,20 +70,19 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
-    public void SlowDown()
+    public void SlowDownTime()
     {
-        if (_gameManager.SanityPoints <= 0.0f) { return; }
+        if (_gameManager.CurrentSanityPoints <= 0.0f) { return; }
 
         if (Time.timeScale > _gameManager.SlowDownScale)
         {
             Time.timeScale -= _gameManager.SlowDownInterpolationValue;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
         }
-        _gameManager.SanityPoints -= 0.1f;
+        _gameManager.CurrentSanityPoints -= 0.1f;
     }
 
-    public void SpeedUp()
+    public void SpeedUpTime()
     {
         if (Time.timeScale < 1.0f)
         {
@@ -122,25 +91,19 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //private void OnGUI()
-    //{
-    //    GUI.DrawTexture(new Rect(Screen.width - 236, 50, _sanityPoints, 20), _sanityTexture);
-    //}
+    public void ChargeJump()
+    {
+        _gameManager.JumpBarPoints += _gameManager.JumpBarInterpolationValue;
+        _gameManager.JumpBarInterpolationValue = Mathf.Clamp(_gameManager.JumpBarInterpolationValue, 0.0f, 100.0f);
+    }
 
     void OnTriggerEnter(Collider col)
     {
-        print("OnTriggerEnter");
         if (col.tag == "Lume")
         {
-            print("Colliders with Player");
-            _gameManager.SanityPoints += 20.0f;
-            //maybe use Clamp in the future
-            if (_gameManager.SanityPoints > 160.0f)
-            {
-                _gameManager.SanityPoints = 160.0f;
-            }
+            _gameManager.CurrentSanityPoints += _gameManager.SanityPerLume;
+            _gameManager.CurrentSanityPoints = Mathf.Clamp(_gameManager.CurrentSanityPoints, 0.0f, 100.0f);
             Destroy(col.gameObject);
-            //_clips[1].Play();
         }
     }
 

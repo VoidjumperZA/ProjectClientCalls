@@ -5,25 +5,29 @@ public class PlayerInput : MonoBehaviour
 {
     //This can be deleted if PlayerInput will be attached to the Player
     [SerializeField]
-    private GameObject _player;
+    private bool _jumpGravityOption = true;
+    [SerializeField]
+    private GameObject _jumpBarBorder;
 
     private PlayerMovement _playerMovement;
+    private JumpBarHandler _jumpBarHandler;
 
     private void Awake()
     {
-        //_playerMovement = _player.GetComponent<PlayerMovement>();
         _playerMovement = GetComponent<PlayerMovement>();
-    }
-    // Use this for initialization
-    private void Start()
-    {
-
+        _jumpBarHandler = _jumpBarBorder.GetComponent<JumpBarHandler>();
     }
 
-    // Update is called once per frame
     private void Update()
     {
-        jumpCheck();
+        if (_jumpGravityOption)
+        {
+            jumpCheck();
+        }
+        else
+        {
+            jumpCheck2();
+        }
     }
 
     private void FixedUpdate()
@@ -53,17 +57,44 @@ public class PlayerInput : MonoBehaviour
         {
             _playerMovement.Jump();
         }
+        else if (Input.GetKey(KeyCode.Space))
+        {
+            _playerMovement.DecreaseGravity();
+        }
+        else
+        {
+            _playerMovement.IncreaseGravity();
+        }
+    }
+
+    private void jumpCheck2()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //Start bar + Fade in
+            _jumpBarHandler.Starting();
+        }
+        else if (Input.GetKey(KeyCode.Space))
+        {
+            //Charge bar
+            _playerMovement.ChargeJump();
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            //Jump + Fade out
+            _jumpBarHandler.Ending();
+        }
     }
 
     private void SlowDownCheck()
     {
         if (Input.GetMouseButton(0))
         {
-            _playerMovement.SlowDown();
+            _playerMovement.SlowDownTime();
         }
         else
         {
-            _playerMovement.SpeedUp();
+            _playerMovement.SpeedUpTime();
         }
     }
 }
