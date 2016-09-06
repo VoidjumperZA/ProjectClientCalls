@@ -63,8 +63,6 @@ public class GameManager : MonoBehaviour
         set { _slowDownInterpolationValue = value; }
     }
 
-
-
     private void Awake()
     {
         QualitySettings.vSyncCount = 0;
