@@ -782,7 +782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53dbcdaf7b7568846b59e9cbccde183f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpGravityOption: 0
+  _jumpGravityOption: 1
   _jumpBarBorder: {fileID: 1517706815}
 --- !u!54 &1004987934
 Rigidbody:
