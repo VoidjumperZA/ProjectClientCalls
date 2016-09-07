@@ -40,6 +40,7 @@ namespace BoatTutorial
 
             //Display the under water mesh
             modifyBoatMesh.DisplayMesh(underWaterMesh, "UnderWater Mesh", modifyBoatMesh.underWaterTriangleData);
+
         }
 
         void FixedUpdate()
@@ -47,6 +48,7 @@ namespace BoatTutorial
             //Add forces to the part of the boat that's below the water
             if (modifyBoatMesh.underWaterTriangleData.Count > 0)
             {
+                
                 AddUnderWaterForces();
             }
         }
@@ -72,10 +74,11 @@ namespace BoatTutorial
                 //Debug
 
                 //Normal
-                //Debug.DrawRay(triangleData.center, triangleData.normal * 3f, Color.white);
+                Debug.DrawRay(triangleData.center, triangleData.normal * 3f, Color.white);
 
                 //Buoyancy
-                //Debug.DrawRay(triangleData.center, buoyancyForce.normalized * -3f, Color.blue);
+                Debug.DrawRay(triangleData.center, buoyancyForce.normalized * -3f, Color.blue);
+
 
             }
         }
