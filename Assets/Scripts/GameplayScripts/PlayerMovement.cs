@@ -41,14 +41,15 @@ public class PlayerMovement : MonoBehaviour
         //Forced Movement
         if (_grounded)
         {
-            _camera.transform.eulerAngles = transform.eulerAngles;
+            //_camera.transform.eulerAngles = transform.eulerAngles;
+            _camera.LookingNormal(_gameManager.CameraRotationTime);
             transform.Translate(new Vector3(0, 0, _gameManager.PlayerMovementSpeed) * Time.deltaTime, Space.Self);
         }
         else
         {
             //Maybe make this a function in ChaseCamera
             Vector3 newCameraRotation = transform.eulerAngles - new Vector3(-_gameManager.CameraRotationInAir, 0.0f, 0.0f);
-            _camera.transform.eulerAngles = newCameraRotation;
+            _camera.LookingDown(newCameraRotation, _gameManager.CameraRotationTime);
             transform.Translate(new Vector3(0, 0, _gameManager.PlayerMovementSpeed) * Time.deltaTime, Space.Self);
         }
     }

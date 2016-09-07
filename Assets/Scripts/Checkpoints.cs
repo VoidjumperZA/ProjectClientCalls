@@ -37,9 +37,14 @@ public class Checkpoints : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+<<<<<<< HEAD
+        Debug.Log("current sanity: " + currentSanity + ", sanityToCheckpointSegment: " + sanityToCheckpointSegment);
+        if (currentSanity % sanityToCheckpointSegment[(int)difficulty] == 0)
+=======
         Debug.Log("current sanity: " + currentSanity + ", sanityToCheckpointSegment: " + sanityToCheckpointSegment[0] + ", int difficulty: " + (int)difficulty);
         
         if (currentSanity % sanityToCheckpointSegment[(int)difficulty] == 0 && currentSanity != 0)
+>>>>>>> b8ef9d310dfd05a9f97a246e546751729855856f
         {
             Transform newCheckpointTransform = transform;
             Debug.Log("numberOfCheckPoints: " + numberOfCheckpointsCreated);
@@ -58,9 +63,6 @@ public class Checkpoints : MonoBehaviour
     {
         currentSanity += pSanityIncrease;
     }
-    /*
-    public enum GetDifficultLevel()
-    {
-        return dif;
-    }*/
+    
+
 }
