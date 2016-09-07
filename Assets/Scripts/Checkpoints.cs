@@ -25,7 +25,7 @@ public class Checkpoints : MonoBehaviour
     {
         if (true)
         {
-            currentSanity / sanityToCheckpointSegment
+           // currentSanity / sanityToCheckpointSegment
         }
     }
 }
