@@ -8,14 +8,14 @@ public class PlayerInput : MonoBehaviour
     private bool _jumpGravityOption = true;
     [SerializeField]
     private GameObject _jumpBarBorder;
-
     [SerializeField]
     private GameManager gameManager;
 
     private PlayerMovement _playerMovement;
     private JumpBarHandler _jumpBarHandler;
-    
     private DataHandler dataHandler;
+
+    private float yRotationValue = 0.0f;
 
     private void Awake()
     {
@@ -45,16 +45,30 @@ public class PlayerInput : MonoBehaviour
 
     private void rotationCheck()
     {
-        float yRotationValue = 0.0f;
+        //if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A)) { yRotationValue--; }
+        //else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D)) { yRotationValue++; }
+        if (Input.GetKey(KeyCode.A))
+        {
+            if (yRotationValue > 0.0f)
+            {
+                yRotationValue = 0.0f;
+            }
 
-        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A)) { yRotationValue--; }
-        else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D)) { yRotationValue++; }
-        else if (Input.GetKey(KeyCode.A)) { yRotationValue--; }
-        else if (Input.GetKey(KeyCode.D)) { yRotationValue++; }
+            yRotationValue -= 0.1f;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            if (yRotationValue < 0.0f)
+            {
+                yRotationValue = 0.0f;
+            }
+            yRotationValue += 0.1f;
+        }
         //else if (Input.GetKey(KeyCode.S)) {; }
         //else if (Input.GetKey(KeyCode.W)) {; }
         else { return; }
 
+        yRotationValue = Mathf.Clamp(yRotationValue, -1.0f, 1.0f);
         _playerMovement.Rotating(yRotationValue);
     }
 
