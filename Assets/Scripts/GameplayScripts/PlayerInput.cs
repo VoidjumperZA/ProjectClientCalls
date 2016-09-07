@@ -77,11 +77,12 @@ public class PlayerInput : MonoBehaviour
         else if (Input.GetKey(KeyCode.Space))
         {
             //Charge bar
-            _playerMovement.ChargeJump();
+            _playerMovement.ChargingJump();
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
             //Jump + Fade out
+            _playerMovement.ChargeJump();
             _jumpBarHandler.Ending();
         }
     }

@@ -19,8 +19,8 @@ public class JumpBarHandler : MonoBehaviour
         _jumpBarHandler = GetComponent<JumpBarHandler>();
         _jumpTexture = new Texture2D(1, 1);
         _jumpTexture.SetPixel(0, 0, _jumpBarColour);
-        _jumpTexture.Apply();
         _jumpTexture.alphaIsTransparency = true;
+        _jumpTexture.Apply();
     }
 
     // Use this for initialization
@@ -39,7 +39,7 @@ public class JumpBarHandler : MonoBehaviour
     {
         _visible = true;
         _jumpBarColour.a = 0.0f;
-        print(_jumpBarColour.a);
+        _jumpTexture.Apply();
     }
 
     public void Ending()
@@ -50,13 +50,12 @@ public class JumpBarHandler : MonoBehaviour
     private void fadingIn()
     {
         if (!_visible) { return; }
-        _jumpBarColour.a += 0.01f;
-        print(_jumpTexture.alphaIsTransparency);
+        //_jumpBarColour.a += 0.1f;
         print(_jumpBarColour.a);
     }
 
     private void OnGUI()
     {
-        GUI.DrawTexture(new Rect(Screen.width - 236, Screen.height - 500, 50, -_gameManager.JumpBarPoints * 2.0f),_jumpTexture);
+        GUI.DrawTexture(new Rect(Screen.width - 236, Screen.height - 500, 50, -_gameManager.JumpBarPoints),_jumpTexture);
     }
 }
