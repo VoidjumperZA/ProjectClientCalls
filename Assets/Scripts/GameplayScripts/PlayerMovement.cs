@@ -30,8 +30,31 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        forcedMovement();
+    }
+
+    private void forcedMovement()
+    {
         //Forced Movement
-        transform.Translate(new Vector3(0, 0, _gameManager.PlayerMovementSpeed) * Time.deltaTime, Space.Self);
+        if (_grounded)
+        {
+            _camera.transform.eulerAngles = transform.eulerAngles;
+            transform.Translate(new Vector3(0, 0, _gameManager.PlayerMovementSpeed) * Time.deltaTime, Space.Self);
+        }
+        else
+        {
+            //Maybe make this a function in ChaseCamera
+            Vector3 newCameraRotation = transform.eulerAngles - new Vector3(-_gameManager.CameraRotationInAir, 0.0f, 0.0f);
+            _camera.transform.eulerAngles = newCameraRotation;
+            transform.Translate(new Vector3(0, 0, _gameManager.PlayerMovementSpeed) * Time.deltaTime, Space.Self);
+        }
+    }
+
+    public void Rotating(float pRotationValue)
+    {
+        pRotationValue *= _gameManager.PlayerRotationSpeed;
+        transform.Rotate(0.0f, pRotationValue, 0.0f);
+        _camera.transform.Rotate(0.0f, pRotationValue, 0.0f);
     }
 
     public void Jump()
@@ -43,6 +66,21 @@ public class PlayerMovement : MonoBehaviour
         _camera.Shake(_gameManager.CameraShakeDistanceOnJump);
     }
 
+    public void ChargingJump()
+    {
+        _gameManager.JumpBarPoints += _gameManager.JumpBarInterpolationValue;
+        _gameManager.JumpBarPoints = Mathf.Clamp(_gameManager.JumpBarPoints, 0.0f, 100.0f);
+    }
+
+    public void ChargeJump()
+    {
+        Vector3 jumpDirection = transform.forward + new Vector3(0.0f,_gameManager.ChargedJumpAngle, 0.0f);
+        jumpDirection.Normalize();
+        _rigidBody.AddForce(jumpDirection * ((_gameManager.ChargedJumpPower * _gameManager.JumpBarPoints) / 35), ForceMode.Impulse);
+        _gameManager.JumpBarPoints = 0.0f;
+    }
+
+
     public void DecreaseGravity()
     {
         Physics.gravity = new Vector3(0.0f, -_gameManager.LowGravity, 0.0f);
@@ -51,23 +89,6 @@ public class PlayerMovement : MonoBehaviour
     public void IncreaseGravity()
     {
         Physics.gravity = new Vector3(0.0f, -_gameManager.NormalGravity, 0.0f);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.tag == "JumpableObject")
-        {
-            _grounded = true;
-            _camera.Shake(_gameManager.CameraShakeDistanceOnLand);
-        }
-
-        if (collision.transform.tag == "DeathFloor")
-        {
-            print("You died");
-            transform.position = _spawnPosition;
-            transform.rotation = _spawnRotation;
-            _rigidBody.velocity = Vector3.zero;
-        }
     }
 
     public void SlowDownTime()
@@ -91,13 +112,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void ChargeJump()
-    {
-        _gameManager.JumpBarPoints += _gameManager.JumpBarInterpolationValue;
-        _gameManager.JumpBarInterpolationValue = Mathf.Clamp(_gameManager.JumpBarInterpolationValue, 0.0f, 100.0f);
-    }
 
-    void OnTriggerEnter(Collider col)
+    private void OnTriggerEnter(Collider col)
     {
         if (col.tag == "Lume")
         {
@@ -107,10 +123,29 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void Rotating(float pRotationValue)
+    private void OnCollisionEnter(Collision collision)
     {
-        pRotationValue *= _gameManager.PlayerRotationSpeed;
-        transform.Rotate(0.0f, pRotationValue, 0.0f);
-        _camera.transform.Rotate(0.0f, pRotationValue, 0.0f);
+        if (collision.transform.tag == "JumpableObject")
+        {
+            _grounded = true;
+            _camera.Shake(_gameManager.CameraShakeDistanceOnLand);
+        }
+
+        if (collision.transform.tag == "DeathFloor")
+        {
+            print("You died");
+            transform.position = _spawnPosition;
+            transform.rotation = _spawnRotation;
+            _rigidBody.velocity = Vector3.zero;
+        }
     }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.transform.tag == "JumpableObject")
+        {
+            _grounded = false;
+        }
+    }
+
 }

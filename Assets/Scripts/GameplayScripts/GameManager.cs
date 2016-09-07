@@ -9,6 +9,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float _playerJumpHeight = 8.0f;
     [SerializeField]
+    private float _chargedJumpAngle = 1.0f;
+    [SerializeField]
+    private float _chargedJumpPower = 5.0f;
+    [SerializeField]
+    private float _cameraRotationInAir = 30.0f;
+    [SerializeField]
     private float _playerRotationSpeed = 2.0f;
     [SerializeField]
     private float _cameraShakeDistanceOnJump = 0.4f;
@@ -41,6 +47,21 @@ public class GameManager : MonoBehaviour
     {
         get { return _playerJumpHeight; }
         set { _playerJumpHeight = value; }
+    }
+    public float ChargedJumpAngle
+    {
+        get { return _chargedJumpAngle; }
+        set { _chargedJumpAngle = value; }
+    }
+    public float ChargedJumpPower
+    {
+        get { return _chargedJumpPower; }
+        set { _chargedJumpPower = value; }
+    }
+    public float CameraRotationInAir
+    {
+        get { return _cameraRotationInAir; }
+        set { _cameraRotationInAir = value; }
     }
     public float PlayerRotationSpeed
     {
