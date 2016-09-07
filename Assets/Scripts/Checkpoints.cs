@@ -14,6 +14,9 @@ public class Checkpoints : MonoBehaviour
     private int fullSanity;
     private int currentSanity; 
 
+    enum DifficultyLevel {Easy, Medium, Hard};
+    private DifficultyLevel difficulty = new DifficultyLevel();
+
     // Use this for initialization
     void Start()
     {
@@ -23,9 +26,9 @@ public class Checkpoints : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (true)
+        if (currentSanity % sanityToCheckpointSegment[(int)difficulty] == 0)
         {
-           // currentSanity / sanityToCheckpointSegment
+           
         }
     }
 }
