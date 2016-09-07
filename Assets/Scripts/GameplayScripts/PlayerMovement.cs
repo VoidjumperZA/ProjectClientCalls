@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private GameObject _firefly;
 
+    private Checkpoints checkpointScript;
+
     private ScriptableData[] _scriptData;
 
     private GameManager _gameManager;
@@ -21,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _gameManager = _gameManagerObject.GetComponent<GameManager>();
+        checkpointScript = _gameManager.GetComponent<Checkpoints>();
         _rigidBody = GetComponent<Rigidbody>();
         _camera = Camera.main.GetComponent<ChaseCamera>();
 
@@ -93,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void SlowDownTime()
     {
-        if (_gameManager.CurrentSanityPoints <= 0.0f) { return; }
+        if (checkpointScript.GetCurrentSanity() <= 0) { return; }
 
         if (Time.timeScale > _gameManager.SlowDownScale)
         {
