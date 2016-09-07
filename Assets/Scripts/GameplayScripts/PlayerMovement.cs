@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
     {
         pRotationValue *= _gameManager.PlayerRotationSpeed;
         transform.Rotate(0.0f, pRotationValue, 0.0f);
-        _camera.transform.Rotate(0.0f, pRotationValue, 0.0f);
+        _camera.transform.Rotate(0.0f, pRotationValue, 0.0f,Space.World);
     }
 
     public void Jump()
