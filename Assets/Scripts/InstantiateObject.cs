@@ -65,6 +65,11 @@ public class InstantiateObject : MonoBehaviour
     [SerializeField]
     private bool hideRenderer;
 
+    //disable the spawner's collider if you want it to be collision-less
+    [SerializeField]
+    private bool disableCollider;
+
+
     private int counter = 0;
     private Vector3[] worldSpaceVertices = new Vector3[8];
 
@@ -92,6 +97,12 @@ public class InstantiateObject : MonoBehaviour
         {
             MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
             meshRenderer.enabled = false;
+        }
+
+        if (disableCollider == true)
+        {
+            BoxCollider boxCollider = GetComponent<BoxCollider>();
+            boxCollider.enabled = false;
         }
     }
     // Use this for initialization

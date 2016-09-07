@@ -10,7 +10,7 @@ public class PlayerInput : MonoBehaviour
     private GameObject _jumpBarBorder;
 
     [SerializeField]
-    private GameManager gameManager;
+    private GameObject gameManager;
 
     private PlayerMovement _playerMovement;
     private JumpBarHandler _jumpBarHandler;

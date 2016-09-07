@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
     //Serializable fields for the Level Designer/Builder
     [SerializeField]
-    private float _playerMovementSpeed = 10.0f;
+    private float _playerMovementSpeed = 14.0f;
     [SerializeField]
     private float _playerJumpHeight = 8.0f;
     [SerializeField]
@@ -22,18 +22,22 @@ public class GameManager : MonoBehaviour
     private float _cameraShakeDistanceOnJump = 0.4f;
     [SerializeField]
     private float _cameraShakeDistanceOnLand = 0.6f;
+
+    /*
     [SerializeField]
     private float _currentSanityPoints = 0.0f;
     [SerializeField]
     private float _sanityPerLume = 5.0f;
+    */
+
     [SerializeField]
     private float _slowDownScale = 0.2f;
     [SerializeField]
     private float _slowDownInterpolationValue = 0.01f;
     [SerializeField]
-    private float _normalGravity = 9.8f;
+    private float _normalGravity = 20.0f;
     [SerializeField]
-    private float _lowGravity = 2.0f;
+    private float _lowGravity = 7.5f;
     [SerializeField]
     private float _jumpBarPoints = 0.0f;
     [SerializeField]
@@ -85,6 +89,7 @@ public class GameManager : MonoBehaviour
         get { return _cameraShakeDistanceOnLand; }
         set { _cameraShakeDistanceOnLand = value; }
     }
+    /*
     public float CurrentSanityPoints
     {
         get { return _currentSanityPoints; }
@@ -94,7 +99,7 @@ public class GameManager : MonoBehaviour
     {
         get { return _sanityPerLume; }
         set { _sanityPerLume = value; }
-    }
+    }*/
     public float SlowDownScale
     {
         get { return _slowDownScale; }

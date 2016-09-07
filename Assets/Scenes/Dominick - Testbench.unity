@@ -512,8 +512,6 @@ MonoBehaviour:
   _playerRotationSpeed: 2
   _cameraShakeDistanceOnJump: 0.4
   _cameraShakeDistanceOnLand: 0.6
-  _currentSanityPoints: 0
-  _sanityPerLume: 5
   _slowDownScale: 0.2
   _slowDownInterpolationValue: 0.01
   _normalGravity: 20
@@ -544,7 +542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6b616178678c634db0de63f66663949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameobject: {fileID: 1004987932}
+  playerObject: {fileID: 1004987932}
 --- !u!114 &601560732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1032,7 +1030,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpGravityOption: 1
   _jumpBarBorder: {fileID: 1517706815}
-  gameManager: {fileID: 601560729}
+  gameManager: {fileID: 601560728}
 --- !u!54 &1004987934
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1328,7 +1326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameManagerObject: {fileID: 601560728}
-  _jumpBarColour: {r: 0, g: 0, b: 0, a: 0}
+  _jumpBarColour: {r: 0.7607844, g: 0.7607844, b: 0.734, a: 0.972}
 --- !u!114 &1517706818
 MonoBehaviour:
   m_ObjectHideFlags: 0

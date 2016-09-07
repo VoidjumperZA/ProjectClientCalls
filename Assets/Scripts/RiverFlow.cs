@@ -24,7 +24,7 @@ public class RiverFlow : MonoBehaviour
 
     //modifies how fast an object flows between markers
     [SerializeField]
-    private float flowSpeed;
+    private float flowSpeed = 1;
 
     //create vectors
     Vector3 forceScale;
@@ -139,6 +139,10 @@ public class RiverFlow : MonoBehaviour
         {
             differenceVec.Scale(new Vector3(flowSpeed, flowSpeed, flowSpeed));
         }
+
+        //scale for the weight of the rigidbody
+        Vector3 weightAccomodation = new Vector3(rigidBod.mass / 10, rigidBod.mass / 10, rigidBod.mass / 10);
+        differenceVec.Scale(weightAccomodation);
     }
 
 }

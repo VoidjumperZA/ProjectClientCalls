@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class Checkpoints : MonoBehaviour
 {
     [SerializeField]
-    private GameObject gameobject;
+    private GameObject playerObject;
 
     private Transform transform;
     private DataHandler dataHandler;
@@ -18,7 +18,7 @@ public class Checkpoints : MonoBehaviour
     void Start()
     {
         checkpointPositions = new List<Transform>();
-        transform = gameobject.transform;
+        transform = playerObject.transform;
         dataHandler = GetComponent<DataHandler>();
     }
 

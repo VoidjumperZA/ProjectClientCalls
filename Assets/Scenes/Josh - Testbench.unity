@@ -107,7 +107,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &34059682
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -187,7 +187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &331928523
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -282,7 +282,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &361745263
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -425,7 +425,7 @@ Prefab:
     - target: {fileID: 54000012540617860, guid: 4437be5529711274b872fcbfabc8c163,
         type: 2}
       propertyPath: m_UseGravity
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114000011132576550, guid: 4437be5529711274b872fcbfabc8c163,
         type: 2}
@@ -462,6 +462,11 @@ Prefab:
       propertyPath: m_Name
       value: UnderWater Mesh
       objectReference: {fileID: 0}
+    - target: {fileID: 114000010193755898, guid: 4437be5529711274b872fcbfabc8c163,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114000011132576550, guid: 4437be5529711274b872fcbfabc8c163, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 4437be5529711274b872fcbfabc8c163, type: 2}
@@ -482,7 +487,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!154 &519006042
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -697,7 +702,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &844969889
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -789,6 +794,22 @@ GameObject:
   m_PrefabParentObject: {fileID: 1000012597768376, guid: 4437be5529711274b872fcbfabc8c163,
     type: 2}
   m_PrefabInternal: {fileID: 456782610}
+--- !u!114 &998708140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 998708133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d207f742e3801a843af6bac4a6e9ab4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disgardHeight: 1
+  invertVector: 1
+  activeTargetTracking: 0
+  stopAtLastMarker: 0
+  flowSpeed: 1
 --- !u!1 &1238066710
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,7 +825,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1238066711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -851,7 +872,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &1424812393
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -933,7 +954,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1439244677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1037,6 +1058,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpGravityOption: 1
   _jumpBarBorder: {fileID: 1858498679}
+  gameManager: {fileID: 0}
 --- !u!1 &1496543045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1443,12 +1465,11 @@ MonoBehaviour:
   _playerJumpHeight: 9
   _chargedJumpAngle: 1
   _chargedJumpPower: 5
+  _cameraRotationTime: 0.2
   _cameraRotationInAir: 30
   _playerRotationSpeed: 2
   _cameraShakeDistanceOnJump: 0.4
   _cameraShakeDistanceOnLand: 0.6
-  _currentSanityPoints: 0
-  _sanityPerLume: 5
   _slowDownScale: 0.2
   _slowDownInterpolationValue: 0.01
   _normalGravity: 20
@@ -1479,9 +1500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6b616178678c634db0de63f66663949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameobject: {fileID: 0}
-  sanityGainOnFirefly: 640000003f00000018000000
-  sanityToCheckpointSegment: 000000000000000000000000
+  playerObject: {fileID: 0}
 --- !u!1 &1858498679
 GameObject:
   m_ObjectHideFlags: 0
@@ -1569,7 +1588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1881501121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1756,7 +1775,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &2028643418
 MeshRenderer:
   m_ObjectHideFlags: 0
