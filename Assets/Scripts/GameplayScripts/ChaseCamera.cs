@@ -10,20 +10,12 @@ public class ChaseCamera : MonoBehaviour
 
     private void Awake()
     {
-        //transform and rigidbody selection now no longer relies on manual getting
-        //through tags, instead you can just assign an object in the inspector
-        //this helps as you don't have to remember to tag your player and it can
-        //be more useful in other projects
         _Target = _TargetObject.transform;
     }
 
     private void FixedUpdate()
     {
         transform.position = _Target.position;
-
-        //Vector3 newRotation = new Vector3(0.0f, _Target.eulerAngles.y, 0.0f);
-        //transform.eulerAngles = newRotation;
-
     }
 
     //Needs to lerp
@@ -31,5 +23,15 @@ public class ChaseCamera : MonoBehaviour
     {
         Vector3 shakeDistance = new Vector3(0, -pShakeDistance, 0);
         transform.position += shakeDistance;
+    }
+
+    public void LookingDown(Vector3 pLookingDownRotation, float pLerpDuration)
+    {
+        transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, pLookingDownRotation, pLerpDuration);
+    }
+
+    public void LookingNormal(float pLerpDuration)
+    {
+        transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, _Target.eulerAngles, pLerpDuration);
     }
 }

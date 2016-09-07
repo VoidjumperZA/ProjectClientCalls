@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float _chargedJumpPower = 5.0f;
     [SerializeField]
+    private float _cameraRotationTime = 0.2f;
+    [SerializeField]
     private float _cameraRotationInAir = 30.0f;
     [SerializeField]
     private float _playerRotationSpeed = 2.0f;
@@ -57,6 +59,11 @@ public class GameManager : MonoBehaviour
     {
         get { return _chargedJumpPower; }
         set { _chargedJumpPower = value; }
+    }
+    public float CameraRotationTime
+    {
+        get { return _cameraRotationTime; }
+        set { _cameraRotationTime = value; }
     }
     public float CameraRotationInAir
     {
