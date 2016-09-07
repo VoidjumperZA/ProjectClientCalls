@@ -58,9 +58,6 @@ public class Checkpoints : MonoBehaviour
     {
         currentSanity += pSanityIncrease;
     }
-    /*
-    public enum GetDifficultLevel()
-    {
-        return dif;
-    }*/
+    
+
 }
