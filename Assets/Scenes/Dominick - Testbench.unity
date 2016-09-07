@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44692504, g: 0.4967869, b: 0.57508504, a: 1}
+  m_IndirectSpecularColor: {r: 0.44692492, g: 0.4967869, b: 0.57508546, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -506,7 +506,6 @@ MonoBehaviour:
   _playerJumpHeight: 8
   _chargedJumpAngle: 1
   _chargedJumpPower: 5
-  _cameraRotationTime: 0.2
   _cameraRotationInAir: 30
   _playerRotationSpeed: 2
   _cameraShakeDistanceOnJump: 0.4
@@ -543,11 +542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6b616178678c634db0de63f66663949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  transform: {fileID: 0}
-=======
   gameobject: {fileID: 1004987932}
->>>>>>> b8ef9d310dfd05a9f97a246e546751729855856f
   sanityGainOnFirefly: 0f0000000f0000000f000000
   sanityToCheckpointSegment: 190000001900000019000000
 --- !u!1001 &648187518
@@ -1045,7 +1040,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1004987932}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
