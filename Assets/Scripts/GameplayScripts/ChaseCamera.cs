@@ -27,11 +27,17 @@ public class ChaseCamera : MonoBehaviour
 
     public void LookingDown(Vector3 pLookingDownRotation, float pLerpDuration)
     {
-        transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, pLookingDownRotation, pLerpDuration);
+        //transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, pLookingDownRotation, pLerpDuration);
+        Vector3 copy = transform.eulerAngles;
+        copy.x = Mathf.Lerp(transform.eulerAngles.x, pLookingDownRotation.x, pLerpDuration);
+        transform.eulerAngles = copy;
     }
 
     public void LookingNormal(float pLerpDuration)
     {
-        transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, _Target.eulerAngles, pLerpDuration);
+        //transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, _Target.eulerAngles, pLerpDuration);
+        Vector3 copy = transform.eulerAngles;
+        copy.x = Mathf.Lerp(transform.eulerAngles.x, _Target.eulerAngles.x, pLerpDuration);
+        transform.eulerAngles = copy;
     }
 }
