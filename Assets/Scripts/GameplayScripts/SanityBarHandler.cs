@@ -8,12 +8,15 @@ public class SanityBarHandler : MonoBehaviour
     [SerializeField]
     private Color _sanityBarColour;
 
+    private DataHandler dataHandler;
+
     private GameManager _gameManager;
     private Texture2D _sanityTexture;
     
     private void Awake()
     {
         _gameManager = _gameManagerObject.GetComponent<GameManager>();
+        dataHandler = _gameManagerObject.GetComponent<DataHandler>();
         _sanityTexture = new Texture2D(1, 1);
         _sanityTexture.SetPixel(0, 0, _sanityBarColour);
         _sanityTexture.Apply();
@@ -33,6 +36,7 @@ public class SanityBarHandler : MonoBehaviour
 
     private void OnGUI()
     {
-        GUI.DrawTexture(new Rect(Screen.width - 236, 50, (_gameManager.CurrentSanityPoints * 1.6f), 20), _sanityTexture);
+        Debug.Log("GUI sanity: " + dataHandler.GetCurrentSanity());
+        GUI.DrawTexture(new Rect(Screen.width - 236, 50, (dataHandler.GetCurrentSanity() * 1.6f), 20), _sanityTexture);
     }
 }

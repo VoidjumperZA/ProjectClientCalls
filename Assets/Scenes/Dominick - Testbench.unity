@@ -484,6 +484,7 @@ GameObject:
   - 4: {fileID: 601560730}
   - 114: {fileID: 601560729}
   - 114: {fileID: 601560731}
+  - 114: {fileID: 601560732}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -506,6 +507,7 @@ MonoBehaviour:
   _playerJumpHeight: 8
   _chargedJumpAngle: 1
   _chargedJumpPower: 5
+  _cameraRotationTime: 0.2
   _cameraRotationInAir: 30
   _playerRotationSpeed: 2
   _cameraShakeDistanceOnJump: 0.4
@@ -543,8 +545,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameobject: {fileID: 1004987932}
+--- !u!114 &601560732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 601560728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acee774098c990f40bf8d16415fd75fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   sanityGainOnFirefly: 0f0000000f0000000f000000
-  sanityToCheckpointSegment: 190000001900000019000000
+  sanityToCheckpointSegment: 19000000190000001900000019000000
+  difficulty: 0
 --- !u!1001 &648187518
 Prefab:
   m_ObjectHideFlags: 0
@@ -671,8 +685,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e934c6d8c24918740952314528339f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameManagerObject: {fileID: 0}
-  _sanityBarColour: {r: 0, g: 0, b: 0, a: 0}
+  _gameManagerObject: {fileID: 601560728}
+  _sanityBarColour: {r: 1, g: 0.8850913, b: 0.24264705, a: 1}
 --- !u!1001 &699233989
 Prefab:
   m_ObjectHideFlags: 0
@@ -993,7 +1007,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1004987938}
   - 33: {fileID: 1004987937}
-  - 136: {fileID: 1004987936}
   - 23: {fileID: 1004987935}
   - 54: {fileID: 1004987934}
   - 114: {fileID: 1004987933}
@@ -1019,6 +1032,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpGravityOption: 1
   _jumpBarBorder: {fileID: 1517706815}
+  gameManager: {fileID: 601560729}
 --- !u!54 &1004987934
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1063,19 +1077,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!136 &1004987936
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1004987932}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1004987937
 MeshFilter:
   m_ObjectHideFlags: 0

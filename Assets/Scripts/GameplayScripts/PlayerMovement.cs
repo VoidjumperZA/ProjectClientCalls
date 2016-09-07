@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private GameObject _firefly;
 
-    private Checkpoints checkpointScript;
+    private DataHandler dataHandler;
 
     private ScriptableData[] _scriptData;
 
@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _gameManager = _gameManagerObject.GetComponent<GameManager>();
-        checkpointScript = _gameManager.GetComponent<Checkpoints>();
+        dataHandler = _gameManager.GetComponent<DataHandler>();
         _rigidBody = GetComponent<Rigidbody>();
         _camera = Camera.main.GetComponent<ChaseCamera>();
 
@@ -97,14 +97,14 @@ public class PlayerMovement : MonoBehaviour
 
     public void SlowDownTime()
     {
-        if (checkpointScript.GetCurrentSanity() <= 0) { return; }
+        if (dataHandler.GetCurrentSanity() <= 0) { return; }
 
         if (Time.timeScale > _gameManager.SlowDownScale)
         {
             Time.timeScale -= _gameManager.SlowDownInterpolationValue;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
         }
-        _gameManager.CurrentSanityPoints -= 0.1f;
+        dataHandler.IncrementCurrentSanity(-0.1f);;
     }
 
     public void SpeedUpTime()
@@ -121,9 +121,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (col.tag == "Lume")
         {
-            _gameManager.CurrentSanityPoints += _gameManager.SanityPerLume;
-            _gameManager.CurrentSanityPoints = Mathf.Clamp(_gameManager.CurrentSanityPoints, 0.0f, 100.0f);
+            dataHandler.IncrementCurrentSanity(dataHandler.GetSanityGainOnFirefly((int)dataHandler.difficulty));
             Destroy(col.gameObject);
+            //need to just switch off the renderer and collider and reanble later
         }
     }
 

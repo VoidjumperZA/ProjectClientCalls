@@ -9,13 +9,19 @@ public class PlayerInput : MonoBehaviour
     [SerializeField]
     private GameObject _jumpBarBorder;
 
+    [SerializeField]
+    private GameManager gameManager;
+
     private PlayerMovement _playerMovement;
     private JumpBarHandler _jumpBarHandler;
+    
+    private DataHandler dataHandler;
 
     private void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
         _jumpBarHandler = _jumpBarBorder.GetComponent<JumpBarHandler>();
+        dataHandler = gameManager.GetComponent<DataHandler>();
     }
 
     private void Update()
@@ -34,6 +40,7 @@ public class PlayerInput : MonoBehaviour
     {
         rotationCheck();
         SlowDownCheck();
+        mouseUpCheck();
     }
 
     private void rotationCheck()
@@ -96,6 +103,16 @@ public class PlayerInput : MonoBehaviour
         else
         {
             _playerMovement.SpeedUpTime();
+        }
+    }
+
+    //if we stop draining sanity, cast sanity back
+    //as an int for easy calculations
+    private void mouseUpCheck()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            dataHandler.ReturnSanityToIntValue();
         }
     }
 }
