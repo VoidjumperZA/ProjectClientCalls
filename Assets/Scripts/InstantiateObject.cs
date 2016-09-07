@@ -69,6 +69,24 @@ public class InstantiateObject : MonoBehaviour
     [SerializeField]
     private bool disableCollider;
 
+    //disable the spawner's collider for a period following spawn
+    [SerializeField]
+    private bool temporarilyDisableObjectCollider;
+
+    //the type of collider we'll be dealing with
+    private enum ColliderType { Box, Sphere, Capsule, Cylinder };
+    [SerializeField]
+    private ColliderType typeOfCollider;
+
+    //for handling different types of object colliders
+    private BoxCollider boxCollider;
+    private SphereCollider sphereCollider;
+    private CapsuleCollider capsuleCollider; //note: cylinders and capsules both use capsule colliders
+
+    //for how many frames the collider should be temporarily disabled
+    [SerializeField]
+    private int framesObjectColliderShouldBeDisabled;
+
 
     private int counter = 0;
     private Vector3[] worldSpaceVertices = new Vector3[8];
@@ -76,7 +94,7 @@ public class InstantiateObject : MonoBehaviour
     void Awake()
     {
         Mesh mesh = gameObject.GetComponent<MeshFilter>().mesh;
-        Vector3[] vertices = mesh.vertices;        
+        Vector3[] vertices = mesh.vertices;
 
         //Only need the first 8 vertices, the others are UV co-ordinates
         for (int i = 0; i < 8; i++)
@@ -115,6 +133,12 @@ public class InstantiateObject : MonoBehaviour
                 generateObject();
             }
         }
+
+        //disable the right collider type
+        if (temporarilyDisableObjectCollider == true)
+        {
+            toggleColliders(false);
+        }
     }
 
     // Update is called once per frame
@@ -126,9 +150,14 @@ public class InstantiateObject : MonoBehaviour
         { counter = 0; }
 
         //only spawn on a spesified frame
-        if (counter % framesBetweenSpawns == 0)
+        if (counter % framesBetweenSpawns == 0 && counter != 0)
         {
             generateObject();
+        }
+
+        if (counter % framesObjectColliderShouldBeDisabled == 0 && counter != 0)
+        {
+            toggleColliders(true);
         }
     }
 
@@ -140,7 +169,7 @@ public class InstantiateObject : MonoBehaviour
         {
             numObjectsSpawning = Random.Range(0, maxObjectsAWave);
         }
-        
+
         for (int i = 0; i < numObjectsSpawning; i++)
         {
             //create a new object and instantiate it
@@ -192,8 +221,10 @@ public class InstantiateObject : MonoBehaviour
                 scaleStorage.Scale(rescale);
                 //reapply the scale
                 newObject.transform.localScale = scaleStorage;
+
+                
             }
-          
+
         }
     }
 
@@ -224,4 +255,27 @@ public class InstantiateObject : MonoBehaviour
         }
     }
 
+    //use the right collider, and toggle it either way
+    private void toggleColliders(bool pIncomingState)
+    {
+        switch ((int)typeOfCollider)
+        {
+            case 0:
+                boxCollider = prefabToInstantiate.GetComponent<BoxCollider>();
+                boxCollider.enabled = pIncomingState;
+                break;
+            case 1:
+                sphereCollider = prefabToInstantiate.GetComponent<SphereCollider>();
+                sphereCollider.enabled = pIncomingState;
+                break;
+            case 2:
+                capsuleCollider = prefabToInstantiate.GetComponent<CapsuleCollider>();
+                capsuleCollider.enabled = pIncomingState;
+                break;
+            case 3:
+                capsuleCollider = prefabToInstantiate.GetComponent<CapsuleCollider>();
+                capsuleCollider.enabled = pIncomingState;
+                break;
+        }
+    }
 }

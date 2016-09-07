@@ -26,6 +26,10 @@ public class RiverFlow : MonoBehaviour
     [SerializeField]
     private float flowSpeed = 1;
 
+    //if your object has a rigidbody, add it's mass to the calculation
+    [SerializeField]
+    private bool FactorInRBMess;
+
     //create vectors
     Vector3 forceScale;
     Vector3 targetPos;
@@ -140,9 +144,13 @@ public class RiverFlow : MonoBehaviour
             differenceVec.Scale(new Vector3(flowSpeed, flowSpeed, flowSpeed));
         }
 
+        factorMass();
+    }
+
+    private void factorMass()
+    {
         //scale for the weight of the rigidbody
         Vector3 weightAccomodation = new Vector3(rigidBod.mass / 10, rigidBod.mass / 10, rigidBod.mass / 10);
         differenceVec.Scale(weightAccomodation);
     }
-
 }
