@@ -504,14 +504,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerMovementSpeed: 14
   _playerJumpHeight: 8
-  _chargedJumpAngle: 2
+  _chargedJumpAngle: 1
   _chargedJumpPower: 5
   _cameraRotationInAir: 30
   _playerRotationSpeed: 2
   _cameraShakeDistanceOnJump: 0.4
   _cameraShakeDistanceOnLand: 0.6
   _currentSanityPoints: 0
-  _sanityPerLume: 15
+  _sanityPerLume: 5
   _slowDownScale: 0.2
   _slowDownInterpolationValue: 0.01
   _normalGravity: 20
@@ -542,7 +542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6b616178678c634db0de63f66663949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transform: {fileID: 1004987938}
+  gameobject: {fileID: 1004987932}
   sanityGainOnFirefly: 0f0000000f0000000f000000
   sanityToCheckpointSegment: 190000001900000019000000
 --- !u!1001 &648187518
@@ -671,8 +671,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e934c6d8c24918740952314528339f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameManagerObject: {fileID: 601560728}
-  _sanityBarColour: {r: 1, g: 0.9803922, b: 0, a: 1}
+  _gameManagerObject: {fileID: 0}
+  _sanityBarColour: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &699233989
 Prefab:
   m_ObjectHideFlags: 0
@@ -1327,7 +1327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameManagerObject: {fileID: 601560728}
-  _jumpBarColour: {r: 1, g: 0, b: 0, a: 1}
+  _jumpBarColour: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1517706818
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 public class Checkpoints : MonoBehaviour
 {
     [SerializeField]
+    private GameObject gameobject;
+
     private Transform transform;
 
     [SerializeField]
@@ -29,16 +31,19 @@ public class Checkpoints : MonoBehaviour
     {
         difficulty = DifficultyLevel.Easy;
         checkpointPositions = new List<Transform>();
+        transform = gameobject.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("current sanity: " + currentSanity + ", sanityToCheckpointSegment: " + );
-        if (currentSanity % sanityToCheckpointSegment[(int)difficulty] == 0)
+        Debug.Log("current sanity: " + currentSanity + ", sanityToCheckpointSegment: " + sanityToCheckpointSegment[0] + ", int difficulty: " + (int)difficulty);
+        
+        if (currentSanity % sanityToCheckpointSegment[(int)difficulty] == 0 && currentSanity != 0)
         {
             Transform newCheckpointTransform = transform;
-            checkpointPositions[numberOfCheckpointsCreated] = newCheckpointTransform;
+            Debug.Log("numberOfCheckPoints: " + numberOfCheckpointsCreated);
+            checkpointPositions.Add(newCheckpointTransform);
             numberOfCheckpointsCreated++;
             Debug.Log("New checkpoint created. \nCheckpoint number: " + numberOfCheckpointsCreated + "\nCheckpoint position: " + newCheckpointTransform.position + ", while player position is: " + transform.position);
         }
@@ -48,4 +53,14 @@ public class Checkpoints : MonoBehaviour
     {
         return currentSanity;
     }
+
+    public void SetCurrentSanity(int pSanityIncrease)
+    {
+        currentSanity += pSanityIncrease;
+    }
+    /*
+    public enum GetDifficultLevel()
+    {
+        return dif;
+    }*/
 }
