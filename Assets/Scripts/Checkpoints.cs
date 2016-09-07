@@ -34,7 +34,7 @@ public class Checkpoints : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("current sanity: " + currentSanity + ", sanityToCheckpointSegment: " + );
+        Debug.Log("current sanity: " + currentSanity + ", sanityToCheckpointSegment: " + sanityToCheckpointSegment);
         if (currentSanity % sanityToCheckpointSegment[(int)difficulty] == 0)
         {
             Transform newCheckpointTransform = transform;
