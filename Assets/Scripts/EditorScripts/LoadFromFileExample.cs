@@ -7,9 +7,9 @@ public class LoadFromFileExample : MonoBehaviour
     ObjectData[] objects;
 
     private void Start()
-    {
+    {   //get all objects in scene that contain objectdata
         objects = FindObjectsOfType<ObjectData>();
-
+        //check if there's new assets for their prefabs
         LoadAssets("decoshrooms",new string[] { "DecoShroom" });
         LoadAssets("fireflies", new string[] { "Firefly" });
         LoadAssets("flatshrooms", new string[] { "FlatShroom" });
