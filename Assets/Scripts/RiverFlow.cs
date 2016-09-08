@@ -81,10 +81,10 @@ public class RiverFlow : MonoBehaviour
     {
         if (col.tag == "FlowMarker")
         {
-            Debug.Log("Entered a flow marker. Increasing flow index.");
+            //Debug.Log("Entered a flow marker. Increasing flow index.");
             waypointIndex++;
         }
-        Debug.Log("Marker list size is: " + markerManager.GetWaypointList().Length + " while our waypoint index is: " + waypointIndex);
+        //Debug.Log("Marker list size is: " + markerManager.GetWaypointList().Length + " while our waypoint index is: " + waypointIndex);
         if (markerManager.GetWaypointList().Length > waypointIndex)
         {
             target = markerManager.GetWaypointTransform(waypointIndex);
@@ -95,7 +95,7 @@ public class RiverFlow : MonoBehaviour
             //find the difference between our current position and our target's
             differenceVec = transform.position - targetPos;
             modifyVector();
-            Debug.Log("Assigning a new target marker.");
+            //Debug.Log("Assigning a new target marker.");
         }
         else
         {

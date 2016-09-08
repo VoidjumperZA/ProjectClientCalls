@@ -175,6 +175,7 @@ public class InstantiateObject : MonoBehaviour
             //create a new object and instantiate it
             GameObject newObject;
             newObject = Instantiate(prefabToInstantiate);
+            
 
             //if we want to add a script, do so
             if (addScript == true)
@@ -221,8 +222,6 @@ public class InstantiateObject : MonoBehaviour
                 scaleStorage.Scale(rescale);
                 //reapply the scale
                 newObject.transform.localScale = scaleStorage;
-
-                
             }
 
         }

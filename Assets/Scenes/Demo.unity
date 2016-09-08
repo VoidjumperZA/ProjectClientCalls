@@ -3475,6 +3475,16 @@ Prefab:
       propertyPath: m_Name
       value: Log
       objectReference: {fileID: 0}
+    - target: {fileID: 54000010297392624, guid: a5e67508d4d2e1147aa17a3a689e8563,
+        type: 2}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54000010297392624, guid: a5e67508d4d2e1147aa17a3a689e8563,
+        type: 2}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a5e67508d4d2e1147aa17a3a689e8563, type: 2}
   m_IsPrefabParent: 0
@@ -6627,7 +6637,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &603635129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9330,7 +9340,7 @@ MonoBehaviour:
   preInstantiate: 0
   preInstantiatePasses: 0
   preInstantiateDepth: 0
-  framesBetweenSpawns: 200
+  framesBetweenSpawns: 150
   maxObjectsAWave: 1
   maxObjectsAWaveRandom: 0
   spawnFromCentre: 1
@@ -9340,8 +9350,8 @@ MonoBehaviour:
   rescalingLowerBound: 2
   rescalingUpperBound: 0.75
   hideRenderer: 1
-  disableCollider: 1
-  temporarilyDisableObjectCollider: 1
+  disableCollider: 0
+  temporarilyDisableObjectCollider: 0
   typeOfCollider: 3
   framesObjectColliderShouldBeDisabled: 400
 --- !u!23 &834906745

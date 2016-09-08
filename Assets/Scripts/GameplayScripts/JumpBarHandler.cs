@@ -26,7 +26,6 @@ public class JumpBarHandler : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        print(_jumpBarColour.a);
     }
 
     // Update is called once per frame

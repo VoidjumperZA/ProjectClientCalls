@@ -58,13 +58,13 @@ public class FlowMarkerManager : MonoBehaviour
 
     public Transform GetWaypointTransform(int pIndex)
     {
-        Debug.Log("Getting waypoint transform: " + waypointList[pIndex].transform);
+        //Debug.Log("Getting waypoint transform: " + waypointList[pIndex].transform);
         return waypointList[pIndex].transform;
     }
 
     public void Report()
     {
-        Debug.Log("I am active.");
+        //Debug.Log("I am active.");
     }
 
 }

@@ -131,6 +131,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.transform.tag == "JumpableObject")
         {
+            print("Landed upon a Jumpablebject");
             _grounded = true;
             _camera.Shake(_gameManager.CameraShakeDistanceOnLand);
         }
