@@ -149,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.transform.tag == "JumpableObject")
         {
-            print("STAY");
+            //print("STAY");
             _grounded = true;
         }
     }

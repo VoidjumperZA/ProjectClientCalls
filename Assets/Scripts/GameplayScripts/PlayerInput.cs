@@ -127,7 +127,7 @@ public class PlayerInput : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            dataHandler.ReturnSanityToIntValue();
+            //dataHandler.ReturnSanityToIntValue();
         }
     }
 }
