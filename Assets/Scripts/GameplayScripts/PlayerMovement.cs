@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
     {
         pRotationValue *= _gameManager.PlayerRotationSpeed;
         transform.Rotate(0.0f, pRotationValue, 0.0f);
-        _camera.transform.Rotate(0.0f, pRotationValue, 0.0f,Space.World);
+        _camera.transform.Rotate(0.0f, pRotationValue, 0.0f, Space.World);
     }
 
     public void Jump()
@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void ChargeJump()
     {
-        Vector3 jumpDirection = transform.forward + new Vector3(0.0f,_gameManager.ChargedJumpAngle, 0.0f);
+        Vector3 jumpDirection = transform.forward + new Vector3(0.0f, _gameManager.ChargedJumpAngle, 0.0f);
         jumpDirection.Normalize();
         _rigidBody.AddForce(jumpDirection * ((_gameManager.ChargedJumpPower * _gameManager.JumpBarPoints) / 35), ForceMode.Impulse);
         _gameManager.JumpBarPoints = 0.0f;
@@ -104,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
             Time.timeScale -= _gameManager.SlowDownInterpolationValue;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
         }
-        dataHandler.IncrementCurrentSanity(-0.1f);;
+        dataHandler.IncrementCurrentSanity(-0.1f); ;
     }
 
     public void SpeedUpTime()
@@ -142,6 +142,15 @@ public class PlayerMovement : MonoBehaviour
             transform.position = _spawnPosition;
             transform.rotation = _spawnRotation;
             _rigidBody.velocity = Vector3.zero;
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.transform.tag == "JumpableObject")
+        {
+            print("STAY");
+            _grounded = true;
         }
     }
 
