@@ -54,7 +54,7 @@ public class PlayerInput : MonoBehaviour
                 yRotationValue = 0.0f;
             }
 
-            yRotationValue -= 0.1f;
+            yRotationValue -= 0.075f;
         }
         else if (Input.GetKey(KeyCode.D))
         {
@@ -62,11 +62,15 @@ public class PlayerInput : MonoBehaviour
             {
                 yRotationValue = 0.0f;
             }
-            yRotationValue += 0.1f;
+            yRotationValue += 0.075f;
         }
         //else if (Input.GetKey(KeyCode.S)) {; }
         //else if (Input.GetKey(KeyCode.W)) {; }
-        else { return; }
+        else
+        {
+            yRotationValue = 0.0f;
+            return;
+        }
 
         yRotationValue = Mathf.Clamp(yRotationValue, -1.0f, 1.0f);
         _playerMovement.Rotating(yRotationValue);
