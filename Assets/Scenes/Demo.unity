@@ -6559,8 +6559,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.92, y: 2.38, z: 1.64}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.92, y: 2.38, z: 2.893743}
+  m_Center: {x: 0, y: 0, z: -0.02229309}
 --- !u!23 &603635124
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -20348,7 +20348,7 @@ MonoBehaviour:
   - {fileID: 565387951}
   - {fileID: 1956540894}
   - {fileID: 1314112135}
-  disableMarkerRenderers: 0
+  disableMarkerRenderers: 1
 --- !u!4 &1839061706
 Transform:
   m_ObjectHideFlags: 0
