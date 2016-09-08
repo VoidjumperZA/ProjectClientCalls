@@ -503,7 +503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367d154d2faa5b44c9d2b9cdf3e07342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerMovementSpeed: 14
+  _playerMovementSpeed: 20
   _playerJumpHeight: 8
   _chargedJumpAngle: 1
   _chargedJumpPower: 5

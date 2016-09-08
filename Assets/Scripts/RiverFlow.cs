@@ -27,8 +27,17 @@ public class RiverFlow : MonoBehaviour
     private float flowSpeed = 1;
 
     //if your object has a rigidbody, add it's mass to the calculation
+    //default mass: 
     [SerializeField]
-    private bool FactorInRBMess;
+    private bool FactorInRBMass;
+
+    //if your object has a rigidbody, add it's drag to the calculation
+    [SerializeField]
+    private bool FactorInRBDrag;
+
+    //if your object has a rigidbody, add it's angular drag to the calculation
+    [SerializeField]
+    private bool FactorInRBAngularDrag;
 
     //create vectors
     Vector3 forceScale;
@@ -144,13 +153,27 @@ public class RiverFlow : MonoBehaviour
             differenceVec.Scale(new Vector3(flowSpeed, flowSpeed, flowSpeed));
         }
 
-        factorMass();
+        if (FactorInRBMass == true)
+        {
+            factorRigidBodyProperty(rigidBod.mass, 10);
+        }
+
+        if (FactorInRBDrag == true)
+        {
+            factorRigidBodyProperty(rigidBod.drag);
+        }
+
+        if (FactorInRBAngularDrag == true)
+        {
+            factorRigidBodyProperty(rigidBod.angularDrag);
+        }
     }
 
-    private void factorMass()
+    private void factorRigidBodyProperty(float pFactorType, int pDivident = 1)
     {
         //scale for the weight of the rigidbody
-        Vector3 weightAccomodation = new Vector3(rigidBod.mass / 10, rigidBod.mass / 10, rigidBod.mass / 10);
-        differenceVec.Scale(weightAccomodation);
+        Vector3 physicsAccomodation = new Vector3(pFactorType / pDivident, pFactorType / pDivident, pFactorType / pDivident);
+        differenceVec.Scale(physicsAccomodation);
     }
+
 }

@@ -132,13 +132,7 @@ public class InstantiateObject : MonoBehaviour
             {
                 generateObject();
             }
-        }
-
-        //disable the right collider type
-        if (temporarilyDisableObjectCollider == true)
-        {
-            toggleColliders(false);
-        }
+        }      
     }
 
     // Update is called once per frame
@@ -153,11 +147,6 @@ public class InstantiateObject : MonoBehaviour
         if (counter % framesBetweenSpawns == 0 && counter != 0)
         {
             generateObject();
-        }
-
-        if (counter % framesObjectColliderShouldBeDisabled == 0 && counter != 0)
-        {
-            toggleColliders(true);
         }
     }
 
@@ -175,7 +164,18 @@ public class InstantiateObject : MonoBehaviour
             //create a new object and instantiate it
             GameObject newObject;
             newObject = Instantiate(prefabToInstantiate);
-            
+
+            //for reenabling colliders - custom written for Y2.0 project
+            newObject.AddComponent<ReenableColliders>();
+            ReenableColliders reenableColliders = newObject.GetComponent<ReenableColliders>();
+            reenableColliders.AssignColliderTime(framesObjectColliderShouldBeDisabled);
+            reenableColliders.AssignColliderType((int)typeOfCollider);
+
+            //disable the right collider type
+            if (temporarilyDisableObjectCollider == true)
+            {
+                toggleColliders(newObject, false);
+            }
 
             //if we want to add a script, do so
             if (addScript == true)
@@ -255,24 +255,24 @@ public class InstantiateObject : MonoBehaviour
     }
 
     //use the right collider, and toggle it either way
-    private void toggleColliders(bool pIncomingState)
+    private void toggleColliders(GameObject pNewObject, bool pIncomingState)
     {
         switch ((int)typeOfCollider)
         {
             case 0:
-                boxCollider = prefabToInstantiate.GetComponent<BoxCollider>();
+                boxCollider = pNewObject.GetComponent<BoxCollider>();
                 boxCollider.enabled = pIncomingState;
                 break;
             case 1:
-                sphereCollider = prefabToInstantiate.GetComponent<SphereCollider>();
+                sphereCollider = pNewObject.GetComponent<SphereCollider>();
                 sphereCollider.enabled = pIncomingState;
                 break;
             case 2:
-                capsuleCollider = prefabToInstantiate.GetComponent<CapsuleCollider>();
+                capsuleCollider = pNewObject.GetComponent<CapsuleCollider>();
                 capsuleCollider.enabled = pIncomingState;
                 break;
             case 3:
-                capsuleCollider = prefabToInstantiate.GetComponent<CapsuleCollider>();
+                capsuleCollider = pNewObject.GetComponent<CapsuleCollider>();
                 capsuleCollider.enabled = pIncomingState;
                 break;
         }
