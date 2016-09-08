@@ -1,0 +1,39 @@
+ManifestFileVersion: 0
+CRC: 1480721308
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: adf4ac24957ec3fe5370fc79a82d4e88
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9fb773ac6a8cf4270e234eb146005819
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 51322ec3169fe1b44b5e867f803db98d, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/Art prefabs/FlatShroom.prefab
+- Assets/Resources/Prefabs/FlatShroom.prefab
+Dependencies: []

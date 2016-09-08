@@ -25,7 +25,7 @@ public class Checkpoints : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + ", sanityToCheckpointSegment: " + dataHandler.GetSanityToCheckpointSegment(0) + ", int difficulty: " + (int)dataHandler.difficulty);
+        //Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + ", sanityToCheckpointSegment: " + dataHandler.GetSanityToCheckpointSegment(0) + ", int difficulty: " + (int)dataHandler.difficulty);
 
         if ((int)dataHandler.GetCurrentSanity() % dataHandler.GetSanityToCheckpointSegment((int)dataHandler.difficulty) == 0 && (int)dataHandler.GetCurrentSanity() != 0)
         {

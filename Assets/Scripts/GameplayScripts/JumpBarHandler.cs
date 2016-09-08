@@ -19,7 +19,7 @@ public class JumpBarHandler : MonoBehaviour
         _jumpBarHandler = GetComponent<JumpBarHandler>();
         _jumpTexture = new Texture2D(1, 1);
         _jumpTexture.SetPixel(0, 0, _jumpBarColour);
-        _jumpTexture.alphaIsTransparency = true;
+        //_jumpTexture.alphaIsTransparency = true;
         _jumpTexture.Apply();
     }
 

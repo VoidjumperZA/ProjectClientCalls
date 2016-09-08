@@ -101,7 +101,7 @@ public class InstantiateObject : MonoBehaviour
         {
             //transform total co-ordinates to world space
             worldSpaceVertices[i] = transform.TransformPoint(vertices[i]);
-            Debug.Log("world space vert " + i + ": " + worldSpaceVertices[i]);
+            //Debug.Log("world space vert " + i + ": " + worldSpaceVertices[i]);
         }
 
         //take our mess of co-ordinates and find the min and max's
