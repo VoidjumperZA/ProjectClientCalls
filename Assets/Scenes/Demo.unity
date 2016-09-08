@@ -2842,8 +2842,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 315164050}
   m_LocalRotation: {x: -0, y: 0.54639804, z: -0, w: 0.8375256}
-  m_LocalPosition: {x: 39.29, y: 0.0000017881, z: -31.35}
-  m_LocalScale: {x: 7.112558, y: 135.93445, z: 91.98103}
+  m_LocalPosition: {x: 39.29, y: 0.0000029802, z: -31.35}
+  m_LocalScale: {x: 7.112558, y: 14.122665, z: 91.98103}
   m_LocalEulerAnglesHint: {x: 0, y: 66.44701, z: 0}
   m_Children: []
   m_Father: {fileID: 864774797}
@@ -4547,7 +4547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367d154d2faa5b44c9d2b9cdf3e07342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerMovementSpeed: 14
+  _playerMovementSpeed: 20
   _playerJumpHeight: 8
   _chargedJumpAngle: 1
   _chargedJumpPower: 5
@@ -9377,13 +9377,13 @@ MonoBehaviour:
   addScript: 0
   scriptsToAdd: []
   chanceOfRescalingObject: 5
-  rescalingLowerBound: 2
+  rescalingLowerBound: 1.5
   rescalingUpperBound: 0.75
   hideRenderer: 1
   disableCollider: 0
   temporarilyDisableObjectCollider: 1
   typeOfCollider: 0
-  framesObjectColliderShouldBeDisabled: 120
+  framesObjectColliderShouldBeDisabled: 175
 --- !u!23 &834906745
 MeshRenderer:
   m_ObjectHideFlags: 0
