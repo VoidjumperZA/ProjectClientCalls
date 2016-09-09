@@ -25,18 +25,12 @@ public class Checkpoints : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + ", sanityToCheckpointSegment: " + dataHandler.GetSanityToCheckpointSegment(0) + ", int difficulty: " + (int)dataHandler.difficulty);
-        if (dataHandler.GetCurrentSanity() % dataHandler.GetSanityToCheckpointSegment((int)dataHandler.difficulty) == 0 && dataHandler.GetCurrentSanity() != 0)
-        {
-            checkpointCreatable = true;
-        }
-        //if your sanity is equal to the value needed to create a checkpoint
-        if (checkpointCreatable == true)
+        Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + ", sanityBuffer: " + dataHandler.GetSanityBuffer() + ", sanityToCheckpointSegment: " + dataHandler.GetSanityToCheckpointSegment(0) + ", Checkpoint Stack: " + dataHandler.GetCheckpointStack() + ", int difficulty: " + (int)dataHandler.difficulty);
+        //if (dataHandler.GetCurrentSanity() % dataHandler.GetSanityToCheckpointSegment((int)dataHandler.difficulty) == 0 && dataHandler.GetCurrentSanity() != 0)
+        if(dataHandler.GetCheckpointStack() > 0)
         {
             createCheckpoint();
-            checkpointCreatable = false;
-            dataHandler.IncrementCurrentSanity(1); //update the sanity by a tiny increment so that it doesn't
-            //loop, creating massive amounts of check points
+            dataHandler.IncrementCheckpointStack(-1);
         }
         if (Input.GetKey(KeyCode.F))
         {

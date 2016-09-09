@@ -122,6 +122,7 @@ public class PlayerMovement : MonoBehaviour
         if (col.tag == "Lume")
         {
             dataHandler.IncrementCurrentSanity(dataHandler.GetSanityGainOnFirefly((int)dataHandler.difficulty));
+            dataHandler.IncrementSanityBuffer(dataHandler.GetSanityGainOnFirefly((int)dataHandler.difficulty));
             Destroy(col.gameObject);
             //need to just switch off the renderer and collider and reanble later
         }

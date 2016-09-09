@@ -21,6 +21,8 @@ public class DataHandler : MonoBehaviour
 
     private int fullSanity = 100;
     private float currentSanity;
+    private float sanityBuffer;
+    private int checkpointStack;
 
     public enum DifficultyLevel { Easy, Medium, Hard };
     public DifficultyLevel difficulty = new DifficultyLevel();
@@ -50,7 +52,7 @@ public class DataHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        emptySanityBuffer();
     }
 
 
@@ -60,28 +62,10 @@ public class DataHandler : MonoBehaviour
         return (int)currentSanity;
     }
 
-    //increments the current sanity
-    public void IncrementCurrentSanity(float pSanityIncrease)
-    {
-        currentSanity += pSanityIncrease;
-    }
-
-    //overrides and replaces the current sanity
-    public void SetCurrentSanity(int pNewSanityValue)
-    {
-        currentSanity = pNewSanityValue;
-    }
-
     //returns how much sanity we gain on touching a firefly
     public int GetSanityGainOnFirefly(int pDifficulty)
     {
         return internalSanityGainOnFirefly[pDifficulty];
-    }
-
-    //casts our sanity back into an integer value
-    public void ReturnSanityToIntValue()
-    {
-        currentSanity = (int)currentSanity;
     }
 
     //returns the entire array
@@ -90,9 +74,65 @@ public class DataHandler : MonoBehaviour
         return internalSanityToCheckpointSegment;
     }
 
+    //
+    public float GetSanityBuffer()
+    {
+        return sanityBuffer;
+    }
+
+    //
+    public int GetCheckpointStack()
+    {
+        return checkpointStack;
+    }
+
     //returns only a spesific index in the array
     public int GetSanityToCheckpointSegment(int pIndex)
     {
         return internalSanityToCheckpointSegment[pIndex];
+    }
+
+    //increments the current sanity
+    public void IncrementCurrentSanity(float pSanityIncrease)
+    {
+        currentSanity += pSanityIncrease;
+    }
+
+    //
+    public void IncrementSanityBuffer(float pIncrement)
+    {
+        sanityBuffer += pIncrement;
+    }
+
+    //
+    public void IncrementCheckpointStack(int pIncrement)
+    {
+        checkpointStack += pIncrement;
+    }
+
+    //overrides and replaces the current sanity
+    public void SetCurrentSanity(int pNewSanityValue)
+    {
+        currentSanity = pNewSanityValue;
+    }   
+
+    //
+
+    //casts our sanity back into an integer value
+    public void ReturnSanityToIntValue()
+    {
+        currentSanity = (int)currentSanity;
+    }
+
+    //when the player fills a segment of the sanity bar, empty
+    //the buffer and increment the stack of checkpoints allowed
+    //to be created
+    private void emptySanityBuffer()
+    {
+        if (sanityBuffer >= sanityToCheckpointSegment[(int)difficulty])
+        {
+            sanityBuffer = 0;
+            checkpointStack += 1;
+        }
     }
 }
