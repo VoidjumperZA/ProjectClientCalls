@@ -10,9 +10,10 @@ public class MenuControl : MonoBehaviour {
     [SerializeField]
     private Button _exitGame;
 
-    public void OnStart()
+    public void LoadScene(int pSceneIndex)
     {
-        SceneManager.LoadScene(2);
+        Time.timeScale = 1;
+        SceneManager.LoadScene(pSceneIndex);
     }
 
     public void OnExit()

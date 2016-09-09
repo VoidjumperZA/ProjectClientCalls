@@ -158,6 +158,7 @@ public class PlayerInput : MonoBehaviour
 
     public void LoadLevel(int pLevel)
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(pLevel);
     }
 
