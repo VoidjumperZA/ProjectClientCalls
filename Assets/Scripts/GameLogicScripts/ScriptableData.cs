@@ -26,8 +26,17 @@ public class ScriptableData : ScriptableObject {
 
     [Header("Audio Settings")]
     #region Audio Settings
-    public AudioClip onDeathClip;
+    public AudioClip onTimeSlowDownClip;
+    public AudioClip onTimeRecoverClip;
     public AudioClip onJumpClip;
     public AudioClip onSanityGainClip;
+    public AudioClip backgroundClip;
+    public AudioClip darknessClip;
+    public AudioClip onGameOverClip;
+    #endregion
+
+    [Header("River Flow Settings")]
+    #region River Flow Setting
+    public float flowSpeed;
     #endregion
 }

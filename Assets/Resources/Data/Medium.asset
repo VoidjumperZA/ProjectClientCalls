@@ -12,9 +12,17 @@ MonoBehaviour:
   m_Name: Medium
   m_EditorClassIdentifier: 
   difficulty: Medium
-  sanityGain: 0
-  playerMovementSpeed: 0
-  playerJumpHeight: 0
+  sanityGain: 20
   sanityPoints: 0
-  slowDownScale: 0
-  slowDownInterpolationValue: 0
+  playerMovementSpeed: 30
+  playerJumpHeight: 10
+  slowDownScale: 1
+  slowDownInterpolationValue: 2
+  onTimeSlowDownClip: {fileID: 8300000, guid: f022222b2b5880845a1df116cb09f28c, type: 3}
+  onTimeRecoverClip: {fileID: 8300000, guid: f192e6b3c40736c48aba8b25ead5c8c0, type: 3}
+  onJumpClip: {fileID: 8300000, guid: c798985de75a4d74fac95698e60ecd27, type: 3}
+  onSanityGainClip: {fileID: 8300000, guid: 73e8a1807470df440a4037ce7b61e608, type: 3}
+  backgroundClip: {fileID: 8300000, guid: 66926aeb73868af43886ab30191eff54, type: 3}
+  darknessClip: {fileID: 8300000, guid: 0c48bbc9a0754294580dbaa4e97ee36f, type: 3}
+  onGameOverClip: {fileID: 8300000, guid: bc6a1f9d576f62e41ba6d198c7b6dbb5, type: 3}
+  flowSpeed: 1
