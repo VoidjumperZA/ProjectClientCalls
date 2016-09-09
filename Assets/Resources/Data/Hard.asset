@@ -13,8 +13,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficulty: Hard
   sanityGain: 0
+  sanityPoints: 0
   playerMovementSpeed: 0
   playerJumpHeight: 0
-  sanityPoints: 0
   slowDownScale: 0
   slowDownInterpolationValue: 0
+  onTimeSlowDownClip: {fileID: 0}
+  onTimeRecoverClip: {fileID: 0}
+  onJumpClip: {fileID: 0}
+  onSanityGainClip: {fileID: 0}
+  backgroundClip: {fileID: 0}
+  darknessClip: {fileID: 0}
+  onGameOverClip: {fileID: 0}
+  flowSpeed: 0

@@ -23,6 +23,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        //contains all the settings for all available difficulties
+        _scriptData = Resources.LoadAll<ScriptableData>("Data");
+        
         _gameManager = _gameManagerObject.GetComponent<GameManager>();
         dataHandler = _gameManager.GetComponent<DataHandler>();
         _rigidBody = GetComponent<Rigidbody>();

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class PlayerInput : MonoBehaviour
     private GameObject _jumpBarBorder;
     [SerializeField]
     private GameObject gameManager;
+    [SerializeField]
+    private GameObject _pauseScreen;
 
     private PlayerMovement _playerMovement;
     private JumpBarHandler _jumpBarHandler;
@@ -34,6 +37,8 @@ public class PlayerInput : MonoBehaviour
         {
             jumpCheck2();
         }
+
+        pauseScreenCheck();
     }
 
     private void FixedUpdate()
@@ -129,5 +134,31 @@ public class PlayerInput : MonoBehaviour
         {
             //dataHandler.ReturnSanityToIntValue();
         }
+    }
+    private void pauseScreenCheck()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (Time.timeScale != 0.0f)
+            {
+                Time.timeScale = 0.0f;
+                _pauseScreen.SetActive(true);
+            }
+            else
+            {
+                Time.timeScale = 1.0f;
+                _pauseScreen.SetActive(false);
+            }
+        }
+    }
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void Continue()
+    {
+        Time.timeScale = 1.0f;
+        _pauseScreen.SetActive(false);
     }
 }
