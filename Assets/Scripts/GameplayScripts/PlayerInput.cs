@@ -156,6 +156,11 @@ public class PlayerInput : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void LoadLevel(int pLevel)
+    {
+        SceneManager.LoadScene(pLevel);
+    }
+
     public void ReloadLevel()
     {
         SceneManager.LoadScene(2);
