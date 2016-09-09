@@ -5,6 +5,9 @@ public class Respawning : MonoBehaviour
 {
     [SerializeField]
     private GameObject player;
+
+    [SerializeField]
+    private GameObject deathScreen;
     private Checkpoints checkpointsScript;
 
     private int checkpointStack;
@@ -14,6 +17,7 @@ public class Respawning : MonoBehaviour
     {
         checkpointsScript = GetComponent<Checkpoints>();
         checkpointStack = checkpointsScript.GetCheckpointsList().Count;
+        deathScreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -35,7 +39,13 @@ public class Respawning : MonoBehaviour
         else
         {
             Debug.Log("PERMADEATH");
+            displayDeathScreen();
         }
         
+    }
+    
+    private void displayDeathScreen()
+    {
+        deathScreen.SetActive(true);
     }
 }

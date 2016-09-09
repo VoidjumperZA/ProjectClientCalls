@@ -156,6 +156,11 @@ public class PlayerInput : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene(2);
+    }
+
     public void Continue()
     {
         Time.timeScale = 1.0f;
