@@ -6,6 +6,9 @@ public class Checkpoints : MonoBehaviour
     [SerializeField]
     private GameObject playerObject;
 
+    [SerializeField]
+    private GameObject checkpointMarker;
+
     private Transform transform;
     private DataHandler dataHandler;
 
@@ -50,6 +53,10 @@ public class Checkpoints : MonoBehaviour
         //Debug.Log("numberOfCheckPoints: " + numberOfCheckpointsCreated);
         checkpointPositions.Add(newCheckpointPosition);
         numberOfCheckpointsCreated++;
+        GameObject newCheckpointObject;
+        newCheckpointObject = Instantiate(checkpointMarker);
+
+        newCheckpointObject.transform.position = playerObject.transform.position;
         //Debug.Log("New checkpoint created. \nCheckpoint number: " + numberOfCheckpointsCreated + "\nCheckpoint position: " + newCheckpointPosition + ", while player position is: " + transform.position);
     }
 

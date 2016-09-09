@@ -1,0 +1,131 @@
+ManifestFileVersion: 0
+CRC: 4209710368
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 3d198e6d533b28e34a816871cb2c1073
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: ae7493dc614ed6064f19f51ae2c6780f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 81
+  Script: {instanceID: 0}
+- Class: 89
+  Script: {instanceID: 0}
+- Class: 92
+  Script: {instanceID: 0}
+- Class: 104
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: acee774098c990f40bf8d16415fd75fe, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: b718cf12a3cb12b4c905242ead0ea7a3, type: 3}
+- Class: 114
+  Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 853051423, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: -619905303, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 575553740, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: -1200242548, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: -2061169968, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 1367256648, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 1077351063, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 2109663825, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4e95e8748b52d794bbab11c8d4f705e6, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 52e363c591fbc254bb74089323f9d573, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a76170a62b90a5341b55b90780a2f8fc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: b6b616178678c634db0de63f66663949, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 75859097c98a37d4baae22903c79a54a, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: e934c6d8c24918740952314528339f18, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 2716d75aef78af74b92e8c009916a009, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 367d154d2faa5b44c9d2b9cdf3e07342, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 14e19d5e61360124fbc44186b3133087, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d255497f061d31f4fb006ade65f29df0, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c39d758f22fc19b499c879db82da3d28, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d5f50f9f3f47f214db565ddf418e7ba2, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 53dbcdaf7b7568846b59e9cbccde183f, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 124
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 135
+  Script: {instanceID: 0}
+- Class: 154
+  Script: {instanceID: 0}
+- Class: 156
+  Script: {instanceID: 0}
+- Class: 157
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 218
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 223
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+- Class: 258
+  Script: {instanceID: 0}
+Assets:
+- Assets/Scenes/Dominick - Testbench.unity
+- Assets/Scenes/Marios - Testbench.unity
+Dependencies: []

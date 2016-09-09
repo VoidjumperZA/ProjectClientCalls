@@ -34,6 +34,7 @@ public class Respawning : MonoBehaviour
         if (checkpointStack >= 1)
         {
             player.transform.position = checkpointsScript.GetCheckpointsListAtIndex(checkpointsScript.GetCheckpointsList().Count - 1);
+            Camera.main.transform.eulerAngles = player.transform.eulerAngles;
             checkpointsScript.ClearUsedCheckpoint();
         }
         else

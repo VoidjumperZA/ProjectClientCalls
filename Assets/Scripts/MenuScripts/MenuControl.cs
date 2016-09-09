@@ -12,7 +12,7 @@ public class MenuControl : MonoBehaviour {
 
     public void OnStart()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void OnExit()

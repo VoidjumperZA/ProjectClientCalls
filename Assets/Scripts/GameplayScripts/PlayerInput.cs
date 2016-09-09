@@ -116,7 +116,7 @@ public class PlayerInput : MonoBehaviour
 
     private void SlowDownCheck()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && dataHandler.GetCurrentSanity() > 0)
         {
             _playerMovement.SlowDownTime();
         }
