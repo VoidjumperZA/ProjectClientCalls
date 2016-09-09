@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private GameManager _gameManager;
     private Rigidbody _rigidBody;
     private ChaseCamera _camera;
+    private Respawning respawningSystem;
 
     private bool _grounded = false;
     private Vector3 _spawnPosition;
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
         dataHandler = _gameManager.GetComponent<DataHandler>();
         _rigidBody = GetComponent<Rigidbody>();
         _camera = Camera.main.GetComponent<ChaseCamera>();
+        respawningSystem = _gameManager.GetComponent<Respawning>();
 
         _spawnPosition = transform.position;
         _spawnRotation = transform.rotation;
@@ -139,9 +141,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (collision.transform.tag == "DeathFloor")
         {
-            print("You died");
-            transform.position = _spawnPosition;
-            transform.rotation = _spawnRotation;
+            Debug.Log("Entered Deathfloor");
+            respawningSystem.RespawnPlayerAtLastCheckpoint();
             _rigidBody.velocity = Vector3.zero;
         }
     }
