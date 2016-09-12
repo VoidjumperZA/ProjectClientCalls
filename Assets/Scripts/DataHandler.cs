@@ -22,6 +22,7 @@ public class DataHandler : MonoBehaviour
     private int fullSanity = 100;
     private float currentSanity;
     private float sanityBuffer;
+    private bool fullSanityAchieved = false;
     private int checkpointStack;
 
     public enum DifficultyLevel { Easy, Medium, Hard };
@@ -53,6 +54,10 @@ public class DataHandler : MonoBehaviour
     void Update()
     {
         emptySanityBuffer();
+        if (currentSanity >= fullSanity)
+        {
+            fullSanityAchieved = true;
+        }
     }
 
 
@@ -95,7 +100,10 @@ public class DataHandler : MonoBehaviour
     //increments the current sanity
     public void IncrementCurrentSanity(float pSanityIncrease)
     {
-        currentSanity += pSanityIncrease;
+        if (currentSanity < fullSanity)
+        {
+            currentSanity += pSanityIncrease;
+        }
     }
 
     //

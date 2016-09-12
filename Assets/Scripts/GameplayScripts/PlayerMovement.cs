@@ -70,8 +70,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_grounded) { return; }
 
-        _rigidBody.AddForce(transform.up * _gameManager.PlayerJumpHeight, ForceMode.Impulse);
-        _grounded = false;
+        _rigidBody.AddForce((transform.up * _gameManager.PlayerJumpHeight / 2), ForceMode.Impulse);
         _camera.Shake(_gameManager.CameraShakeDistanceOnJump);
     }
 
@@ -165,6 +164,16 @@ public class PlayerMovement : MonoBehaviour
         {
             _grounded = false;
         }
+    }
+
+    public bool GetGroundedState()
+    {
+        return _grounded;
+    }
+
+    public void SetGroundedState(bool pInputValue)
+    {
+        _grounded = pInputValue;
     }
 
 }

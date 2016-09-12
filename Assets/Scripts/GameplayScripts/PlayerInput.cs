@@ -17,6 +17,7 @@ public class PlayerInput : MonoBehaviour
     private PlayerMovement _playerMovement;
     private JumpBarHandler _jumpBarHandler;
     private DataHandler dataHandler;
+    private int inputToggler = 1;
 
     private float yRotationValue = 0.0f;
 
@@ -50,8 +51,23 @@ public class PlayerInput : MonoBehaviour
 
     private void rotationCheck()
     {
-        //if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A)) { yRotationValue--; }
-        //else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D)) { yRotationValue++; }
+        if (Input.GetMouseButtonDown(1))
+        {
+            inputToggler *= -1;   
+        }
+        if (inputToggler == 1)
+        {
+            yRotationValue = Input.GetAxisRaw("Horizontal") * 0.75f;
+           // Debug.Log("Raw Axis: " + Input.GetAxisRaw("Horizontal"));
+        }
+        else
+        {
+            yRotationValue = Input.GetAxis("Horizontal") * 0.75f;
+           // Debug.Log("Axis: " + Input.GetAxis("Horizontal"));
+        }
+        
+
+        /*
         if (Input.GetKey(KeyCode.A))
         {
             if (yRotationValue > 0.0f)
@@ -68,14 +84,14 @@ public class PlayerInput : MonoBehaviour
                 yRotationValue = 0.0f;
             }
             yRotationValue += 0.075f;
-        }
+        }*/
         //else if (Input.GetKey(KeyCode.S)) {; }
         //else if (Input.GetKey(KeyCode.W)) {; }
-        else
-        {
-            yRotationValue = 0.0f;
-            return;
-        }
+        //else
+        //{
+            //yRotationValue = 0.0f;
+            //return;
+        //}
 
         yRotationValue = Mathf.Clamp(yRotationValue, -1.0f, 1.0f);
         _playerMovement.Rotating(yRotationValue);
@@ -83,6 +99,24 @@ public class PlayerInput : MonoBehaviour
 
     private void jumpCheck()
     {
+        if (Input.GetAxisRaw("Jump") > 0 && _playerMovement.GetGroundedState())
+        {
+            _playerMovement.Jump();
+            _playerMovement.SetGroundedState(false);
+            Debug.Log("JUMPING");
+        }
+
+        if (Input.GetAxisRaw("Jump") > 0)
+        {
+            _playerMovement.DecreaseGravity();
+        }
+        else
+        {
+            _playerMovement.IncreaseGravity();
+        }
+        
+        
+        /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
             _playerMovement.Jump();
@@ -94,7 +128,7 @@ public class PlayerInput : MonoBehaviour
         else
         {
             _playerMovement.IncreaseGravity();
-        }
+        }*/
     }
 
     private void jumpCheck2()
