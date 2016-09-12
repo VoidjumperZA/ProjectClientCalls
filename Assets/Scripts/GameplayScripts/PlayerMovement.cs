@@ -75,21 +75,6 @@ public class PlayerMovement : MonoBehaviour
         _camera.Shake(_gameManager.CameraShakeDistanceOnJump);
     }
 
-    public void ChargingJump()
-    {
-        _gameManager.JumpBarPoints += _gameManager.JumpBarInterpolationValue;
-        _gameManager.JumpBarPoints = Mathf.Clamp(_gameManager.JumpBarPoints, 0.0f, 100.0f);
-    }
-
-    public void ChargeJump()
-    {
-        Vector3 jumpDirection = transform.forward + new Vector3(0.0f, _gameManager.ChargedJumpAngle, 0.0f);
-        jumpDirection.Normalize();
-        _rigidBody.AddForce(jumpDirection * ((_gameManager.ChargedJumpPower * _gameManager.JumpBarPoints) / 35), ForceMode.Impulse);
-        _gameManager.JumpBarPoints = 0.0f;
-    }
-
-
     public void DecreaseGravity()
     {
         Physics.gravity = new Vector3(0.0f, -_gameManager.LowGravity, 0.0f);

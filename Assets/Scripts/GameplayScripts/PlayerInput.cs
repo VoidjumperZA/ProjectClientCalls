@@ -5,47 +5,32 @@ using UnityEngine.SceneManagement;
 public class PlayerInput : MonoBehaviour
 {
     //This can be deleted if PlayerInput will be attached to the Player
-    [SerializeField]
-    private bool _jumpGravityOption = true;
-    [SerializeField]
-    private GameObject _jumpBarBorder;
-    [SerializeField]
-    private GameObject gameManager;
+    private GameObject _gameManager;
     [SerializeField]
     private GameObject _pauseScreen;
 
     private PlayerMovement _playerMovement;
-    private JumpBarHandler _jumpBarHandler;
-    private DataHandler dataHandler;
+    private DataHandler _dataHandler;
 
     private float yRotationValue = 0.0f;
 
     private void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
-        _jumpBarHandler = _jumpBarBorder.GetComponent<JumpBarHandler>();
-        dataHandler = gameManager.GetComponent<DataHandler>();
+        _dataHandler = _gameManager.GetComponent<DataHandler>();
     }
 
     private void Update()
     {
-        if (_jumpGravityOption)
-        {
-            jumpCheck();
-        }
-        else
-        {
-            jumpCheck2();
-        }
-
+        jumpCheck();
         pauseScreenCheck();
+        mouseUpCheck();
     }
 
     private void FixedUpdate()
     {
         rotationCheck();
-        SlowDownCheck();
-        mouseUpCheck();
+        slowDownCheck();
     }
 
     private void rotationCheck()
@@ -97,26 +82,9 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    private void jumpCheck2()
+    private void slowDownCheck()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _jumpBarHandler.Starting();
-        }
-        else if (Input.GetKey(KeyCode.Space))
-        {
-            _playerMovement.ChargingJump();
-        }
-        else if (Input.GetKeyUp(KeyCode.Space))
-        {
-            _playerMovement.ChargeJump();
-            _jumpBarHandler.Ending();
-        }
-    }
-
-    private void SlowDownCheck()
-    {
-        if (Input.GetMouseButton(0) && dataHandler.GetCurrentSanity() > 0)
+        if (Input.GetMouseButton(0) && _dataHandler.GetCurrentSanity() > 0)
         {
             _playerMovement.SlowDownTime();
         }
@@ -151,22 +119,21 @@ public class PlayerInput : MonoBehaviour
             }
         }
     }
+
+    //These needs to be placed somewhere else, probably make a script sceneloader or something and add it to the gamemanager
     public void BackToMenu()
     {
         SceneManager.LoadScene(0);
     }
-
     public void LoadLevel(int pLevel)
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(pLevel);
     }
-
     public void ReloadLevel()
     {
         SceneManager.LoadScene(2);
     }
-
     public void Continue()
     {
         Time.timeScale = 1.0f;

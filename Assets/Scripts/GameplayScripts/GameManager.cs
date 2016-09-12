@@ -10,10 +10,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float _playerJumpHeight = 8.0f;
     [SerializeField]
-    private float _chargedJumpAngle = 1.0f;
-    [SerializeField]
-    private float _chargedJumpPower = 5.0f;
-    [SerializeField]
     private float _cameraRotationTime = 0.2f;
     [SerializeField]
     private float _cameraRotationInAir = 30.0f;
@@ -39,10 +35,6 @@ public class GameManager : MonoBehaviour
     private float _normalGravity = 20.0f;
     [SerializeField]
     private float _lowGravity = 7.5f;
-    [SerializeField]
-    private float _jumpBarPoints = 0.0f;
-    [SerializeField]
-    private float _jumpBarInterpolationValue = 1.0f;
 
     //All fields accessible through properties
     public float PlayerMovementSpeed
@@ -54,16 +46,6 @@ public class GameManager : MonoBehaviour
     {
         get { return _playerJumpHeight; }
         set { _playerJumpHeight = value; }
-    }
-    public float ChargedJumpAngle
-    {
-        get { return _chargedJumpAngle; }
-        set { _chargedJumpAngle = value; }
-    }
-    public float ChargedJumpPower
-    {
-        get { return _chargedJumpPower; }
-        set { _chargedJumpPower = value; }
     }
     public float CameraRotationTime
     {
@@ -121,16 +103,6 @@ public class GameManager : MonoBehaviour
         get { return _lowGravity; }
         set { _lowGravity = value; }
     }
-    public float JumpBarPoints
-    {
-        get { return _jumpBarPoints; }
-        set { _jumpBarPoints = value; }
-    }
-    public float JumpBarInterpolationValue
-    {
-        get { return _jumpBarInterpolationValue; }
-        set { _jumpBarInterpolationValue = value; }
-    }
 
     private void Awake()
     {
@@ -149,6 +121,4 @@ public class GameManager : MonoBehaviour
     {
         
     }
-
-
 }
