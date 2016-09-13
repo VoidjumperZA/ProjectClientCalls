@@ -73,6 +73,31 @@ public class InstantiateObject : MonoBehaviour
     [SerializeField]
     private bool temporarilyDisableObjectCollider;
 
+    //only start spawning when in rage of an object
+    [SerializeField]
+    private bool spawnInRangeOfObject;
+
+    //the object to track a distance from
+    [SerializeField]
+    private GameObject objectToSpawnInRangeOf;
+
+    //the distance the target object has to be in before the spawner will spawn
+    [SerializeField]
+    private int rangeToSpawnIn;
+
+    //despawn the object after it moves a certain distance from an object
+    [SerializeField]
+    private bool despawnAfterDistance;
+
+    //the object to track a distance from
+    [SerializeField]
+    private GameObject objectToDespawnAfterDistance;
+
+    //the distance away from the target object the instianted object
+    //should be before it despawns
+    [SerializeField]
+    private int distanceToDespawnFrom;
+
     //the type of collider we'll be dealing with
     private enum ColliderType { Box, Sphere, Capsule, Cylinder };
     [SerializeField]
@@ -146,7 +171,11 @@ public class InstantiateObject : MonoBehaviour
         //only spawn on a spesified frame
         if (counter % framesBetweenSpawns == 0 && counter != 0)
         {
-            generateObject();
+            //if we're only spawning in range of an object and that object is inside that range
+            if (spawnInRangeOfObject == true && Vector3.Distance(objectToSpawnInRangeOf.transform.position, transform.position) < rangeToSpawnIn)
+            {
+                generateObject();
+            }
         }
     }
 
@@ -165,11 +194,22 @@ public class InstantiateObject : MonoBehaviour
             GameObject newObject;
             newObject = Instantiate(prefabToInstantiate);
 
-            //for reenabling colliders - custom written for Y2.0 project
+            //for reenabling colliders and despawning after a distance - custom written for Y2.0 project
             newObject.AddComponent<ReenableColliders>();
             ReenableColliders reenableColliders = newObject.GetComponent<ReenableColliders>();
             reenableColliders.AssignColliderTime(framesObjectColliderShouldBeDisabled);
             reenableColliders.AssignColliderType((int)typeOfCollider);
+
+            //if we want our objects to despawn when out of sight
+            if (despawnAfterDistance == true)
+            {
+                //set the script
+                newObject.AddComponent<DespawnAfterDistance>();
+                DespawnAfterDistance despawnAfterDist = newObject.GetComponent<DespawnAfterDistance>();
+                //assign the tracked object and the distance figure
+                despawnAfterDist.SetTargetObject(objectToDespawnAfterDistance);
+                despawnAfterDist.SetTargetDistance(distanceToDespawnFrom);
+            }
 
             //disable the right collider type
             if (temporarilyDisableObjectCollider == true)

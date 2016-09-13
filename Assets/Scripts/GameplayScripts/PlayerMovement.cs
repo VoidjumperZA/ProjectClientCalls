@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private GameObject _gameManagerObject;
     [SerializeField]
     private GameObject _firefly;
+    private PlayerInput playerInput;
 
     private DataHandler dataHandler;
 
@@ -20,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     private bool _grounded = false;
     private Vector3 _spawnPosition;
     private Quaternion _spawnRotation;
+    
+    //stops the game detecting you're not pressing a key and speeding time back up
+    private bool slowDownDueToRespawn = false;
 
     private void Awake()
     {
@@ -34,6 +38,9 @@ public class PlayerMovement : MonoBehaviour
 
         _spawnPosition = transform.position;
         _spawnRotation = transform.rotation;
+
+        playerInput = GetComponent<PlayerInput>();
+        
     }
 
     private void FixedUpdate()
@@ -84,22 +91,27 @@ public class PlayerMovement : MonoBehaviour
         Physics.gravity = new Vector3(0.0f, -_gameManager.NormalGravity, 0.0f);
     }
 
-    public void SlowDownTime()
+    public void SlowDownTime(bool pUseSanity)
     {
         if (dataHandler.GetCurrentSanity() <= 0) { return; }
 
         if (Time.timeScale > _gameManager.SlowDownScale)
         {
+            playerInput.SetInputToggle(false); //switch to raw movement, more precise when in slowmo
             Time.timeScale -= _gameManager.SlowDownInterpolationValue;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
         }
-        dataHandler.IncrementCurrentSanity(-0.1f); ;
+        if (pUseSanity == true) //we shouldn't use up sanity slowing time when it happens after a respawn
+        {
+            dataHandler.IncrementCurrentSanity(-0.1f); 
+        }
     }
 
     public void SpeedUpTime()
     {
         if (Time.timeScale < 1.0f)
         {
+            playerInput.SetInputToggle(true); //reenable smooth left-right movement
             Time.timeScale += _gameManager.SlowDownInterpolationValue;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
         }
@@ -159,6 +171,16 @@ public class PlayerMovement : MonoBehaviour
     public void SetGroundedState(bool pInputValue)
     {
         _grounded = pInputValue;
+    }
+
+    public bool GetSlowDownDueToRespawn()
+    {
+        return slowDownDueToRespawn;
+    }
+
+    public void SetSlowDownDueToRespawn(bool pInputValue)
+    {
+        slowDownDueToRespawn = pInputValue;
     }
 
 }

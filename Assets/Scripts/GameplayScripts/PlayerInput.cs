@@ -8,23 +8,21 @@ public class PlayerInput : MonoBehaviour
     [SerializeField]
     private bool _jumpGravityOption = true;
     [SerializeField]
-    private GameObject _jumpBarBorder;
-    [SerializeField]
     private GameObject gameManager;
     [SerializeField]
     private GameObject _pauseScreen;
 
     private PlayerMovement _playerMovement;
-    private JumpBarHandler _jumpBarHandler;
     private DataHandler dataHandler;
-    private int inputToggler = 1;
+    private int inputToggler = -1;
+
+    private bool fireAxisInUse = false;
 
     private float yRotationValue = 0.0f;
 
     private void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
-        _jumpBarHandler = _jumpBarBorder.GetComponent<JumpBarHandler>();
         dataHandler = gameManager.GetComponent<DataHandler>();
     }
 
@@ -33,10 +31,6 @@ public class PlayerInput : MonoBehaviour
         if (_jumpGravityOption)
         {
             jumpCheck();
-        }
-        else
-        {
-            jumpCheck2();
         }
 
         pauseScreenCheck();
@@ -58,41 +52,14 @@ public class PlayerInput : MonoBehaviour
         if (inputToggler == 1)
         {
             yRotationValue = Input.GetAxisRaw("Horizontal") * 0.75f;
-           // Debug.Log("Raw Axis: " + Input.GetAxisRaw("Horizontal"));
+            Debug.Log("Raw Axis: " + Input.GetAxisRaw("Horizontal"));
         }
         else
         {
             yRotationValue = Input.GetAxis("Horizontal") * 0.75f;
-           // Debug.Log("Axis: " + Input.GetAxis("Horizontal"));
+            Debug.Log("Axis: " + Input.GetAxis("Horizontal"));
         }
         
-
-        /*
-        if (Input.GetKey(KeyCode.A))
-        {
-            if (yRotationValue > 0.0f)
-            {
-                yRotationValue = 0.0f;
-            }
-
-            yRotationValue -= 0.075f;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            if (yRotationValue < 0.0f)
-            {
-                yRotationValue = 0.0f;
-            }
-            yRotationValue += 0.075f;
-        }*/
-        //else if (Input.GetKey(KeyCode.S)) {; }
-        //else if (Input.GetKey(KeyCode.W)) {; }
-        //else
-        //{
-            //yRotationValue = 0.0f;
-            //return;
-        //}
-
         yRotationValue = Mathf.Clamp(yRotationValue, -1.0f, 1.0f);
         _playerMovement.Rotating(yRotationValue);
     }
@@ -103,7 +70,6 @@ public class PlayerInput : MonoBehaviour
         {
             _playerMovement.Jump();
             _playerMovement.SetGroundedState(false);
-            Debug.Log("JUMPING");
         }
 
         if (Input.GetAxisRaw("Jump") > 0)
@@ -116,46 +82,20 @@ public class PlayerInput : MonoBehaviour
         }
         
         
-        /*
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _playerMovement.Jump();
-        }
-        else if (Input.GetKey(KeyCode.Space))
-        {
-            _playerMovement.DecreaseGravity();
-        }
-        else
-        {
-            _playerMovement.IncreaseGravity();
-        }*/
-    }
-
-    private void jumpCheck2()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _jumpBarHandler.Starting();
-        }
-        else if (Input.GetKey(KeyCode.Space))
-        {
-            _playerMovement.ChargingJump();
-        }
-        else if (Input.GetKeyUp(KeyCode.Space))
-        {
-            _playerMovement.ChargeJump();
-            _jumpBarHandler.Ending();
-        }
     }
 
     private void SlowDownCheck()
     {
-        if (Input.GetMouseButton(0) && dataHandler.GetCurrentSanity() > 0)
+        //if we're holding fire and have sanity
+        if (Input.GetAxisRaw("Fire1") != 0 && dataHandler.GetCurrentSanity() > 0)
         {
-            _playerMovement.SlowDownTime();
+            _playerMovement.SlowDownTime(true); //true boolean uses up sanity
+            fireAxisInUse = true; //pretty sure this has become redundant
         }
-        else
+        //if they key is up, time is slow and that's not happening because of a respawn
+        if (Input.GetAxisRaw("Fire1") == 0 && Time.timeScale < 1 && _playerMovement.GetSlowDownDueToRespawn() == false)
         {
+            fireAxisInUse = false;
             _playerMovement.SpeedUpTime();
         }
     }
@@ -205,5 +145,18 @@ public class PlayerInput : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         _pauseScreen.SetActive(false);
+    }
+
+    //sets the toggle for smooth vs raw input manager controls
+    public void SetInputToggle(bool pToggleToSmooth)
+    {
+        if (pToggleToSmooth == true)
+        {
+            inputToggler = -1;
+        }
+        else
+        {
+            inputToggler = 1;
+        }
     }
 }

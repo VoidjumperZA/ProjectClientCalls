@@ -9,6 +9,9 @@ public class Checkpoints : MonoBehaviour
     [SerializeField]
     private GameObject checkpointMarker;
 
+    [SerializeField]
+    private float heightOfCheckpointSpawn;
+
     private Transform transform;
     private DataHandler dataHandler;
 
@@ -28,7 +31,6 @@ public class Checkpoints : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         //Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + ", sanityBuffer: " + dataHandler.GetSanityBuffer() + ", sanityToCheckpointSegment: " + dataHandler.GetSanityToCheckpointSegment(0) + ", Checkpoint Stack: " + dataHandler.GetCheckpointStack() + ", number of checkpoints: " + checkpointPositions.Count + ", int difficulty: " + (int)dataHandler.difficulty);
 
         //Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + ", sanityBuffer: " + dataHandler.GetSanityBuffer() + ", sanityToCheckpointSegment: " + dataHandler.GetSanityToCheckpointSegment(0) + ", Checkpoint Stack: " + dataHandler.GetCheckpointStack() + ", int difficulty: " + (int)dataHandler.difficulty);
@@ -41,7 +43,7 @@ public class Checkpoints : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + ", sanityBuffer: " + dataHandler.GetSanityBuffer() + ", sanityToCheckpointSegment: " + dataHandler.GetSanityToCheckpointSegment(0) + ", Checkpoint Stack: " + dataHandler.GetCheckpointStack() + ", int difficulty: " + (int)dataHandler.difficulty);
+            Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + ", sanityBuffer: " + dataHandler.GetSanityBuffer() + ", sanityToCheckpointSegment: " + dataHandler.GetSanityToCheckpointSegment(0) + ", Checkpoint Stack: " + dataHandler.GetCheckpointStack() + ", number of checkpoints: " + checkpointPositions.Count + ", int difficulty: " + (int)dataHandler.difficulty);
         }
     }
 
@@ -49,14 +51,15 @@ public class Checkpoints : MonoBehaviour
     private void createCheckpoint()
     {
         //create a new transform and add it to the list
-        Vector3 newCheckpointPosition = transform.position; //transform seems to be a reference type, manually copy data
-        //Debug.Log("numberOfCheckPoints: " + numberOfCheckpointsCreated);
+        Vector3 newCheckpointPosition = playerObject.transform.position; //transform seems to be a reference type, manually copy data
+        newCheckpointPosition.y += heightOfCheckpointSpawn;
         checkpointPositions.Add(newCheckpointPosition);
         numberOfCheckpointsCreated++;
         GameObject newCheckpointObject;
         newCheckpointObject = Instantiate(checkpointMarker);
 
-        newCheckpointObject.transform.position = playerObject.transform.position;
+        newCheckpointObject.transform.position = newCheckpointPosition;
+
         //Debug.Log("New checkpoint created. \nCheckpoint number: " + numberOfCheckpointsCreated + "\nCheckpoint position: " + newCheckpointPosition + ", while player position is: " + transform.position);
     }
 
