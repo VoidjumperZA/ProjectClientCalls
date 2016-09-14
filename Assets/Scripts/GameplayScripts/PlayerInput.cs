@@ -96,6 +96,7 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetAxisRaw("Fire1") == 0 && Time.timeScale < 1 && _playerMovement.GetSlowDownDueToRespawn() == false)
         {
             fireAxisInUse = false;
+            dataHandler.ReturnSanityToIntValue();
             _playerMovement.SpeedUpTime();
         }
     }
