@@ -1990,10 +1990,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2002079600}
   m_RootOrder: 7
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.2, y: -225.7}
-  m_SizeDelta: {x: 216, y: 78.1}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -45, y: 36}
+  m_SizeDelta: {x: 216, y: 78.099976}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &215914714
 MonoBehaviour:
@@ -6861,8 +6861,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acee774098c990f40bf8d16415fd75fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sanityGainOnFirefly: 140000001400000014000000
-  sanityToCheckpointSegment: 1400000014000000140000004a000000
+  sanityGainOnFirefly: 050000001400000014000000
+  sanityToCheckpointSegment: 1900000014000000140000004a000000
   difficulty: 0
 --- !u!114 &601560733
 MonoBehaviour:
@@ -7605,10 +7605,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2002079600}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 165, y: -418}
-  m_SizeDelta: {x: 320, y: 120}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 237, y: 121}
+  m_SizeDelta: {x: 474, y: 120}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &690011418
 MonoBehaviour:
