@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OptionsScript : MonoBehaviour
+public class OptionsScript : MenuScreen
 {
     [SerializeField]
     private GameObject _menuHandlerObject;
@@ -15,17 +15,20 @@ public class OptionsScript : MonoBehaviour
     private bool yAxisInUse = false;
     private bool selectionAxisInUse = false;
     private bool returnAxisInUse = false;
-    private enum OptionsOption { FOV, ROTATION_SENSITIVITY, CAMERA_ANGLE, BACK_TO_MENU }
-    private OptionsOption _selectedOptionsOption = OptionsOption.FOV;
+    private enum OptionsOption { FOV, ROTATION_SENSITIVITY, CAMERA_ANGLE, SOUND_VOLUME, BACK_TO_MENU }
+    private OptionsOption _highlightedOptionsOption = OptionsOption.FOV;
+    private bool _selected = false;
 
     private void Awake()
     {
-
+        _menuHandler = _menuHandlerObject.GetComponent<MenuHandler>();
+        _renderer = GetComponent<Renderer>();
+        _renderer.material.mainTexture = textures[(int)_highlightedOptionsOption];
     }
 
     private void Start()
     {
-
+        print("OptionsMenu: _selectedOptionsOption = " + _highlightedOptionsOption);
     }
 
     private void Update()
@@ -38,12 +41,13 @@ public class OptionsScript : MonoBehaviour
             checkAxisCommands("Jump", ref selectionAxisInUse);
             checkAxisCommands("Fire1", ref returnAxisInUse);
         }
-        if (_menuHandler.reset == true)
-        {
-            _menuHandler.reset = false;
-            _selectedOptionsOption = OptionsOption.FOV;
-            _renderer.material.mainTexture = textures[(int)_selectedOptionsOption];
-        }
+        //if (_menuHandler.reset == true)
+        //{
+        //    _menuHandler.reset = false;
+        //    _highlightedOptionsOption = OptionsOption.FOV;
+        //    _renderer.material.mainTexture = textures[(int)_highlightedOptionsOption];
+        //    print("Option screen has been reset. highlightedOptionsOption is:" + _highlightedOptionsOption);
+        //}
     }
 
     //generic command check list, scanning all command axes at once
@@ -61,9 +65,6 @@ public class OptionsScript : MonoBehaviour
                         break;
                     case "Vertical":
                         yAxisCommands();
-                        break;
-                    case "Jump":
-                        selectionAxisCommands();
                         break;
                     case "Fire1":
                         returnAxisCommands();
@@ -89,10 +90,10 @@ public class OptionsScript : MonoBehaviour
     //input manager commands using vertical keys
     private void yAxisCommands()
     {
-        _selectedOptionsOption += ((int)Input.GetAxisRaw("Vertical") * -1);
-        _selectedOptionsOption = (OptionsOption)Mathf.Clamp((int)_selectedOptionsOption, 0, textures.Length - 1);
-        print(_selectedOptionsOption);
-        _renderer.material.mainTexture = textures[(int)_selectedOptionsOption];
+        _highlightedOptionsOption += ((int)Input.GetAxisRaw("Vertical") * -1);
+        _highlightedOptionsOption = (OptionsOption)Mathf.Clamp((int)_highlightedOptionsOption, 0, textures.Length - 1);
+        print(_highlightedOptionsOption);
+        _renderer.material.mainTexture = textures[(int)_highlightedOptionsOption];
     }
 
     //increment the menu depth of our cursor
@@ -100,15 +101,18 @@ public class OptionsScript : MonoBehaviour
     private void selectionAxisCommands()
     {
         //Camera animations
-        switch (_selectedOptionsOption)
+        switch (_highlightedOptionsOption)
         {
             case OptionsOption.FOV:
-  
+
                 break;
             case OptionsOption.ROTATION_SENSITIVITY:
 
                 break;
             case OptionsOption.CAMERA_ANGLE:
+
+                break;
+            case OptionsOption.SOUND_VOLUME:
 
                 break;
             case OptionsOption.BACK_TO_MENU:
@@ -121,8 +125,14 @@ public class OptionsScript : MonoBehaviour
     private void returnAxisCommands()
     {
         //This is just a temporary test, this needs to be in the other Menu parts.
-        _menuHandler._menuState = MenuHandler.MenuState.STARTSCREEN;
-        print("returned to the Press a button to start screen");
-        print(_menuHandler._menuState);
+        //_menuHandler.reset = true;
+        _menuHandler._menuState = MenuHandler.MenuState.MENU;
+        _menuHandler.ResetScreen(this);
+        //print("returned to the " + _menuHandler._menuState);
+    }
+
+    public override void Reset()
+    {
+        print("OptionsScreen reset");
     }
 }
