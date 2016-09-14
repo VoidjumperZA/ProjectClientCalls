@@ -83,6 +83,7 @@ public class RiverFlow : MonoBehaviour
     {
         //transform.LookAt(target.up);
         flowToMarker();
+
     }
 
     //grabs our next marker in the list if our object passes over the current target

@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 
-public class MainMenuScript : MonoBehaviour
+public class MainMenuScript : MenuScreen
 {
     [SerializeField]
     private GameObject _menuHandlerObject;
@@ -17,13 +17,13 @@ public class MainMenuScript : MonoBehaviour
     private bool selectionAxisInUse = false;
     private bool returnAxisInUse = false;
     private enum MenuOption { PLAY, OPTIONS, CREDITS, EXIT }
-    private MenuOption _selectedMenuOption = MenuOption.PLAY;
+    private MenuOption _highlightedMenuOption = MenuOption.PLAY;
 
     void Awake()
     {
         _menuHandler = _menuHandlerObject.GetComponent<MenuHandler>();
         _renderer = GetComponent<Renderer>();
-        _renderer.material.mainTexture = textures[(int)_selectedMenuOption];
+        _renderer.material.mainTexture = textures[(int)_highlightedMenuOption];
         //print("Length: " + Enum.GetNames(typeof(MenuOption)).Length);
     }
 
@@ -42,12 +42,13 @@ public class MainMenuScript : MonoBehaviour
             checkAxisCommands("Jump", ref selectionAxisInUse);
             checkAxisCommands("Fire1", ref returnAxisInUse);
         }
-        if (_menuHandler.reset == true)
-        {
-            _menuHandler.reset = false;
-            _selectedMenuOption = MenuOption.PLAY;
-            _renderer.material.mainTexture = textures[(int)_selectedMenuOption];
-        }
+        //if (_menuHandler.reset == true)
+        //{
+        //    _menuHandler.reset = false;
+        //    _highlightedMenuOption = MenuOption.PLAY;
+        //    _renderer.material.mainTexture = textures[(int)_highlightedMenuOption];
+        //    print("Main menu screen has been reset. highlightedMenuOption is:" + _highlightedMenuOption);
+        //}
     }
 
     //generic command check list, scanning all command axes at once
@@ -93,10 +94,10 @@ public class MainMenuScript : MonoBehaviour
     //input manager commands using vertical keys
     private void yAxisCommands()
     {
-        _selectedMenuOption += ((int)Input.GetAxisRaw("Vertical") * -1);
-        _selectedMenuOption = (MenuOption)Mathf.Clamp((int)_selectedMenuOption, 0, textures.Length - 1);
-        print(_selectedMenuOption);
-        _renderer.material.mainTexture = textures[(int)_selectedMenuOption];
+        _highlightedMenuOption += ((int)Input.GetAxisRaw("Vertical") * -1);
+        _highlightedMenuOption = (MenuOption)Mathf.Clamp((int)_highlightedMenuOption, 0, textures.Length - 1);
+        print(_highlightedMenuOption);
+        _renderer.material.mainTexture = textures[(int)_highlightedMenuOption];
     }
 
     //increment the menu depth of our cursor
@@ -104,7 +105,7 @@ public class MainMenuScript : MonoBehaviour
     private void selectionAxisCommands()
     {
         //Camera animations
-        switch (_selectedMenuOption)
+        switch (_highlightedMenuOption)
         {
             case MenuOption.PLAY:
                 _menuHandler._menuState = MenuHandler.MenuState.PLAY;
@@ -134,8 +135,13 @@ public class MainMenuScript : MonoBehaviour
     {
         //This is just a temporary test, this needs to be in the other Menu parts.
         _menuHandler._menuState = MenuHandler.MenuState.STARTSCREEN;
-        print("returned to the Press a button to start screen");
-        print(_menuHandler._menuState);
+        _menuHandler.ResetScreen(this);
+        //print("returned to the " + _menuHandler._menuState);
+    }
+
+    public override void Reset()
+    {
+        print("MainMenuScreen reset");
     }
 
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StartScreenScript : MonoBehaviour
+public class StartScreenScript : MenuScreen
 {
     [SerializeField]
     private GameObject _menuHandlerObject;
@@ -39,7 +39,13 @@ public class StartScreenScript : MonoBehaviour
         {
             print("Goes back to the Main Menu");
             _menuHandler._menuState = MenuHandler.MenuState.MENU;
-            _menuHandler.reset = true;
+            //_menuHandler.reset = true;
+            //_menuHandler.ResetScreen(this);
         }
+    }
+
+    public override void Reset()
+    {
+        print("StartScreen reset");
     }
 }

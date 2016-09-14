@@ -6902,7 +6902,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 268613818}
   m_LocalRotation: {x: -0, y: 0.14166601, z: -0, w: 0.98991454}
-  m_LocalPosition: {x: 166.3, y: 33, z: 71.7}
+  m_LocalPosition: {x: 147.3, y: 33, z: 52.7}
   m_LocalScale: {x: 126.80614, y: 13.885639, z: 9.003093}
   m_LocalEulerAnglesHint: {x: 0, y: 15.978001, z: 0}
   m_Children: []
@@ -8716,7 +8716,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 333412642}
   m_LocalRotation: {x: -0, y: 0.23941462, z: -0, w: 0.97091746}
-  m_LocalPosition: {x: 183.4, y: 33, z: 112.3}
+  m_LocalPosition: {x: 174.5, y: 33, z: 92}
   m_LocalScale: {x: 118.54197, y: 13.885639, z: 9.0030985}
   m_LocalEulerAnglesHint: {x: 0, y: 27.628002, z: 0}
   m_Children: []
@@ -16497,8 +16497,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 1004987932}
+  checkpointUINumber: {fileID: 0}
   checkpointMarker: {fileID: 1867725557}
   heightOfCheckpointSpawn: 0
+  displayDebuggingMarker: 0
 --- !u!114 &601560732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21006,7 +21008,7 @@ MonoBehaviour:
   framesBetweenSpawns: 160
   maxObjectsAWave: 1
   maxObjectsAWaveRandom: 0
-  spawnFromCentre: 1
+  spawnFromCentre: 0
   addScript: 0
   scriptsToAdd: []
   chanceOfRescalingObject: 5
@@ -21015,6 +21017,7 @@ MonoBehaviour:
   hideRenderer: 1
   disableCollider: 1
   temporarilyDisableObjectCollider: 1
+  framesObjectColliderShouldBeDisabled: 60
   spawnInRangeOfObject: 1
   objectToSpawnInRangeOf: {fileID: 257899308}
   rangeToSpawnIn: 10
@@ -21022,7 +21025,6 @@ MonoBehaviour:
   objectToDespawnAfterDistance: {fileID: 0}
   distanceToDespawnFrom: 0
   typeOfCollider: 2
-  framesObjectColliderShouldBeDisabled: 60
 --- !u!23 &730848168
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -30317,7 +30319,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1122505834}
   m_LocalRotation: {x: -0, y: -0.12373451, z: -0, w: 0.99231535}
-  m_LocalPosition: {x: 162.0836, y: 33, z: -10.29748}
+  m_LocalPosition: {x: 176.5, y: 33, z: -25.7}
   m_LocalScale: {x: 99.61107, y: 13.885639, z: 9.003095}
   m_LocalEulerAnglesHint: {x: 0, y: -13.911, z: 0}
   m_Children: []
@@ -53008,7 +53010,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1979006493}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -100.63877, y: 3.4, z: 89.511635}
+  m_LocalPosition: {x: -129, y: 3.4, z: 89.511635}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []

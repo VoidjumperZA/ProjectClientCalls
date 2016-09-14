@@ -101,6 +101,7 @@ GameObject:
   - 33: {fileID: 61834152}
   - 65: {fileID: 61834151}
   - 23: {fileID: 61834150}
+  - 114: {fileID: 61834154}
   m_Layer: 0
   m_Name: Pages
   m_TagString: Untagged
@@ -121,7 +122,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 55cd37d2d63892643a987b38989bd245, type: 2}
+  - {fileID: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -169,6 +170,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1288856242}
   m_RootOrder: 1
+--- !u!114 &61834154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 61834149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b80e9bced17c7d4cbf938afb8afb461, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _menuHandlerObject: {fileID: 1728446220}
+  textures:
+  - {fileID: 2800000, guid: 15c2bd73b4d383c4aaf665eff5553feb, type: 3}
+  - {fileID: 2800000, guid: 8f3452f3b660bee4aa9dc5bd8ec75433, type: 3}
+  - {fileID: 2800000, guid: 8aa9859e450d43847a2d5af478cc6ffb, type: 3}
+  - {fileID: 2800000, guid: e096453621c58504b9a3ab6e0513efb4, type: 3}
+  - {fileID: 2800000, guid: dca42f7a814908146a735dd9b344b851, type: 3}
 --- !u!1 &144753737
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,6 +1148,7 @@ GameObject:
   - 33: {fileID: 1480246462}
   - 65: {fileID: 1480246461}
   - 23: {fileID: 1480246460}
+  - 114: {fileID: 1480246464}
   m_Layer: 0
   m_Name: Pages
   m_TagString: Untagged
@@ -1149,7 +1169,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 55cd37d2d63892643a987b38989bd245, type: 2}
+  - {fileID: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -1197,6 +1217,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1288856242}
   m_RootOrder: 0
+--- !u!114 &1480246464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1480246459}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b80e9bced17c7d4cbf938afb8afb461, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _menuHandlerObject: {fileID: 1728446220}
+  textures:
+  - {fileID: 2800000, guid: 15c2bd73b4d383c4aaf665eff5553feb, type: 3}
+  - {fileID: 2800000, guid: 8f3452f3b660bee4aa9dc5bd8ec75433, type: 3}
+  - {fileID: 2800000, guid: 8aa9859e450d43847a2d5af478cc6ffb, type: 3}
+  - {fileID: 2800000, guid: e096453621c58504b9a3ab6e0513efb4, type: 3}
+  - {fileID: 2800000, guid: dca42f7a814908146a735dd9b344b851, type: 3}
 --- !u!1 &1485663667
 GameObject:
   m_ObjectHideFlags: 0
@@ -1401,7 +1439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _menuState: 0
-  resetMenu: 0
+  reset: 0
 --- !u!4 &1728446222
 Transform:
   m_ObjectHideFlags: 0
