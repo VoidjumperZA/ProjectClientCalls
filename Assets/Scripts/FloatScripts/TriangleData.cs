@@ -4,7 +4,6 @@ using System.Collections;
 
 public struct TriangleData
 {
-
     //The corners of this triangle in global coordinates
     public Vector3 p1;
     public Vector3 p2;
@@ -22,7 +21,7 @@ public struct TriangleData
     //The area of the triangle
     public float area;
 
-    public TriangleData(Vector3 p1, Vector3 p2, Vector3 p3)
+    public TriangleData(Vector3 p1, Vector3 p2, Vector3 p3,float pwaterHeight)
     {
         this.p1 = p1;
         this.p2 = p2;
@@ -32,7 +31,7 @@ public struct TriangleData
         this.center = (p1 + p2 + p3) / 3f;
 
         //Distance to the surface from the center of the triangle
-        this.distanceToSurface = Mathf.Abs(WaterController.current.DistanceToWater(this.center, Time.time));
+        this.distanceToSurface = Mathf.Abs(FloatHelper.DistanceToWater(this.center, pwaterHeight));
 
         //Normal to the triangle
         this.normal = Vector3.Cross(p2 - p1, p3 - p1).normalized;

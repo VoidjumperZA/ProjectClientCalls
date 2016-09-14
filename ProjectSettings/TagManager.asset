@@ -9,6 +9,7 @@ TagManager:
   - JumpableObject
   - Lume
   - DeathFloor
+  - WaterSurface
   layers:
   - Default
   - TransparentFX

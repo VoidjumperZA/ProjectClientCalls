@@ -4,28 +4,31 @@ using System.Collections.Generic;
 
 public class ModifyBoatMesh
 {
-    Transform boatTrans;
+    private Transform _floatObjTrans;
 
-    Vector3[] boatVertices;
+    private Vector3[] _floatObjVertices;
 
-    int[] boatTriangles;
+    private int[] _floatObjTriangles;
 
-    public Vector3[] boatVerticesGlobal;
+    public Vector3[] globalFloatObjVertices;
 
-    float[] allDistancesToWater;
+    private float[] _allDistancesToWater;
 
     public List<TriangleData> underWaterTriangleData = new List<TriangleData>();
 
-    public ModifyBoatMesh(GameObject boatObj)
+    private float _waterHeight;
+
+    public ModifyBoatMesh(GameObject boatObj, float pwaterHeight)
     {
-        boatTrans = boatObj.transform;
+        _floatObjTrans = boatObj.transform;
+        _waterHeight = pwaterHeight;
 
-        boatVertices = boatObj.GetComponent<MeshFilter>().mesh.vertices;
-        boatTriangles = boatObj.GetComponent<MeshFilter>().mesh.triangles;
+        _floatObjVertices = boatObj.GetComponent<MeshFilter>().mesh.vertices;
+        _floatObjTriangles = boatObj.GetComponent<MeshFilter>().mesh.triangles;
 
-        boatVerticesGlobal = new Vector3[boatVertices.Length];
+        globalFloatObjVertices = new Vector3[_floatObjVertices.Length];
 
-        allDistancesToWater = new float[boatVertices.Length];
+        _allDistancesToWater = new float[_floatObjVertices.Length];
     }
 
     public void GenerateUnderwaterMesh()
@@ -34,16 +37,16 @@ public class ModifyBoatMesh
         underWaterTriangleData.Clear();
 
         //Find all the distances to water once because some triangles share vertices, so reuse
-        for (int j = 0; j < boatVertices.Length; j++)
+        for (int j = 0; j < _floatObjVertices.Length; j++)
         {
             //The coordinate should be in global position
-            Vector3 globalPos = boatTrans.TransformPoint(boatVertices[j]);
+            Vector3 globalPos = _floatObjTrans.TransformPoint(_floatObjVertices[j]);
 
             //Save the global position so we only need to calculate it once here
             //And if we want to debug we can convert it back to local
-            boatVerticesGlobal[j] = globalPos;
+            globalFloatObjVertices[j] = globalPos;
 
-            allDistancesToWater[j] = WaterController.current.DistanceToWater(globalPos, Time.time);
+            _allDistancesToWater[j] = FloatHelper.DistanceToWater(globalPos, _waterHeight);
         }
 
         //Add the triangles that are below the water
@@ -64,17 +67,17 @@ public class ModifyBoatMesh
 
         //Loop through all the triangles (3 vertices at a time = 1 triangle)
         int i = 0;
-        while (i < boatTriangles.Length)
+        while (i < _floatObjTriangles.Length)
         {
             //Loop through the 3 vertices
             for (int x = 0; x < 3; x++)
             {
                 //Save the data we need
-                vertexData[x].distance = allDistancesToWater[boatTriangles[i]];
+                vertexData[x].distance = _allDistancesToWater[_floatObjTriangles[i]];
 
                 vertexData[x].index = x;
 
-                vertexData[x].globalVertexPos = boatVerticesGlobal[boatTriangles[i]];
+                vertexData[x].globalVertexPos = globalFloatObjVertices[_floatObjTriangles[i]];
 
                 i++;
             }
@@ -97,7 +100,7 @@ public class ModifyBoatMesh
                 Vector3 p3 = vertexData[2].globalVertexPos;
 
                 //Save the triangle
-                underWaterTriangleData.Add(new TriangleData(p1, p2, p3));
+                underWaterTriangleData.Add(new TriangleData(p1, p2, p3,_waterHeight));
             }
             //1 or 2 vertices are below the water
             else
@@ -189,8 +192,8 @@ public class ModifyBoatMesh
 
         //Save the data, such as normal, area, etc      
         //2 triangles below the water  
-        underWaterTriangleData.Add(new TriangleData(M, I_M, I_L));
-        underWaterTriangleData.Add(new TriangleData(M, I_L, L));
+        underWaterTriangleData.Add(new TriangleData(M, I_M, I_L,_waterHeight));
+        underWaterTriangleData.Add(new TriangleData(M, I_L, L,_waterHeight));
     }
 
     //Build the new triangles where two of the old vertices are above the water
@@ -260,7 +263,7 @@ public class ModifyBoatMesh
 
         //Save the data, such as normal, area, etc
         //1 triangle below the water
-        underWaterTriangleData.Add(new TriangleData(L, J_H, J_M));
+        underWaterTriangleData.Add(new TriangleData(L, J_H, J_M,_waterHeight));
     }
 
     //Help class to store triangle data so we can sort the distances
@@ -272,44 +275,6 @@ public class ModifyBoatMesh
         public int index;
         //The global Vector3 position of the vertex
         public Vector3 globalVertexPos;
-    }
-
-    //Display the underwater mesh
-    public void DisplayMesh(Mesh mesh, string name, List<TriangleData> triangesData)
-    {
-        List<Vector3> vertices = new List<Vector3>();
-        List<int> triangles = new List<int>();
-
-        //Build the mesh
-        for (int i = 0; i < triangesData.Count; i++)
-        {
-            //From global coordinates to local coordinates
-            Vector3 p1 = boatTrans.InverseTransformPoint(triangesData[i].p1);
-            Vector3 p2 = boatTrans.InverseTransformPoint(triangesData[i].p2);
-            Vector3 p3 = boatTrans.InverseTransformPoint(triangesData[i].p3);
-
-            vertices.Add(p1);
-            triangles.Add(vertices.Count - 1);
-
-            vertices.Add(p2);
-            triangles.Add(vertices.Count - 1);
-
-            vertices.Add(p3);
-            triangles.Add(vertices.Count - 1);
-        }
-
-        //Remove the old mesh
-        mesh.Clear();
-
-        //Give it a name
-        mesh.name = name;
-
-        //Add the new vertices and triangles
-        mesh.vertices = vertices.ToArray();
-
-        mesh.triangles = triangles.ToArray();
-
-        mesh.RecalculateBounds();
     }
 }
 
