@@ -103,7 +103,8 @@ public class PlayerMovement : MonoBehaviour
         }
         if (pUseSanity == true) //we shouldn't use up sanity slowing time when it happens after a respawn
         {
-            dataHandler.IncrementCurrentSanity(-0.1f); 
+            dataHandler.IncrementCurrentSanity(-0.1f);
+            dataHandler.IncrementSanityBuffer(-0.1f);
         }
     }
 
