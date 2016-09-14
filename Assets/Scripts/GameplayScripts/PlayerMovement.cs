@@ -21,6 +21,28 @@ public class PlayerMovement : MonoBehaviour
     private bool _grounded = false;
     private Vector3 _spawnPosition;
     private Quaternion _spawnRotation;
+
+    //--------------------------------------------------//
+    private float elapsedTime = 0;
+    private Vector3 lastposition;
+
+    private void CheckIfMoved()
+    {
+        elapsedTime += Time.deltaTime;
+        if (elapsedTime >= 0.1)
+        {
+            if (Vector3.Distance(lastposition, transform.position) <0.5)
+            {
+                print("DIED");
+            }
+            else
+            {
+                lastposition = transform.position;
+                elapsedTime = 0;
+            }
+        }
+    }
+    //---------------------------------------------//
     
     //stops the game detecting you're not pressing a key and speeding time back up
     private bool slowDownDueToRespawn = false;
@@ -40,7 +62,15 @@ public class PlayerMovement : MonoBehaviour
         _spawnRotation = transform.rotation;
 
         playerInput = GetComponent<PlayerInput>();
-        
+
+        lastposition = transform.position;
+
+
+    }
+
+    private void Update()
+    {
+        CheckIfMoved();
     }
 
     private void FixedUpdate()

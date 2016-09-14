@@ -159,7 +159,7 @@ public class DataHandler : MonoBehaviour
     public void SetSavedSanityOnCheckpoint(float pSanityValue)
     {
         savedSanityOnCheckpoint.Add(pSanityValue);
-        Debug.Log("Assigning " + currentSanity + " to index " + (savedSanityOnCheckpoint.Count - 1));
+        //Debug.Log("Assigning " + currentSanity + " to index " + (savedSanityOnCheckpoint.Count - 1));
     }
 
     public void RemoveSavedSanity(int pIndex)
