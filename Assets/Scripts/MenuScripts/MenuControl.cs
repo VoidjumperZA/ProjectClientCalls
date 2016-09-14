@@ -6,10 +6,6 @@ using UnityEngine.SceneManagement;
 public class MenuControl : MonoBehaviour
 {
     [SerializeField]
-    private GameObject gameManagerObject;
-    private GameManager gameManager;
-
-    [SerializeField]
     private GameObject[] buttonOnArray;
     [SerializeField]
     private GameObject[] buttonOffArray;
@@ -30,7 +26,6 @@ public class MenuControl : MonoBehaviour
 
     void Start()
     {
-        gameManager = gameManagerObject.GetComponent<GameManager>();
         toggleMenuGroup(buttonOnArray, false);
     }
     void Update()
