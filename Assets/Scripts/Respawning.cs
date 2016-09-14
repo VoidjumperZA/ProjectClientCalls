@@ -46,6 +46,7 @@ public class Respawning : MonoBehaviour
     public void RespawnPlayerAtLastCheckpoint()
     {
         checkpointStack = checkpointsScript.GetCheckpointsList().Count;
+        
 
         if (checkpointStack >= 1)
         {

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class DataHandler : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class DataHandler : MonoBehaviour
 
     private int fullSanity = 100;
     private float currentSanity;
+    private List<float> savedSanityOnCheckpoint = new List<float>();
     private float sanityBuffer;
     private bool fullSanityAchieved = false;
     private int checkpointStack;
@@ -142,5 +144,26 @@ public class DataHandler : MonoBehaviour
             sanityBuffer = 0;
             checkpointStack += 1;
         }
+    }
+
+    public List<float> GetSavedSanityOnCheckpointList()
+    {
+        return savedSanityOnCheckpoint;
+    }
+
+    public float GetSavedSanityOnCheckpoint(int pIndex)
+    {
+        return savedSanityOnCheckpoint[pIndex];
+    }
+
+    public void SetSavedSanityOnCheckpoint(float pSanityValue)
+    {
+        savedSanityOnCheckpoint.Add(pSanityValue);
+        Debug.Log("Assigning " + currentSanity + " to index " + (savedSanityOnCheckpoint.Count - 1));
+    }
+
+    public void RemoveSavedSanity(int pIndex)
+    {
+        savedSanityOnCheckpoint.RemoveAt(pIndex);
     }
 }

@@ -52,12 +52,12 @@ public class PlayerInput : MonoBehaviour
         if (inputToggler == 1)
         {
             yRotationValue = Input.GetAxisRaw("Horizontal") * 0.75f;
-            Debug.Log("Raw Axis: " + Input.GetAxisRaw("Horizontal"));
+            //Debug.Log("Raw Axis: " + Input.GetAxisRaw("Horizontal"));
         }
         else
         {
             yRotationValue = Input.GetAxis("Horizontal") * 0.75f;
-            Debug.Log("Axis: " + Input.GetAxis("Horizontal"));
+            //Debug.Log("Axis: " + Input.GetAxis("Horizontal"));
         }
         
         yRotationValue = Mathf.Clamp(yRotationValue, -1.0f, 1.0f);

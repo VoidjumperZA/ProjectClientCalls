@@ -73,6 +73,10 @@ public class InstantiateObject : MonoBehaviour
     [SerializeField]
     private bool temporarilyDisableObjectCollider;
 
+    //for how many frames the collider should be temporarily disabled
+    [SerializeField]
+    private int framesObjectColliderShouldBeDisabled;
+
     //only start spawning when in rage of an object
     [SerializeField]
     private bool spawnInRangeOfObject;
@@ -108,9 +112,7 @@ public class InstantiateObject : MonoBehaviour
     private SphereCollider sphereCollider;
     private CapsuleCollider capsuleCollider; //note: cylinders and capsules both use capsule colliders
 
-    //for how many frames the collider should be temporarily disabled
-    [SerializeField]
-    private int framesObjectColliderShouldBeDisabled;
+  
 
 
     private int counter = 0;
@@ -173,6 +175,10 @@ public class InstantiateObject : MonoBehaviour
         {
             //if we're only spawning in range of an object and that object is inside that range
             if (spawnInRangeOfObject == true && Vector3.Distance(objectToSpawnInRangeOf.transform.position, transform.position) < rangeToSpawnIn)
+            {
+                generateObject();
+            }
+            if (spawnInRangeOfObject == false)
             {
                 generateObject();
             }
