@@ -25,7 +25,8 @@ public class Checkpoints : MonoBehaviour
     private List<Vector3> checkpointPositions;
 
     private int numberOfCheckpointsCreated = 0;
-    private bool checkpointCreatable = false;  
+    private bool checkpointCreatable = false;
+    private bool checkpointSlotFree = true;
 
     // Use this for initialization
     void Start()
@@ -39,6 +40,7 @@ public class Checkpoints : MonoBehaviour
     void Update()
     {
         checkpointUINumber.text = "" + checkpointPositions.Count;
+        Debug.Log("checkpoint stack: " + dataHandler.GetCheckpointStack());
         //Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + ", sanityBuffer: " + dataHandler.GetSanityBuffer() + ", sanityToCheckpointSegment: " + dataHandler.GetSanityToCheckpointSegment(0) + ", Checkpoint Stack: " + dataHandler.GetCheckpointStack() + ", number of checkpoints: " + checkpointPositions.Count + ", int difficulty: " + (int)dataHandler.difficulty);
 
         //Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + ", sanityBuffer: " + dataHandler.GetSanityBuffer() + ", sanityToCheckpointSegment: " + dataHandler.GetSanityToCheckpointSegment(0) + ", Checkpoint Stack: " + dataHandler.GetCheckpointStack() + ", int difficulty: " + (int)dataHandler.difficulty);
@@ -53,20 +55,19 @@ public class Checkpoints : MonoBehaviour
         {
             Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + ", sanityBuffer: " + dataHandler.GetSanityBuffer() + ", sanityToCheckpointSegment: " + dataHandler.GetSanityToCheckpointSegment(0) + ", Checkpoint Stack: " + dataHandler.GetCheckpointStack() + ", number of checkpoints: " + checkpointPositions.Count + ", int difficulty: " + (int)dataHandler.difficulty);
         }
-       
+        Debug.Log("Current sanity: " + dataHandler.GetCurrentSanity());
     }
 
-    //create a check point
+    //check if the circumstances are right to create a checkpoint
     private void startCheckpointCreation()
     {
-
-        Debug.Log("Current sanity: " + dataHandler.GetCurrentSanity());
+        
         Debug.Log("numberOfCheckpointsCreated: " + numberOfCheckpointsCreated);
 
         //if our list of sanities to checkpoints is empty, add our fist one
         if (dataHandler.GetSavedSanityOnCheckpointList().Count == 0)
         {
-            Debug.Log("Create first saved section");
+            //Debug.Log("Create first saved section");
             createCheckpoint();
         }
         //otherwise:
@@ -81,12 +82,17 @@ public class Checkpoints : MonoBehaviour
                 if (dataHandler.GetSavedSanityOnCheckpoint(i) == dataHandler.GetCurrentSanity())
                 {
                     Debug.Log("A checkpoint (" + i + ") exists for this sanity value (" + dataHandler.GetSavedSanityOnCheckpoint(i) + ") as our sanity is: " + dataHandler.GetCurrentSanity());
+                    checkpointSlotFree = false;
                     return;
                 }
                 else
                 {
-                    createCheckpoint();
+                    checkpointSlotFree = true;
                 }
+            }
+            if (checkpointSlotFree == true)
+            {
+                createCheckpoint();
             }
         }
         
@@ -96,6 +102,7 @@ public class Checkpoints : MonoBehaviour
 
     private void createCheckpoint()
     {
+        Debug.Log("Actually in creatCheckpoint. Our sanity is: " + dataHandler.GetCurrentSanity());
         //create a new transform and add it to the list
         Vector3 newCheckpointPosition = playerObject.transform.position; //transform seems to be a reference type, manually copy data
         newCheckpointPosition.y += heightOfCheckpointSpawn;

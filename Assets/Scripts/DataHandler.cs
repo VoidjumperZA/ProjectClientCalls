@@ -131,7 +131,7 @@ public class DataHandler : MonoBehaviour
     //casts our sanity back into an integer value
     public void ReturnSanityToIntValue()
     {
-        currentSanity = (int)currentSanity;
+        currentSanity = Mathf.Round(currentSanity);
     }
 
     //when the player fills a segment of the sanity bar, empty
