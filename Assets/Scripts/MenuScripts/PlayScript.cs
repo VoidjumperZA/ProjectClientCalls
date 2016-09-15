@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
 
@@ -97,15 +98,18 @@ public class PlayScript : MenuScreen
     //each increment is a further submenu down
     private void selectionAxisCommands()
     {
+        if(_reset) { return; }
         print("selectionAxisCommands, selected an option in the Level select");
         //Camera animations
         switch (_highlightedLevel)
         {
             case Levels.TUTORIAL:
                 print("selected TUTORIAL");
+                SceneManager.LoadScene("Test Scene");
                 break;
             case Levels.MAIN_LEVEL:
                 print("selected MAIN_LEVEL");
+                SceneManager.LoadScene("Testplay Scene");
                 break;
             case Levels.TRAINING_GROUND:
                 print("selected TRAINING_GROUND");
