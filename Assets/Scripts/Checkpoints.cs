@@ -54,9 +54,14 @@ public class Checkpoints : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + ", sanityBuffer: " + dataHandler.GetSanityBuffer() + ", sanityToCheckpointSegment: " + dataHandler.GetSanityToCheckpointSegment(0) + ", Checkpoint Stack: " + dataHandler.GetCheckpointStack() + ", number of checkpoints: " + checkpointPositions.Count + ", int difficulty: " + (int)dataHandler.difficulty);
+            //Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + ", sanityBuffer: " + dataHandler.GetSanityBuffer() + ", sanityToCheckpointSegment: " + dataHandler.GetSanityToCheckpointSegment(0) + ", Checkpoint Stack: " + dataHandler.GetCheckpointStack() + ", number of checkpoints: " + checkpointPositions.Count + ", int difficulty: " + (int)dataHandler.difficulty);
         }
+<<<<<<< HEAD
         Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + "while the buffer is: " + dataHandler.GetSanityBuffer());
         //Debug.Log("saved sanity list: " + dataHandler.GetSavedSanityOnCheckpointList().Count);
+=======
+        //Debug.Log("Current sanity: " + dataHandler.GetCurrentSanity());
+>>>>>>> 2bca768fefbebf767396dd1d92fb918ee5a006cf
     }
 
     //check if the circumstances are right to create a checkpoint
@@ -64,6 +69,7 @@ public class Checkpoints : MonoBehaviour
     {
         
         Debug.Log("numberOfCheckpointsCreated: " + numberOfCheckpointsCreated);
+        //Debug.Log("numberOfCheckpointsCreated: " + numberOfCheckpointsCreated);
 
         //if our list of sanities to checkpoints is empty, add our fist one
         if (dataHandler.GetSavedSanityOnCheckpointList().Count == 0)
@@ -75,10 +81,12 @@ public class Checkpoints : MonoBehaviour
         else
         {
             Debug.Log("In Else");
+            //Debug.Log("In Else");
             //check if we already have a checkpoint for this sanity marker
             for (int i = 0; i < dataHandler.GetSavedSanityOnCheckpointList().Count; i++)
             {
                 Debug.Log("Index: " + i + ", Saved sanity on this point: " + dataHandler.GetSavedSanityOnCheckpoint(i));
+                //Debug.Log("Index: " + i + ", Saved sanity on this point: " + dataHandler.GetSavedSanityOnCheckpoint(i));
                 //we already created an existing checkpoint for this sanity value
                 if (dataHandler.GetSavedSanityOnCheckpoint(i) == dataHandler.GetCurrentSanity())
                 {
