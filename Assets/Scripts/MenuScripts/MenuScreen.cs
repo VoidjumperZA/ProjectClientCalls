@@ -10,14 +10,7 @@ abstract public class MenuScreen : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public virtual void Reset()
-    {
-        print("MenuScreen reset");
-    }
+    public abstract void ResetCall();
+    public abstract void Reset();
+    public abstract void MenuUpdate();
 }

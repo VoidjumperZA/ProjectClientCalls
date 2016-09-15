@@ -4,36 +4,39 @@ using System.Collections.Generic;
 
 public class MenuHandler : MonoBehaviour
 {
-    public enum MenuState { STARTSCREEN, MENU, PLAY, OPTIONS, CREDITS }
-    public MenuState _menuState;
+    private MenuScreen _currentScreen = null;
 
-    public List<MenuScreen> _menuScreens = new List<MenuScreen>();
+    public MenuScreen _startScreen;
+    public MenuScreen _mainMenuScreen;
+    public MenuScreen _playScreen;
+    public MenuScreen _optionsScreen;
+    public MenuScreen _creditsScreen;
 
-    public StartScreenScript _startScreenScript;
-    public MainMenuScript _mainMenuScript;
-    public OptionsScript _optionsScript;
-
-    
-
-    //public bool reset = false;
-
-    // Use this for initialization
-    void Start()
+    private void Awake()
     {
-        _menuState = MenuState.STARTSCREEN;
-        _menuScreens.Add(_startScreenScript);
-        _menuScreens.Add(_mainMenuScript);
-        _menuScreens.Add(_optionsScript);
+        _currentScreen = _startScreen;
+        print("Currently in " + _currentScreen.GetType().Name);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
 
+    }
+
+    private void Update()
+    {
+        _currentScreen.MenuUpdate();
+    }
+
+    public void SetScreen(MenuScreen pScreen, bool pReset)
+    {
+        print("Setting screen to: " + pScreen.GetType().Name);
+        _currentScreen = pScreen;
+        if (pReset) { pScreen.ResetCall(); }
     }
 
     public void ResetScreen(MenuScreen pScreen)
     {
-        pScreen.Reset();
+        pScreen.ResetCall();
     }
 }
