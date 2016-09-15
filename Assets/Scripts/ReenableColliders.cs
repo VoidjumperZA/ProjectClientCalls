@@ -3,8 +3,8 @@ using System.Collections;
 
 public class ReenableColliders : MonoBehaviour
 {
-    private int colliderTimeToReenable;
-    private int colliderType;
+    private int[] colliderTimeToReenable;
+    private int[] colliderType;
     private int counter = 0;
 
     //for handling different types of object colliders
@@ -27,23 +27,27 @@ public class ReenableColliders : MonoBehaviour
             counter = 0;
         }
 
-        if (counter % colliderTimeToReenable == 0 && counter != 0)
+        for (int i = 0; i < colliderType.Length; i++)
         {
-            reenableColliders(colliderType, true);
+            if (counter % colliderTimeToReenable[i] == 0 && counter != 0)
+            {
+                toggleCollidersEnabled(colliderType[i], true);
+            }
         }
+        
     }
 
-    public void AssignColliderTime(int pColliderTimeToReenable)
+    public void AssignColliderTime(int pIndex, int pColliderTimeToReenable)
     {
-        colliderTimeToReenable = pColliderTimeToReenable;
+        colliderTimeToReenable[pIndex] = pColliderTimeToReenable;
     }
 
-    public void AssignColliderType(int pColliderType)
+    public void AssignColliderType(int pIndex, int pColliderType)
     {
-        colliderType = pColliderType;
+        colliderType[pIndex] = pColliderType;
     }
 
-    private void reenableColliders(int pColliderType, bool pIncomingState)
+    private void toggleCollidersEnabled(int pColliderType, bool pIncomingState)
     {
         switch (pColliderType)
         {
@@ -64,5 +68,11 @@ public class ReenableColliders : MonoBehaviour
                 capsuleCollider.enabled = pIncomingState;
                 break;
         }
+    }
+
+    public void SetNumberOfColliders(int pNumberOfCollidersToReenable)
+    {
+        colliderTimeToReenable = new int[pNumberOfCollidersToReenable];
+        colliderType = new int[pNumberOfCollidersToReenable];
     }
 }

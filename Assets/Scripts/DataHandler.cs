@@ -20,6 +20,14 @@ public class DataHandler : MonoBehaviour
     //internal, using designer data, but not number of elements
     private int[] internalSanityToCheckpointSegment;
 
+    //editable by designer
+    [SerializeField]
+    [Range(0, 100)]
+    private float[] sanityUsedPerFrame;
+
+    //internal, using designer data, but not number of elements
+    private float[] internalSanityUsedPerFrame;
+
     private int fullSanity = 100;
     private float currentSanity;
     private List<float> savedSanityOnCheckpoint = new List<float>();
@@ -42,6 +50,7 @@ public class DataHandler : MonoBehaviour
         //difficulty levels available
         internalSanityGainOnFirefly = new int[elementsInEnum.Length];
         internalSanityToCheckpointSegment = new int[elementsInEnum.Length];
+        internalSanityUsedPerFrame = new float[elementsInEnum.Length];
 
         //save only the parts we need, in case the designer made more 
         //elements in the array than there are difficulty levels
@@ -49,6 +58,7 @@ public class DataHandler : MonoBehaviour
         {
             internalSanityGainOnFirefly[i] = sanityGainOnFirefly[i];
             internalSanityToCheckpointSegment[i] = sanityToCheckpointSegment[i];
+            internalSanityUsedPerFrame[i] = sanityUsedPerFrame[i];
         }
     }
 
@@ -83,6 +93,12 @@ public class DataHandler : MonoBehaviour
     public int[] GetSanityToCheckpointSegment()
     {
         return internalSanityToCheckpointSegment;
+    }
+
+    //returns how much sanity we use a frame
+    public float GetSanityUsedPerFrame(int pDifficulty)
+    {
+        return internalSanityUsedPerFrame[pDifficulty];
     }
 
     //

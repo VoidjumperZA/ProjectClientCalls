@@ -105,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (!_grounded) { return; }
+        if (!_grounded ) { return; }
 
         _rigidBody.AddForce((transform.up * _gameManager.PlayerJumpHeight / 2), ForceMode.Impulse);
         _camera.Shake(_gameManager.CameraShakeDistanceOnJump);
@@ -133,10 +133,10 @@ public class PlayerMovement : MonoBehaviour
         }
         if (pUseSanity == true) //we shouldn't use up sanity slowing time when it happens after a respawn
         {
-            dataHandler.IncrementCurrentSanity(-0.1f);
+            dataHandler.IncrementCurrentSanity(-dataHandler.GetSanityUsedPerFrame((int)dataHandler.difficulty));
             if (dataHandler.GetSanityBuffer() >= 1)
             {
-                dataHandler.IncrementSanityBuffer(-0.1f);
+                dataHandler.IncrementSanityBuffer(-dataHandler.GetSanityUsedPerFrame((int)dataHandler.difficulty));
             }
             //Debug.Log("Current sanity: " + (float)dataHandler.GetCurrentSanity());
         }

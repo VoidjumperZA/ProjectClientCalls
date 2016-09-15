@@ -71,11 +71,21 @@ public class InstantiateObject : MonoBehaviour
 
     //disable the spawner's collider for a period following spawn
     [SerializeField]
-    private bool temporarilyDisableObjectCollider;
+    private bool[] temporarilyDisableObjectCollider;
 
     //for how many frames the collider should be temporarily disabled
     [SerializeField]
-    private int framesObjectColliderShouldBeDisabled;
+    private int[] framesObjectColliderShouldBeDisabled;
+
+    //the type of collider we'll be dealing with
+    private enum ColliderType { Box, Sphere, Capsule, Cylinder };
+    [SerializeField]
+    private ColliderType[] typeOfCollider;
+
+    //for handling different types of object colliders
+    private BoxCollider boxCollider;
+    private SphereCollider sphereCollider;
+    private CapsuleCollider capsuleCollider; //note: cylinders and capsules both use capsule colliders
 
     //only start spawning when in rage of an object
     [SerializeField]
@@ -102,15 +112,6 @@ public class InstantiateObject : MonoBehaviour
     [SerializeField]
     private int distanceToDespawnFrom;
 
-    //the type of collider we'll be dealing with
-    private enum ColliderType { Box, Sphere, Capsule, Cylinder };
-    [SerializeField]
-    private ColliderType typeOfCollider;
-
-    //for handling different types of object colliders
-    private BoxCollider boxCollider;
-    private SphereCollider sphereCollider;
-    private CapsuleCollider capsuleCollider; //note: cylinders and capsules both use capsule colliders
 
   
 
@@ -203,8 +204,13 @@ public class InstantiateObject : MonoBehaviour
             //for reenabling colliders and despawning after a distance - custom written for Y2.0 project
             newObject.AddComponent<ReenableColliders>();
             ReenableColliders reenableColliders = newObject.GetComponent<ReenableColliders>();
-            reenableColliders.AssignColliderTime(framesObjectColliderShouldBeDisabled);
-            reenableColliders.AssignColliderType((int)typeOfCollider);
+            reenableColliders.SetNumberOfColliders(typeOfCollider.Length);
+            for (int j = 0; j < typeOfCollider.Length; j++)
+            {                
+                reenableColliders.AssignColliderTime(j, framesObjectColliderShouldBeDisabled[j]);
+                reenableColliders.AssignColliderType(j, (int)typeOfCollider[j]);
+            }
+            
 
             //if we want our objects to despawn when out of sight
             if (despawnAfterDistance == true)
@@ -218,11 +224,15 @@ public class InstantiateObject : MonoBehaviour
                 despawnAfterDist.SetTargetDistance(distanceToDespawnFrom);
             }
 
-            //disable the right collider type
-            if (temporarilyDisableObjectCollider == true)
+            for (int k = 0; k < typeOfCollider.Length; k++)
             {
-                toggleColliders(newObject, false);
+                //disable the right collider type
+                if (temporarilyDisableObjectCollider[k] == true)
+                {
+                    toggleColliders(newObject, false);
+                }
             }
+          
 
             //if we want to add a script, do so
             if (addScript == true)
@@ -304,24 +314,28 @@ public class InstantiateObject : MonoBehaviour
     //use the right collider, and toggle it either way
     private void toggleColliders(GameObject pNewObject, bool pIncomingState)
     {
-        switch ((int)typeOfCollider)
+        for (int i = 0; i < typeOfCollider.Length; i++)
         {
-            case 0:
-                boxCollider = pNewObject.GetComponent<BoxCollider>();
-                boxCollider.enabled = pIncomingState;
-                break;
-            case 1:
-                sphereCollider = pNewObject.GetComponent<SphereCollider>();
-                sphereCollider.enabled = pIncomingState;
-                break;
-            case 2:
-                capsuleCollider = pNewObject.GetComponent<CapsuleCollider>();
-                capsuleCollider.enabled = pIncomingState;
-                break;
-            case 3:
-                capsuleCollider = pNewObject.GetComponent<CapsuleCollider>();
-                capsuleCollider.enabled = pIncomingState;
-                break;
+            switch ((int)typeOfCollider[i])
+            {
+                case 0:
+                    boxCollider = pNewObject.GetComponent<BoxCollider>();
+                    boxCollider.enabled = pIncomingState;
+                    break;
+                case 1:
+                    sphereCollider = pNewObject.GetComponent<SphereCollider>();
+                    sphereCollider.enabled = pIncomingState;
+                    break;
+                case 2:
+                    capsuleCollider = pNewObject.GetComponent<CapsuleCollider>();
+                    capsuleCollider.enabled = pIncomingState;
+                    break;
+                case 3:
+                    capsuleCollider = pNewObject.GetComponent<CapsuleCollider>();
+                    capsuleCollider.enabled = pIncomingState;
+                    break;
+            }
         }
+     
     }
 }
