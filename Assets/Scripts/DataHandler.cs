@@ -55,18 +55,22 @@ public class DataHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        emptySanityBuffer();
+        EmptySanityBuffer(true);
         if (currentSanity >= fullSanity)
         {
             fullSanityAchieved = true;
+        }
+        if (currentSanity < 1)
+        {
+            currentSanity = 0;
         }
     }
 
 
     //returns the current sanity
-    public int GetCurrentSanity()
+    public float GetCurrentSanity()
     {
-        return (int)currentSanity;
+        return currentSanity;
     }
 
     //returns how much sanity we gain on touching a firefly
@@ -124,7 +128,13 @@ public class DataHandler : MonoBehaviour
     public void SetCurrentSanity(int pNewSanityValue)
     {
         currentSanity = pNewSanityValue;
-    }   
+    }
+
+    //overrides and replaces the current sanity buffer 
+    public void SetSanityBuffer(int pNewBufferValue)
+    {
+        sanityBuffer = pNewBufferValue;
+    }
 
     //
 
@@ -137,12 +147,15 @@ public class DataHandler : MonoBehaviour
     //when the player fills a segment of the sanity bar, empty
     //the buffer and increment the stack of checkpoints allowed
     //to be created
-    private void emptySanityBuffer()
+    public void EmptySanityBuffer(bool pOpenStack)
     {
         if (sanityBuffer >= sanityToCheckpointSegment[(int)difficulty])
         {
             sanityBuffer = 0;
-            checkpointStack += 1;
+            if (pOpenStack == true)
+            {
+                checkpointStack += 1;
+            }
         }
     }
 

@@ -211,6 +211,7 @@ public class InstantiateObject : MonoBehaviour
             {
                 //set the script
                 newObject.AddComponent<DespawnAfterDistance>();
+                newObject.AddComponent<DespawnOnTouch>();
                 DespawnAfterDistance despawnAfterDist = newObject.GetComponent<DespawnAfterDistance>();
                 //assign the tracked object and the distance figure
                 despawnAfterDist.SetTargetObject(objectToDespawnAfterDistance);

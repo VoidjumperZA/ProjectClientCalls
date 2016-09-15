@@ -104,15 +104,24 @@ public class PlayerMovement : MonoBehaviour
         if (pUseSanity == true) //we shouldn't use up sanity slowing time when it happens after a respawn
         {
             dataHandler.IncrementCurrentSanity(-0.1f);
-            dataHandler.IncrementSanityBuffer(-0.1f);
+            if (dataHandler.GetSanityBuffer() >= 1)
+            {
+                dataHandler.IncrementSanityBuffer(-0.1f);
+            }
+            //Debug.Log("Current sanity: " + (float)dataHandler.GetCurrentSanity());
         }
     }
 
-    public void SpeedUpTime()
+    public void SpeedUpTime(bool pRespawning)
     {
         if (Time.timeScale < 1.0f)
         {
             playerInput.SetInputToggle(true); //reenable smooth left-right movement
+
+            if (pRespawning == false)
+            {
+                dataHandler.SetSanityBuffer((int)Mathf.Floor(dataHandler.GetCurrentSanity()));
+            }
             Time.timeScale += _gameManager.SlowDownInterpolationValue;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
         }

@@ -47,7 +47,7 @@ public class PlayerInput : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            inputToggler *= -1;   
+            inputToggler *= -1;
         }
         if (inputToggler == 1)
         {
@@ -59,7 +59,7 @@ public class PlayerInput : MonoBehaviour
             yRotationValue = Input.GetAxis("Horizontal") * 0.75f;
             //Debug.Log("Axis: " + Input.GetAxis("Horizontal"));
         }
-        
+
         yRotationValue = Mathf.Clamp(yRotationValue, -1.0f, 1.0f);
         _playerMovement.Rotating(yRotationValue);
     }
@@ -80,24 +80,33 @@ public class PlayerInput : MonoBehaviour
         {
             _playerMovement.IncreaseGravity();
         }
-        
-        
+
+
     }
 
     private void SlowDownCheck()
     {
+
         //if we're holding fire and have sanity
-        if (Input.GetAxisRaw("Fire1") != 0 && dataHandler.GetCurrentSanity() > 0)
+        if (Input.GetAxisRaw("Fire1") != 0 && Mathf.Floor(dataHandler.GetCurrentSanity()) >= 1)
         {
+            //6 Debug.Log("ACTIVELY SLOWING");
             _playerMovement.SlowDownTime(true); //true boolean uses up sanity
             fireAxisInUse = true; //pretty sure this has become redundant
         }
+
         //if they key is up, time is slow and that's not happening because of a respawn
-        if (Input.GetAxisRaw("Fire1") == 0 && Time.timeScale < 1 && _playerMovement.GetSlowDownDueToRespawn() == false)
+        if ((Input.GetAxisRaw("Fire1") == 0 && Time.timeScale < 1 && _playerMovement.GetSlowDownDueToRespawn() == false))
         {
             fireAxisInUse = false;
             dataHandler.ReturnSanityToIntValue();
-            _playerMovement.SpeedUpTime();
+            _playerMovement.SpeedUpTime(_playerMovement.GetSlowDownDueToRespawn());
+        }
+        else if (Input.GetAxisRaw("Fire1") != 0 && Mathf.Floor(dataHandler.GetCurrentSanity()) <= 1)
+        {
+            fireAxisInUse = false;
+            dataHandler.ReturnSanityToIntValue();
+            _playerMovement.SpeedUpTime(false);
         }
     }
 

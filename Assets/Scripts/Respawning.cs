@@ -13,6 +13,7 @@ public class Respawning : MonoBehaviour
     private int framesTimeIsSlowedOnRespawn;
     private Checkpoints checkpointsScript;
     private PlayerMovement playerMovement;
+    private DataHandler dataHandler;
 
     private int checkpointStack;
     private bool runTimeSlow = false;
@@ -25,6 +26,7 @@ public class Respawning : MonoBehaviour
         checkpointStack = checkpointsScript.GetCheckpointsList().Count;
         deathScreen.SetActive(false);
         playerMovement = player.GetComponent<PlayerMovement>();
+        dataHandler = GetComponent<DataHandler>();
     }
 
     // Update is called once per frame
@@ -52,6 +54,9 @@ public class Respawning : MonoBehaviour
         {
             player.transform.position = checkpointsScript.GetCheckpointsListAtIndex(checkpointsScript.GetCheckpointsList().Count - 1);
             Camera.main.transform.eulerAngles = player.transform.eulerAngles;
+            dataHandler.SetCurrentSanity((int)dataHandler.GetSavedSanityOnCheckpoint(checkpointsScript.GetCheckpointsList().Count - 1));
+            //dataHandler.SetSanityBuffer((int)dataHandler.GetSavedSanityOnCheckpoint(checkpointsScript.GetCheckpointsList().Count - 1));
+            dataHandler.EmptySanityBuffer(false);
             checkpointsScript.ClearUsedCheckpoint();
             runTimeSlow = true;
             playerMovement.SetSlowDownDueToRespawn(true);
@@ -72,7 +77,7 @@ public class Respawning : MonoBehaviour
     private void runTemporarySlowTime()
     {
         counter++;
-        Debug.Log("Counter: " + counter);
+       // Debug.Log("Counter: " + counter);
         if (counter < framesTimeIsSlowedOnRespawn)
         {
             playerMovement.SlowDownTime(false);
