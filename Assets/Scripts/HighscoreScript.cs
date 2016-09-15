@@ -15,17 +15,14 @@ public class HighscoreScript : MonoBehaviour {
     private Text _nameText;
     [SerializeField]
     private Text _scoreText;
-    private BinaryFormatter _bf = new BinaryFormatter();
-    private Dictionary<string, int> _highscoreList = new Dictionary<string, int>();
-    private Dictionary<string, int> _sortedList = new Dictionary<string, int>();
+    private static BinaryFormatter _bf = new BinaryFormatter();
+    private static Dictionary<string, int> _highscoreList = new Dictionary<string, int>();
+    private static Dictionary<string, int> _sortedList = new Dictionary<string, int>();
 
-    private string[] _letters = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
 
     private void Start()
     {
-        CompileList();
-        PrintList();
-        SortList();
+        LoadList();
         DisplayScores();
     }
 
@@ -44,7 +41,7 @@ public class HighscoreScript : MonoBehaviour {
         
     }
 
-    private void AddScore(string pName, int pScore)
+    public static void AddScore(string pName, int pScore)
     {
         if (_highscoreList.ContainsKey(pName) && pScore > _highscoreList[pName])
         {
@@ -66,22 +63,21 @@ public class HighscoreScript : MonoBehaviour {
             SortList();
             _highscoreList.Remove(_highscoreList.Last().Key);
         }
+        SaveList();
     }
 
-    private bool IsItHighscore(int pScore)
+    public static bool IsItHighscore(int pScore)
     {
+        LoadList();
+        foreach (KeyValuePair<string,int> item in _highscoreList)
+        {
+            if (pScore > item.Value) return true;
+        }
         return false;
     }
 
-    private void PrintList()
-    {
-        foreach (KeyValuePair<string, int> item in _highscoreList)
-        {
-            print("key: " + item.Key + " value: " + item.Value);
-        }
-    }
 
-    private void SortList()
+    private static void SortList()
     {
         _sortedList.Clear();
         foreach (KeyValuePair<string, int> item in _highscoreList.OrderByDescending(key => key.Value))
@@ -105,7 +101,7 @@ public class HighscoreScript : MonoBehaviour {
         _highscoreList.Add("them2", 50);
     }
 
-    private void SaveList()
+    private static void SaveList()
     {
         FileStream stream = new FileStream(Application.dataPath + "/highscore.dat", FileMode.Create);
 
@@ -121,7 +117,7 @@ public class HighscoreScript : MonoBehaviour {
         stream.Close();
     }
 
-    private void LoadList()
+    private static void LoadList()
     {
         FileStream stream = new FileStream(Application.dataPath + "/highscore.txt", FileMode.Open);
 
