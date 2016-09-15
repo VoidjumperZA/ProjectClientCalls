@@ -152,7 +152,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (dataHandler.GetCurrentSanity() >= dataHandler.GetSanityToCheckpointSegment((int)dataHandler.difficulty))
                 {
-                    dataHandler.SetSanityBuffer((int)Mathf.Floor(dataHandler.GetCurrentSanity() - dataHandler.GetSanityToCheckpointSegment((int)dataHandler.difficulty)));
+                    int multiplactionAmount = (int)Mathf.Floor(dataHandler.GetCurrentSanity() / dataHandler.GetSanityToCheckpointSegment((int)dataHandler.difficulty));
+                    dataHandler.SetSanityBuffer((int)Mathf.Floor(dataHandler.GetCurrentSanity() - (dataHandler.GetSanityToCheckpointSegment((int)dataHandler.difficulty) * multiplactionAmount)));
+                    Debug.Log("sanity (" + dataHandler.GetCurrentSanity() + ") - segment (" + dataHandler.GetSanityToCheckpointSegment((int)dataHandler.difficulty) + ") multAmount: " + multiplactionAmount + " = buffer: " + dataHandler.GetSanityBuffer());
                 }
                 else
                 {

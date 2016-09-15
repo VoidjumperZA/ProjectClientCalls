@@ -151,7 +151,7 @@ public class DataHandler : MonoBehaviour
     {
         if (sanityBuffer >= sanityToCheckpointSegment[(int)difficulty])
         {
-            //sanityBuffer = currentSanity - sanityToCheckpointSegment[(int)difficulty];
+            sanityBuffer = 0;//currentSanity - sanityToCheckpointSegment[(int)difficulty];
             //JOSH TO DO
             if (pOpenStack == true)
             {
