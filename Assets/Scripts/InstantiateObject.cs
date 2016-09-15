@@ -112,9 +112,13 @@ public class InstantiateObject : MonoBehaviour
     [SerializeField]
     private int distanceToDespawnFrom;
 
+    //
+    [SerializeField]
+    private bool despawnOnCollisionWithObject;
 
-  
-
+    //
+    [SerializeField]
+    private GameObject objectToDespawnOnCollisionWith;
 
     private int counter = 0;
     private Vector3[] worldSpaceVertices = new Vector3[8];
@@ -217,11 +221,19 @@ public class InstantiateObject : MonoBehaviour
             {
                 //set the script
                 newObject.AddComponent<DespawnAfterDistance>();
-                newObject.AddComponent<DespawnOnTouch>();
+                
                 DespawnAfterDistance despawnAfterDist = newObject.GetComponent<DespawnAfterDistance>();
                 //assign the tracked object and the distance figure
                 despawnAfterDist.SetTargetObject(objectToDespawnAfterDistance);
                 despawnAfterDist.SetTargetDistance(distanceToDespawnFrom);
+            }
+
+            if (despawnOnCollisionWithObject == true)
+            {
+                newObject.AddComponent<DespawnOnTouch>();
+                DespawnOnTouch despawnOnTouch = newObject.GetComponent<DespawnOnTouch>();
+                //assign the tracked object and the distance figure
+                despawnOnTouch.SetTargetObject(objectToDespawnOnCollisionWith);
             }
 
             for (int k = 0; k < typeOfCollider.Length; k++)

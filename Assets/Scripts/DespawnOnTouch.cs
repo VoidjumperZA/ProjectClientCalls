@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DespawnOnTouch : MonoBehaviour
 {
-
+    private GameObject target;
     // Use this for initialization
     void Start()
     {
@@ -18,9 +18,14 @@ public class DespawnOnTouch : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag == "DespawnWall")
+        if (col.gameObject == target)
         {
             GameObject.Destroy(gameObject);
         }
+    }
+
+    public void SetTargetObject(GameObject pTarget)
+    {
+        target = pTarget;
     }
 }
