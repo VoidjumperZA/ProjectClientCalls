@@ -53,22 +53,17 @@ public class Checkpoints : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + ", sanityBuffer: " + dataHandler.GetSanityBuffer() + ", sanityToCheckpointSegment: " + dataHandler.GetSanityToCheckpointSegment(0) + ", Checkpoint Stack: " + dataHandler.GetCheckpointStack() + ", number of checkpoints: " + checkpointPositions.Count + ", int difficulty: " + (int)dataHandler.difficulty);
             //Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + ", sanityBuffer: " + dataHandler.GetSanityBuffer() + ", sanityToCheckpointSegment: " + dataHandler.GetSanityToCheckpointSegment(0) + ", Checkpoint Stack: " + dataHandler.GetCheckpointStack() + ", number of checkpoints: " + checkpointPositions.Count + ", int difficulty: " + (int)dataHandler.difficulty);
         }
-<<<<<<< HEAD
         Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + "while the buffer is: " + dataHandler.GetSanityBuffer());
         //Debug.Log("saved sanity list: " + dataHandler.GetSavedSanityOnCheckpointList().Count);
-=======
         //Debug.Log("Current sanity: " + dataHandler.GetCurrentSanity());
->>>>>>> 2bca768fefbebf767396dd1d92fb918ee5a006cf
     }
 
     //check if the circumstances are right to create a checkpoint
     private void startCheckpointCreation()
     {
         
-        Debug.Log("numberOfCheckpointsCreated: " + numberOfCheckpointsCreated);
         //Debug.Log("numberOfCheckpointsCreated: " + numberOfCheckpointsCreated);
 
         //if our list of sanities to checkpoints is empty, add our fist one
@@ -80,12 +75,10 @@ public class Checkpoints : MonoBehaviour
         //otherwise:
         else
         {
-            Debug.Log("In Else");
             //Debug.Log("In Else");
             //check if we already have a checkpoint for this sanity marker
             for (int i = 0; i < dataHandler.GetSavedSanityOnCheckpointList().Count; i++)
             {
-                Debug.Log("Index: " + i + ", Saved sanity on this point: " + dataHandler.GetSavedSanityOnCheckpoint(i));
                 //Debug.Log("Index: " + i + ", Saved sanity on this point: " + dataHandler.GetSavedSanityOnCheckpoint(i));
                 //we already created an existing checkpoint for this sanity value
                 if (dataHandler.GetSavedSanityOnCheckpoint(i) == dataHandler.GetCurrentSanity())
@@ -112,6 +105,7 @@ public class Checkpoints : MonoBehaviour
     private void createCheckpoint()
     {
         Debug.Log("Actually in creatCheckpoint. Our sanity is: " + dataHandler.GetCurrentSanity() + "and our buffer is: " + dataHandler.GetSanityBuffer());
+        //Debug.Log("Actually in creatCheckpoint. Our sanity is: " + dataHandler.GetCurrentSanity());
         //create a new transform and add it to the list
         Vector3 newCheckpointPosition = playerObject.transform.position; //transform seems to be a reference type, manually copy data
         newCheckpointPosition.y += heightOfCheckpointSpawn;
@@ -123,7 +117,7 @@ public class Checkpoints : MonoBehaviour
         //Debugging option: visually display checkpoint as a marker in-world
         if (displayDebuggingMarker == true)
         {
-            Debug.Log("Creating marker");
+            //Debug.Log("Creating marker");
             GameObject newCheckpointObject;
             newCheckpointObject = Instantiate(checkpointMarker);
 

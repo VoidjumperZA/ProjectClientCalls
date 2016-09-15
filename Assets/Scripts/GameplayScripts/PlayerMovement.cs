@@ -150,7 +150,16 @@ public class PlayerMovement : MonoBehaviour
 
             if (pRespawning == false)
             {
-                dataHandler.SetSanityBuffer((int)Mathf.Floor(dataHandler.GetCurrentSanity()));
+                if (dataHandler.GetCurrentSanity() >= dataHandler.GetSanityToCheckpointSegment((int)dataHandler.difficulty))
+                {
+                    dataHandler.SetSanityBuffer((int)Mathf.Floor(dataHandler.GetCurrentSanity() - dataHandler.GetSanityToCheckpointSegment((int)dataHandler.difficulty)));
+                }
+                else
+                {
+                    dataHandler.SetSanityBuffer((int)Mathf.Floor(dataHandler.GetCurrentSanity()));
+                }
+
+                
             }
             Time.timeScale += _gameManager.SlowDownInterpolationValue;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
