@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections;
+using System;
 
-public class MainMenuScript : MenuScreen
+public class PlayScript : MenuScreen
 {
     [SerializeField]
     private GameObject _menuHandlerObject;
@@ -16,20 +16,18 @@ public class MainMenuScript : MenuScreen
     private bool yAxisInUse = false;
     private bool selectionAxisInUse = false;
     private bool returnAxisInUse = false;
-    private enum MenuOption { PLAY, OPTIONS, CREDITS, EXIT }
-    private MenuOption _highlightedMenuOption = MenuOption.PLAY;
-
+    private enum Levels { TUTORIAL, MAIN_LEVEL, TRAINING_GROUND, BACK_TO_MENU }
+    private Levels _highlightedLevel = Levels.TUTORIAL;
     private bool _reset = false;
 
-    void Awake()
+    private void Awake()
     {
         _menuHandler = _menuHandlerObject.GetComponent<MenuHandler>();
         _renderer = GetComponent<Renderer>();
-        _renderer.material.mainTexture = textures[(int)_highlightedMenuOption];
-        //print("Length: " + Enum.GetNames(typeof(MenuOption)).Length);
+        _renderer.material.mainTexture = textures[(int)_highlightedLevel];
     }
 
-    void Start()
+    private void Start()
     {
 
     }
@@ -83,45 +81,38 @@ public class MainMenuScript : MenuScreen
     //input manager commands using horizontal keys
     private void xAxisCommands()
     {
-
-
+        print("xAxisCommands");
     }
 
     //input manager commands using vertical keys
     private void yAxisCommands()
     {
-        _highlightedMenuOption += ((int)Input.GetAxisRaw("Vertical") * -1);
-        _highlightedMenuOption = (MenuOption)Mathf.Clamp((int)_highlightedMenuOption, 0, textures.Length - 1);
-        print(_highlightedMenuOption);
-        _renderer.material.mainTexture = textures[(int)_highlightedMenuOption];
+        _highlightedLevel += ((int)Input.GetAxisRaw("Vertical") * -1);
+        _highlightedLevel = (Levels)Mathf.Clamp((int)_highlightedLevel, 0, textures.Length - 1);
+        print("yAxisCommands, " + _highlightedLevel);
+        _renderer.material.mainTexture = textures[(int)_highlightedLevel];
     }
 
     //increment the menu depth of our cursor
     //each increment is a further submenu down
     private void selectionAxisCommands()
     {
+        print("selectionAxisCommands, selected an option in the Level select");
         //Camera animations
-        switch (_highlightedMenuOption)
+        switch (_highlightedLevel)
         {
-            case MenuOption.PLAY:
-                print("Selected Play option");
-                //Camera animation towards the level select camera position
-                _menuHandler.SetScreen(_menuHandler._playScreen, true);
+            case Levels.TUTORIAL:
+                print("selected TUTORIAL");
                 break;
-            case MenuOption.OPTIONS:
-                print("Selected Options option");
-                //Camera animation towards the options camera position
-                _menuHandler.SetScreen(_menuHandler._optionsScreen, true);
+            case Levels.MAIN_LEVEL:
+                print("selected MAIN_LEVEL");
                 break;
-            case MenuOption.CREDITS:
-                print("Selected Credits option");
-                //Camera animation towards the credits camera position
-                _menuHandler.SetScreen(_menuHandler._creditsScreen, true);
+            case Levels.TRAINING_GROUND:
+                print("selected TRAINING_GROUND");
                 break;
-            case MenuOption.EXIT:
-                print("Selected Exit option");
-                //Maybe a exit game camera animation?? if time left ofcourse
-                Application.Quit();
+            case Levels.BACK_TO_MENU:
+                print("selected BACK_TO_MENU");
+                returnAxisCommands();
                 break;
         }
     }
@@ -129,9 +120,8 @@ public class MainMenuScript : MenuScreen
     //
     private void returnAxisCommands()
     {
-        if (_reset == true){ return; }
-        print("Currently inside menu, pressed right shift, going to startScreen");
-        _menuHandler.SetScreen(_menuHandler._startScreen, true);
+        print("Returning to the Menu");
+        _menuHandler.SetScreen(_menuHandler._mainMenuScreen, true);
     }
 
     public override void ResetCall()
@@ -141,10 +131,9 @@ public class MainMenuScript : MenuScreen
 
     public override void Reset()
     {
-        //actual reset
+        print("PlayScreen reset");
+        _highlightedLevel = Levels.TUTORIAL;
+        _renderer.material.mainTexture = textures[(int)_highlightedLevel];
         _reset = false;
-        print("MainMenuScreen reset");
-        _highlightedMenuOption = MenuOption.PLAY;
-        _renderer.material.mainTexture = textures[(int)_highlightedMenuOption];
     }
 }

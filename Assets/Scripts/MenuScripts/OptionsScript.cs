@@ -15,9 +15,15 @@ public class OptionsScript : MenuScreen
     private bool yAxisInUse = false;
     private bool selectionAxisInUse = false;
     private bool returnAxisInUse = false;
-    private enum OptionsOption { FOV, ROTATION_SENSITIVITY, CAMERA_ANGLE, SOUND_VOLUME, BACK_TO_MENU }
+    private enum OptionsOption { FOV, CAMERA_ANGLE, SOUND_VOLUME, LANTERN_ON, BACK_TO_MENU }
     private OptionsOption _highlightedOptionsOption = OptionsOption.FOV;
     private bool _selected = false;
+    private bool _reset = false;
+
+    private int _FOVValue = 0;
+    private int _CameraAngleValue = 0;
+    private int _SoundVolume = 0;
+    private bool _LanternON = true;
 
     private void Awake()
     {
@@ -28,26 +34,25 @@ public class OptionsScript : MenuScreen
 
     private void Start()
     {
-        print("OptionsMenu: _selectedOptionsOption = " + _highlightedOptionsOption);
     }
 
-    private void Update()
+    public override void MenuUpdate()
     {
-        //check all axes with a generic command checking method
-        if (_menuHandler._menuState == MenuHandler.MenuState.OPTIONS)
+        if (_selected)
         {
             checkAxisCommands("Horizontal", ref xAxisInUse);
+        }
+        else
+        {
             checkAxisCommands("Vertical", ref yAxisInUse);
             checkAxisCommands("Jump", ref selectionAxisInUse);
-            checkAxisCommands("Fire1", ref returnAxisInUse);
         }
-        //if (_menuHandler.reset == true)
-        //{
-        //    _menuHandler.reset = false;
-        //    _highlightedOptionsOption = OptionsOption.FOV;
-        //    _renderer.material.mainTexture = textures[(int)_highlightedOptionsOption];
-        //    print("Option screen has been reset. highlightedOptionsOption is:" + _highlightedOptionsOption);
-        //}
+        checkAxisCommands("Fire1", ref returnAxisInUse);
+
+        if (_reset)
+        {
+            Reset();
+        }
     }
 
     //generic command check list, scanning all command axes at once
@@ -66,6 +71,9 @@ public class OptionsScript : MenuScreen
                     case "Vertical":
                         yAxisCommands();
                         break;
+                    case "Jump":
+                        selectionAxisCommands();
+                        break;
                     case "Fire1":
                         returnAxisCommands();
                         break;
@@ -83,7 +91,30 @@ public class OptionsScript : MenuScreen
     //input manager commands using horizontal keys
     private void xAxisCommands()
     {
+        print("xAxisCommands");
 
+        switch(_highlightedOptionsOption)
+        {
+            case OptionsOption.FOV:
+                _FOVValue += ((int)Input.GetAxisRaw("Horizontal"));
+                _FOVValue = Mathf.Clamp(_FOVValue, 0, 100);
+                print("Changing FOV value to: " + _FOVValue);
+                break;
+            case OptionsOption.CAMERA_ANGLE:
+                _CameraAngleValue += ((int)Input.GetAxisRaw("Horizontal"));
+                _CameraAngleValue = Mathf.Clamp(_CameraAngleValue, 0, 100);
+                print("Changing CAMERA_ANGLE value to: " + _CameraAngleValue);
+                break;
+            case OptionsOption.SOUND_VOLUME:
+                _SoundVolume += ((int)Input.GetAxisRaw("Horizontal"));
+                _SoundVolume = Mathf.Clamp(_SoundVolume, 0, 100);
+                print("Changing SOUND_VOLUME value to: " + _SoundVolume);
+                break;
+            case OptionsOption.LANTERN_ON:
+                _LanternON = !_LanternON;
+                print("Switched Lantern ON to: " + _LanternON);
+                break;
+        }
 
     }
 
@@ -92,7 +123,7 @@ public class OptionsScript : MenuScreen
     {
         _highlightedOptionsOption += ((int)Input.GetAxisRaw("Vertical") * -1);
         _highlightedOptionsOption = (OptionsOption)Mathf.Clamp((int)_highlightedOptionsOption, 0, textures.Length - 1);
-        print(_highlightedOptionsOption);
+        print("yAxisCommands, " + _highlightedOptionsOption);
         _renderer.material.mainTexture = textures[(int)_highlightedOptionsOption];
     }
 
@@ -100,23 +131,30 @@ public class OptionsScript : MenuScreen
     //each increment is a further submenu down
     private void selectionAxisCommands()
     {
+        if (_selected) { return; }
+        print("selectionAxisCommands, selected an option in the MenuOptions");
         //Camera animations
         switch (_highlightedOptionsOption)
         {
             case OptionsOption.FOV:
-
-                break;
-            case OptionsOption.ROTATION_SENSITIVITY:
-
+                _selected = true;
+                print("selected FOV");
                 break;
             case OptionsOption.CAMERA_ANGLE:
-
+                _selected = true;
+                print("selected CAMERA_ANGLE");
                 break;
             case OptionsOption.SOUND_VOLUME:
-
+                _selected = true;
+                print("selected SOUND_VOLUME");
+                break;
+            case OptionsOption.LANTERN_ON:
+                _selected = true;
+                print("selected LANTERN_ON");
                 break;
             case OptionsOption.BACK_TO_MENU:
-
+                print("selected BACK_TO_MENU");
+                returnAxisCommands();
                 break;
         }
     }
@@ -124,15 +162,30 @@ public class OptionsScript : MenuScreen
     //
     private void returnAxisCommands()
     {
-        //This is just a temporary test, this needs to be in the other Menu parts.
-        //_menuHandler.reset = true;
-        _menuHandler._menuState = MenuHandler.MenuState.MENU;
-        _menuHandler.ResetScreen(this);
-        //print("returned to the " + _menuHandler._menuState);
+        if (_selected)
+        {
+            print("returnAxisCommands, turned _selected to false, starting highlighting again");
+            _selected = false;
+        }
+        else
+        {
+            print("returnAxisCommands, we were highlighting so now we will go back to the mainMenu");
+            _menuHandler.SetScreen(_menuHandler._mainMenuScreen, true);
+        }
+    }
+
+    public override void ResetCall()
+    {
+        _reset = true;
     }
 
     public override void Reset()
     {
+        //the actual reset
         print("OptionsScreen reset");
+        _highlightedOptionsOption = OptionsOption.FOV;
+        _renderer.material.mainTexture = textures[(int)_highlightedOptionsOption];
+        _reset = false;
+        _selected = false;
     }
 }
