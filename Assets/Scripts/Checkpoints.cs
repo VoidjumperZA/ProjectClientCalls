@@ -8,6 +8,9 @@ public class Checkpoints : MonoBehaviour
     private GameObject playerObject;
 
     [SerializeField]
+    private GameObject monsterObject;
+
+    [SerializeField]
     private Text checkpointUINumber;
 
     [SerializeField]
@@ -23,6 +26,8 @@ public class Checkpoints : MonoBehaviour
     private DataHandler dataHandler;
 
     private List<Vector3> checkpointPositions;
+    private List<Vector3> monsterCheckpointPositions;
+    private List<Quaternion> checkpointRotations;
 
     private int numberOfCheckpointsCreated = 0;
     private bool checkpointCreatable = false;
@@ -32,6 +37,8 @@ public class Checkpoints : MonoBehaviour
     void Start()
     {
         checkpointPositions = new List<Vector3>();
+        monsterCheckpointPositions = new List<Vector3>();
+        checkpointRotations = new List<Quaternion>();
         transform = playerObject.transform;
         dataHandler = GetComponent<DataHandler>();
     }
@@ -43,17 +50,10 @@ public class Checkpoints : MonoBehaviour
         //Debug.Log("checkpoint stack: " + dataHandler.GetCheckpointStack());
         //Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + ", sanityBuffer: " + dataHandler.GetSanityBuffer() + ", sanityToCheckpointSegment: " + dataHandler.GetSanityToCheckpointSegment(0) + ", Checkpoint Stack: " + dataHandler.GetCheckpointStack() + ", number of checkpoints: " + checkpointPositions.Count + ", int difficulty: " + (int)dataHandler.difficulty);
 
-        //Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + ", sanityBuffer: " + dataHandler.GetSanityBuffer() + ", sanityToCheckpointSegment: " + dataHandler.GetSanityToCheckpointSegment(0) + ", Checkpoint Stack: " + dataHandler.GetCheckpointStack() + ", int difficulty: " + (int)dataHandler.difficulty);
-
-        //if (dataHandler.GetCurrentSanity() % dataHandler.GetSanityToCheckpointSegment((int)dataHandler.difficulty) == 0 && dataHandler.GetCurrentSanity() != 0)
         if (dataHandler.GetCheckpointStack() > 0)
         {
             startCheckpointCreation();
             dataHandler.IncrementCheckpointStack(-1);
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            //Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + ", sanityBuffer: " + dataHandler.GetSanityBuffer() + ", sanityToCheckpointSegment: " + dataHandler.GetSanityToCheckpointSegment(0) + ", Checkpoint Stack: " + dataHandler.GetCheckpointStack() + ", number of checkpoints: " + checkpointPositions.Count + ", int difficulty: " + (int)dataHandler.difficulty);
         }
         Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + "while the buffer is: " + dataHandler.GetSanityBuffer());
         //Debug.Log("saved sanity list: " + dataHandler.GetSavedSanityOnCheckpointList().Count);
@@ -63,9 +63,6 @@ public class Checkpoints : MonoBehaviour
     //check if the circumstances are right to create a checkpoint
     private void startCheckpointCreation()
     {
-        
-        //Debug.Log("numberOfCheckpointsCreated: " + numberOfCheckpointsCreated);
-
         //if our list of sanities to checkpoints is empty, add our fist one
         if (dataHandler.GetSavedSanityOnCheckpointList().Count == 0)
         {
@@ -105,14 +102,22 @@ public class Checkpoints : MonoBehaviour
     private void createCheckpoint()
     {
         Debug.Log("Actually in creatCheckpoint. Our sanity is: " + dataHandler.GetCurrentSanity() + "and our buffer is: " + dataHandler.GetSanityBuffer());
-        //Debug.Log("Actually in creatCheckpoint. Our sanity is: " + dataHandler.GetCurrentSanity());
-        //create a new transform and add it to the list
-        Vector3 newCheckpointPosition = playerObject.transform.position; //transform seems to be a reference type, manually copy data
+        
+        //create a new vector3, moderate it's height and add it to the list
+        Vector3 newCheckpointPosition = playerObject.transform.position;
         newCheckpointPosition.y += heightOfCheckpointSpawn;
         checkpointPositions.Add(newCheckpointPosition);
+
+        //create a new vector3 for saving the "monster"'s position
+        Vector3 newMonsterCheckpointPosition = monsterObject.transform.position;
+        monsterCheckpointPositions.Add(newMonsterCheckpointPosition);
+
+        //create a new quaternion for storing rotation and also save it to the list
+        Quaternion newCheckpointRotation = playerObject.transform.rotation;
+        checkpointRotations.Add(newCheckpointRotation);
+
         numberOfCheckpointsCreated++;
         dataHandler.SetSavedSanityOnCheckpoint(dataHandler.GetCurrentSanity());
-
 
         //Debugging option: visually display checkpoint as a marker in-world
         if (displayDebuggingMarker == true)
@@ -120,7 +125,6 @@ public class Checkpoints : MonoBehaviour
             //Debug.Log("Creating marker");
             GameObject newCheckpointObject;
             newCheckpointObject = Instantiate(checkpointMarker);
-
             newCheckpointObject.transform.position = newCheckpointPosition;
         }
     }
@@ -129,7 +133,11 @@ public class Checkpoints : MonoBehaviour
     public void ClearUsedCheckpoint()
     {
         checkpointPositions.RemoveAt(checkpointPositions.Count - 1);
+        monsterCheckpointPositions.RemoveAt(checkpointPositions.Count - 1);
+        checkpointRotations.RemoveAt(checkpointPositions.Count - 1);
+
         numberOfCheckpointsCreated--;
+
         if (numberOfCheckpointsCreated > 0)
         {
             dataHandler.RemoveSavedSanity(numberOfCheckpointsCreated - 1);
@@ -150,4 +158,23 @@ public class Checkpoints : MonoBehaviour
         return checkpointPositions[pIndex];
     }
 
+    public List<Vector3> GeMonsterCheckpointsList()
+    {
+        return monsterCheckpointPositions;
+    }
+
+    public Vector3 GetMonsterCheckpointsListAtIndex(int pIndex)
+    {
+        return monsterCheckpointPositions[pIndex];
+    }
+
+    public List<Quaternion> GetCheckpointRotationsList()
+    {
+        return checkpointRotations;
+    }
+
+    public Quaternion GetCheckpointRotationsListAtIndex(int pIndex)
+    {
+        return checkpointRotations[pIndex];
+    }
 }
