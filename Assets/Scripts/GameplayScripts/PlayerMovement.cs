@@ -27,6 +27,17 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _spawnPosition;
     private Quaternion _spawnRotation;
 
+    private bool forceMovement = true;
+
+    public AudioClip slowDownSound;
+    private AudioSource slowDownSoundSource;
+
+    public AudioClip speedUpSound;
+    private AudioSource speedUpSoundSource;
+
+    public AudioClip collectFireflySound;
+    private AudioSource collectFireflySoundSource;
+
     //--------------------------------------------------//
     private float elapsedTime = 0;
     private Vector3 lastposition;
@@ -36,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= 0.1)
         {
-            if (Vector3.Distance(lastposition, transform.position) <0.5)
+            if (Vector3.Distance(lastposition, transform.position) < 0.5)
             {
                 print("DIED");
             }
@@ -48,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     //---------------------------------------------//
-    
+
     //stops the game detecting you're not pressing a key and speeding time back up
     private bool slowDownDueToRespawn = false;
 
@@ -56,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //contains all the settings for all available difficulties
         _scriptData = Resources.LoadAll<ScriptableData>("Data");
-        
+
         _gameManager = _gameManagerObject.GetComponent<GameManager>();
         dataHandler = _gameManager.GetComponent<DataHandler>();
         _rigidBody = GetComponent<Rigidbody>();
@@ -69,8 +80,23 @@ public class PlayerMovement : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
 
         lastposition = transform.position;
+        //slow down time
+        slowDownSoundSource = gameObject.AddComponent<AudioSource>();
+        slowDownSoundSource.playOnAwake = false;
+        slowDownSoundSource.clip = slowDownSound;
+        slowDownSoundSource.loop = false;
 
+        //speed up time
+        speedUpSoundSource = gameObject.AddComponent<AudioSource>();
+        speedUpSoundSource.playOnAwake = false;
+        speedUpSoundSource.clip = speedUpSound;
+        speedUpSoundSource.loop = false;
 
+        //collect firefly
+        collectFireflySoundSource = gameObject.AddComponent<AudioSource>();
+        collectFireflySoundSource.playOnAwake = false;
+        collectFireflySoundSource.clip = collectFireflySound;
+        collectFireflySoundSource.loop = false;
     }
 
     private void Update()
@@ -90,13 +116,16 @@ public class PlayerMovement : MonoBehaviour
         {
             //_camera.transform.eulerAngles = transform.eulerAngles;
             _camera.LookingNormal(_gameManager.CameraRotationTime);
-            transform.Translate(new Vector3(0, 0, _gameManager.PlayerMovementSpeed) * Time.deltaTime, Space.Self);
         }
         else
         {
             //Maybe make this a function in ChaseCamera
             Vector3 newCameraRotation = transform.eulerAngles - new Vector3(-_gameManager.CameraRotationInAir, 0.0f, 0.0f);
-            _camera.LookingDown(newCameraRotation, _gameManager.CameraRotationTime);
+            _camera.LookingDown(newCameraRotation, _gameManager.CameraRotationTime);            
+        }
+        if (forceMovement == true)
+        {
+            Debug.Log("moving");
             transform.Translate(new Vector3(0, 0, _gameManager.PlayerMovementSpeed) * Time.deltaTime, Space.Self);
         }
     }
@@ -110,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (!_grounded ) { return; }
+        if (!_grounded) { return; }
 
         _rigidBody.AddForce((transform.up * _gameManager.PlayerJumpHeight / 2), ForceMode.Impulse);
         _camera.Shake(_gameManager.CameraShakeDistanceOnJump);
@@ -133,6 +162,7 @@ public class PlayerMovement : MonoBehaviour
         if (Time.timeScale > _gameManager.SlowDownScale)
         {
             playerInput.SetInputToggle(false); //switch to raw movement, more precise when in slowmo
+            slowDownSoundSource.Play();
             Time.timeScale -= _gameManager.SlowDownInterpolationValue;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
         }
@@ -166,8 +196,9 @@ public class PlayerMovement : MonoBehaviour
                     dataHandler.SetSanityBuffer((int)Mathf.Floor(dataHandler.GetCurrentSanity()));
                 }
 
-                
+
             }
+            speedUpSoundSource.Play();
             Time.timeScale += _gameManager.SlowDownInterpolationValue;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
         }
@@ -178,6 +209,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (col.tag == "Lume")
         {
+            collectFireflySoundSource.Play();
             dataHandler.IncrementCurrentSanity(dataHandler.GetSanityGainOnFirefly((int)dataHandler.difficulty));
             dataHandler.IncrementSanityBuffer(dataHandler.GetSanityGainOnFirefly((int)dataHandler.difficulty));
             Destroy(col.gameObject);
@@ -189,7 +221,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.transform.tag == "JumpableObject")
         {
-            print("Landed upon a Jumpablebject");
+           // print("Landed upon a Jumpablebject");
             _grounded = true;
             _camera.Shake(_gameManager.CameraShakeDistanceOnLand);
         }
@@ -237,6 +269,12 @@ public class PlayerMovement : MonoBehaviour
     public void SetSlowDownDueToRespawn(bool pInputValue)
     {
         slowDownDueToRespawn = pInputValue;
+    }
+
+    public void SetForceMovement(bool pIncomingState)
+    {
+        forceMovement = pIncomingState;
+        Debug.Log("forcemovement: " + forceMovement);
     }
 
 }

@@ -17,8 +17,8 @@ public class PlayScript : MenuScreen
     private bool yAxisInUse = false;
     private bool selectionAxisInUse = false;
     private bool returnAxisInUse = false;
-    private enum Levels { TUTORIAL, MAIN_LEVEL, TRAINING_GROUND, BACK_TO_MENU }
-    private Levels _highlightedLevel = Levels.TUTORIAL;
+    public enum Levels { TUTORIAL, MAIN_LEVEL, TRAINING_GROUND, BACK_TO_MENU }
+    public Levels _highlightedLevel = Levels.TUTORIAL;
     private bool _reset = false;
 
     private void Awake()
@@ -105,15 +105,19 @@ public class PlayScript : MenuScreen
         {
             case Levels.TUTORIAL:
                 print("selected TUTORIAL");
-                SceneManager.LoadScene("Test Scene");
+                //SceneManager.LoadScene("Test Scene");
+                _menuHandler.SetScreen(_menuHandler._difficultyScreen, true);
+                PlayerPrefs.SetString("Difficulty", "Tutorial");
                 break;
             case Levels.MAIN_LEVEL:
                 print("selected MAIN_LEVEL");
-                SceneManager.LoadScene("Testplay Scene");
+                //SceneManager.LoadScene("Testplay Scene");
+                _menuHandler.SetScreen(_menuHandler._difficultyScreen, true);
                 break;
             case Levels.TRAINING_GROUND:
                 print("selected TRAINING_GROUND");
-                SceneManager.LoadScene("Dominick - Testbench");
+                //SceneManager.LoadScene("Dominick - Testbench");
+                _menuHandler.SetScreen(_menuHandler._difficultyScreen, true);
                 break;
             case Levels.BACK_TO_MENU:
                 print("selected BACK_TO_MENU");

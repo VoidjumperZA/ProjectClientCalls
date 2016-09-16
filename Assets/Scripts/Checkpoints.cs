@@ -55,7 +55,7 @@ public class Checkpoints : MonoBehaviour
             startCheckpointCreation();
             dataHandler.IncrementCheckpointStack(-1);
         }
-        Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + "while the buffer is: " + dataHandler.GetSanityBuffer());
+        //Debug.Log("current sanity: " + dataHandler.GetCurrentSanity() + "while the buffer is: " + dataHandler.GetSanityBuffer());
         //Debug.Log("saved sanity list: " + dataHandler.GetSavedSanityOnCheckpointList().Count);
         //Debug.Log("Current sanity: " + dataHandler.GetCurrentSanity());
     }
@@ -80,7 +80,7 @@ public class Checkpoints : MonoBehaviour
                 //we already created an existing checkpoint for this sanity value
                 if (dataHandler.GetSavedSanityOnCheckpoint(i) == dataHandler.GetCurrentSanity())
                 {
-                    Debug.Log("A checkpoint (" + i + ") exists for this sanity value (" + dataHandler.GetSavedSanityOnCheckpoint(i) + ") as our sanity is: " + dataHandler.GetCurrentSanity());
+                    //Debug.Log("A checkpoint (" + i + ") exists for this sanity value (" + dataHandler.GetSavedSanityOnCheckpoint(i) + ") as our sanity is: " + dataHandler.GetCurrentSanity());
                     checkpointSlotFree = false;
                     return;
                 }
@@ -101,7 +101,7 @@ public class Checkpoints : MonoBehaviour
 
     private void createCheckpoint()
     {
-        Debug.Log("Actually in creatCheckpoint. Our sanity is: " + dataHandler.GetCurrentSanity() + "and our buffer is: " + dataHandler.GetSanityBuffer());
+        //Debug.Log("Actually in creatCheckpoint. Our sanity is: " + dataHandler.GetCurrentSanity() + "and our buffer is: " + dataHandler.GetSanityBuffer());
         
         //create a new vector3, moderate it's height and add it to the list
         Vector3 newCheckpointPosition = playerObject.transform.position;
