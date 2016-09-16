@@ -35,7 +35,7 @@ public class DataHandler : MonoBehaviour
     private bool fullSanityAchieved = false;
     private int checkpointStack;
 
-    public enum DifficultyLevel { Easy, Medium, Hard };
+    public enum DifficultyLevel { Easy, Medium, Hard, Tutorial };
     public DifficultyLevel difficulty = new DifficultyLevel();
 
     // Use this for initialization

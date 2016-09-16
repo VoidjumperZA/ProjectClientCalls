@@ -7,6 +7,9 @@ public class Respawning : MonoBehaviour
     private GameObject player;
 
     [SerializeField]
+    private GameObject monster;
+
+    [SerializeField]
     private GameObject deathScreen;
 
     [SerializeField]
@@ -52,12 +55,27 @@ public class Respawning : MonoBehaviour
 
         if (checkpointStack >= 1)
         {
+            //position
             player.transform.position = checkpointsScript.GetCheckpointsListAtIndex(checkpointsScript.GetCheckpointsList().Count - 1);
             Camera.main.transform.eulerAngles = player.transform.eulerAngles;
+
+            //monster position
+            monster.transform.position = checkpointsScript.GetMonsterCheckpointsListAtIndex(checkpointsScript.GeMonsterCheckpointsList().Count - 1);
+
+            //rotation
+            player.transform.rotation = checkpointsScript.GetCheckpointRotationsListAtIndex(checkpointsScript.GetCheckpointRotationsList().Count - 1);
+            Camera.main.transform.rotation = player.transform.rotation;
+
+            //reset sanity
             dataHandler.SetCurrentSanity((int)dataHandler.GetSavedSanityOnCheckpoint(checkpointsScript.GetCheckpointsList().Count - 1));
-            //dataHandler.SetSanityBuffer((int)dataHandler.GetSavedSanityOnCheckpoint(checkpointsScript.GetCheckpointsList().Count - 1));
+
+            //empty buffer without increasing checkpoint stack
             dataHandler.EmptySanityBuffer(false);
+
+            //clear the checkpoint
             checkpointsScript.ClearUsedCheckpoint();
+
+            //slow time without using sanity
             runTimeSlow = true;
             playerMovement.SetSlowDownDueToRespawn(true);
         }
@@ -77,7 +95,6 @@ public class Respawning : MonoBehaviour
     private void runTemporarySlowTime()
     {
         counter++;
-       // Debug.Log("Counter: " + counter);
         if (counter < framesTimeIsSlowedOnRespawn)
         {
             playerMovement.SlowDownTime(false);
