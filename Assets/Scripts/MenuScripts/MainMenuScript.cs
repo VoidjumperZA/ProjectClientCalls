@@ -108,6 +108,9 @@ public class MainMenuScript : MenuScreen
                 print("Selected Play option");
                 //Camera animation towards the level select camera position
                 _menuHandler.SetScreen(_menuHandler._playScreen, true);
+                //GameObject.Find("Camera2").SetActive(true);
+                //GameObject.Find("Camera3").SetActive(false);
+                //Camera.main.gameObject.SetActive(false);
                 break;
             case MenuOption.OPTIONS:
                 print("Selected Options option");
