@@ -409,6 +409,7 @@ MonoBehaviour:
   - {fileID: 231796673}
   - {fileID: 1161274067}
   - {fileID: 1283036867}
+  _newScore: {fileID: 296489754}
 --- !u!114 &547848470
 MonoBehaviour:
   m_ObjectHideFlags: 0

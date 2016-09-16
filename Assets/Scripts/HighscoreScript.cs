@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Linq;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HighscoreScript : MonoBehaviour {
 
@@ -19,11 +20,61 @@ public class HighscoreScript : MonoBehaviour {
     private static Dictionary<string, int> _highscoreList = new Dictionary<string, int>();
     private static Dictionary<string, int> _sortedList = new Dictionary<string, int>();
 
+    [SerializeField]
+    private Button _replayButton;
+    [SerializeField]
+    private Button _quitButton;
+
+    private Button _selectedButton;
 
     private void Start()
     {
-        LoadList();
+        try
+        {
+            LoadList();
+        }
+        catch
+        {
+            print("List not found");
+        }
+        
         DisplayScores();
+        Init();
+    }
+
+    private void Init()
+    {
+        string activateReplayButton = PlayerPrefs.GetString("Replay");
+        PlayerPrefs.SetInt("score", 0);
+        if (activateReplayButton != "True")
+        {
+            _replayButton.gameObject.SetActive(false);
+            _selectedButton = _quitButton;
+        }
+        else
+        {
+            _selectedButton = _replayButton;
+        }
+        //_selectedButton.Select();
+    }
+
+    private void CheckInputs()
+    {
+        //check for input,
+        //check if replayButton is active
+        //if it is then switch to other button if it was horizontal input
+        //if not then it can only select the quit button
+        //check for Fire input and call the method below depending what it was selected
+    }
+
+    private void ReplayLevel()
+    {
+        SceneManager.LoadScene(7);
+    }
+
+    private void OnQuitClick()
+    {
+        SceneManager.LoadScene(0);
     }
 
     private void DisplayScores()
@@ -37,8 +88,6 @@ public class HighscoreScript : MonoBehaviour {
             _scoreText.text += kvp.Value + "\n";
             _scrollScoreRect.verticalNormalizedPosition = 0;
         }
-
-        
     }
 
     public static void AddScore(string pName, int pScore)
@@ -68,7 +117,15 @@ public class HighscoreScript : MonoBehaviour {
 
     public static bool IsItHighscore(int pScore)
     {
-        LoadList();
+        try
+        {
+            LoadList();
+        }
+        catch
+        {
+            print("not found");
+        }
+        
         foreach (KeyValuePair<string,int> item in _highscoreList)
         {
             if (pScore > item.Value) return true;
@@ -87,23 +144,9 @@ public class HighscoreScript : MonoBehaviour {
         _highscoreList = _sortedList;
     }
 
-    private void CompileList()
-    {
-        _highscoreList.Add("me",20);
-        _highscoreList.Add("you",10);
-        _highscoreList.Add("the", 250);
-        _highscoreList.Add("he",15);
-        _highscoreList.Add("them",50);
-        _highscoreList.Add("me2", 20);
-        _highscoreList.Add("you2", 10);
-        _highscoreList.Add("the2", 50);
-        _highscoreList.Add("he2", 15);
-        _highscoreList.Add("them2", 50);
-    }
-
     private static void SaveList()
     {
-        FileStream stream = new FileStream(Application.dataPath + "/highscore.dat", FileMode.Create);
+        FileStream stream = new FileStream(Application.persistentDataPath + "/highscore.dat", FileMode.Create);
 
         try
         {
@@ -113,13 +156,12 @@ public class HighscoreScript : MonoBehaviour {
         {
             print("Failed");
         }
-
         stream.Close();
     }
 
     private static void LoadList()
     {
-        FileStream stream = new FileStream(Application.dataPath + "/highscore.txt", FileMode.Open);
+        FileStream stream = new FileStream(Application.persistentDataPath + "/highscore.txt", FileMode.Open);
 
         try
         {
