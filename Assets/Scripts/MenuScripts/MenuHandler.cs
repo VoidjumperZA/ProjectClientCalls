@@ -9,6 +9,7 @@ public class MenuHandler : MonoBehaviour
     public MenuScreen _startScreen;
     public MenuScreen _mainMenuScreen;
     public MenuScreen _playScreen;
+    public MenuScreen _difficultyScreen;
     public MenuScreen _optionsScreen;
     public MenuScreen _creditsScreen;
 

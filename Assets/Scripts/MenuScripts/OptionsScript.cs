@@ -204,6 +204,7 @@ public class OptionsScript : MenuScreen
         _CameraAngleTransform.localScale = new Vector3(0.01f + _CameraAngleValue / 100.0f, 0.02f, 1.0f); 
         _SoundVolumeTransform.localScale = new Vector3(0.01f + _SoundVolume / 100.0f, 0.02f, 1.0f);
 
+
         
     }
 }
