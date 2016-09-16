@@ -8324,6 +8324,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameManagerObject: {fileID: 1786870433}
   _firefly: {fileID: 1000011408163526, guid: 04885039d7e906344a6aa41e72003c9e, type: 2}
+  slowDownSound: {fileID: 8300000, guid: 24e98e489c82fb14baeb007d02e884c3, type: 3}
+  speedUpSound: {fileID: 8300000, guid: e6ebdd16c36f3894782aee145359a89f, type: 3}
+  collectFireflySound: {fileID: 8300000, guid: ff86d2940c15a9d4fb59102d908f49df, type: 3}
 --- !u!54 &663167756
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8631,7 +8634,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'U Dead Nigga
+  m_Text: 'DEAD
+
 
 '
 --- !u!222 &826165819
@@ -8868,6 +8872,7 @@ GameObject:
   - 114: {fileID: 1786870436}
   - 114: {fileID: 1786870435}
   - 114: {fileID: 1786870434}
+  - 114: {fileID: 1786870439}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -8961,6 +8966,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!114 &1786870439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1786870433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e8c17adf540f6346ba2f672f6b23468, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicSound: {fileID: 8300000, guid: c7d78c713b87f734ebc8738f7cc4c0c6, type: 3}
+  darknessSound: {fileID: 8300000, guid: bb9bec533139c7a42bab18de595e109f, type: 3}
 --- !u!1 &1810608055
 GameObject:
   m_ObjectHideFlags: 0
