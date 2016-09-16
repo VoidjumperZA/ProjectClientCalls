@@ -20,6 +20,10 @@ public class OptionsScript : MenuScreen
     private bool _selected = false;
     private bool _reset = false;
 
+    private RectTransform _FOVTransform;
+    private RectTransform _CameraAngleTransform;
+    private RectTransform _SoundVolumeTransform;
+
     private int _FOVValue = 0;
     private int _CameraAngleValue = 0;
     private int _SoundVolume = 0;
@@ -30,6 +34,9 @@ public class OptionsScript : MenuScreen
         _menuHandler = _menuHandlerObject.GetComponent<MenuHandler>();
         _renderer = GetComponent<Renderer>();
         _renderer.material.mainTexture = textures[(int)_highlightedOptionsOption];
+        _FOVTransform = transform.GetChild(0).GetComponent<RectTransform>();
+        _CameraAngleTransform = transform.GetChild(1).GetComponent<RectTransform>();
+        _SoundVolumeTransform = transform.GetChild(2).GetComponent<RectTransform>();
     }
 
     private void Start()
@@ -53,6 +60,8 @@ public class OptionsScript : MenuScreen
         {
             Reset();
         }
+
+        updateBars();
     }
 
     //generic command check list, scanning all command axes at once
@@ -97,17 +106,17 @@ public class OptionsScript : MenuScreen
         {
             case OptionsOption.FOV:
                 _FOVValue += ((int)Input.GetAxisRaw("Horizontal"));
-                _FOVValue = Mathf.Clamp(_FOVValue, 0, 100);
+                _FOVValue = Mathf.Clamp(_FOVValue, 0, 10);
                 print("Changing FOV value to: " + _FOVValue);
                 break;
             case OptionsOption.CAMERA_ANGLE:
                 _CameraAngleValue += ((int)Input.GetAxisRaw("Horizontal"));
-                _CameraAngleValue = Mathf.Clamp(_CameraAngleValue, 0, 100);
+                _CameraAngleValue = Mathf.Clamp(_CameraAngleValue, 0, 10);
                 print("Changing CAMERA_ANGLE value to: " + _CameraAngleValue);
                 break;
             case OptionsOption.SOUND_VOLUME:
                 _SoundVolume += ((int)Input.GetAxisRaw("Horizontal"));
-                _SoundVolume = Mathf.Clamp(_SoundVolume, 0, 100);
+                _SoundVolume = Mathf.Clamp(_SoundVolume, 0, 10);
                 print("Changing SOUND_VOLUME value to: " + _SoundVolume);
                 break;
             case OptionsOption.LANTERN_ON:
@@ -187,5 +196,14 @@ public class OptionsScript : MenuScreen
         _renderer.material.mainTexture = textures[(int)_highlightedOptionsOption];
         _reset = false;
         _selected = false;
+    }
+
+    private void updateBars()
+    {
+        _FOVTransform.localScale = new Vector3(0.01f + _FOVValue / 100.0f, 0.02f, 1.0f);
+        _CameraAngleTransform.localScale = new Vector3(0.01f + _CameraAngleValue / 100.0f, 0.02f, 1.0f); 
+        _SoundVolumeTransform.localScale = new Vector3(0.01f + _SoundVolume / 100.0f, 0.02f, 1.0f);
+
+        
     }
 }
