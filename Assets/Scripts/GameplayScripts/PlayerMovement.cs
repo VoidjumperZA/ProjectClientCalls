@@ -7,6 +7,11 @@ public class PlayerMovement : MonoBehaviour
     private GameObject _gameManagerObject;
     [SerializeField]
     private GameObject _firefly;
+    /*
+    [SerializeField]
+    private BoxCollider feetCollider;
+    [SerializeField]
+    private BoxCollider forewardsCollider;*/
     private PlayerInput playerInput;
 
     private DataHandler dataHandler;

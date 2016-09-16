@@ -37,6 +37,6 @@ public class SanityBarHandler : MonoBehaviour
     private void OnGUI()
     {
         //Debug.Log("GUI sanity: " + dataHandler.GetCurrentSanity());
-        GUI.DrawTexture(new Rect(Screen.width - 236, 50, (dataHandler.GetCurrentSanity() * 1.6f), 20), _sanityTexture);
+        GUI.DrawTexture(new Rect(Screen.width / 2, Screen.height / 2, (dataHandler.GetCurrentSanity() * 1.6f), 20), _sanityTexture);
     }
 }

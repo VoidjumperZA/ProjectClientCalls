@@ -8337,7 +8337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acee774098c990f40bf8d16415fd75fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sanityGainOnFirefly: 05000000140000001400000014000000
+  sanityGainOnFirefly: 01000000140000001400000014000000
   sanityToCheckpointSegment: 1900000014000000140000004a000000
   sanityUsedPerFrame:
   - 0.1
@@ -14048,6 +14048,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameManagerObject: {fileID: 601560728}
   _firefly: {fileID: 1000012418984656, guid: 4f98f0a2903189f4d9d713aa0d1f0b16, type: 2}
+  feetCollider: {fileID: 0}
+  forewardsCollider: {fileID: 0}
 --- !u!65 &1004987940
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14058,8 +14060,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.75, y: 1.64, z: 1.66}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.75, y: 1.76, z: 1.66}
+  m_Center: {x: 0, y: -0.06, z: 0}
 --- !u!1001 &1005971136
 Prefab:
   m_ObjectHideFlags: 0

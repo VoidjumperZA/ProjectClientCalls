@@ -83,6 +83,11 @@ public class DataHandler : MonoBehaviour
         return currentSanity;
     }
 
+    public bool GetFullSanityAchieved()
+    {
+        return fullSanityAchieved;
+    }
+
     //returns how much sanity we gain on touching a firefly
     public int GetSanityGainOnFirefly(int pDifficulty)
     {
