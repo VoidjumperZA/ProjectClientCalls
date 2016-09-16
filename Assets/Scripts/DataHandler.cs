@@ -42,7 +42,8 @@ public class DataHandler : MonoBehaviour
     void Start()
     {
         //set our difficulty: only for testing
-        difficulty = DifficultyLevel.Easy;
+        //difficulty = DifficultyLevel.Easy;
+        GetDifficulty();
         //used for getting the amount of elements in an enum
         string[] elementsInEnum = System.Enum.GetNames(typeof(DifficultyLevel));
 
@@ -60,6 +61,27 @@ public class DataHandler : MonoBehaviour
             internalSanityToCheckpointSegment[i] = sanityToCheckpointSegment[i];
             internalSanityUsedPerFrame[i] = sanityUsedPerFrame[i];
         }
+    }
+
+    private void GetDifficulty()
+    {
+        string diff = PlayerPrefs.GetString("Difficulty");
+        switch (diff)
+        {
+            case "Easy":
+                difficulty = DifficultyLevel.Easy;
+                break;
+            case "Medium":
+                difficulty = DifficultyLevel.Medium;
+                break;
+            case "Hard":
+                difficulty = DifficultyLevel.Hard;
+                break;
+            default:
+                difficulty = DifficultyLevel.Tutorial;
+                break;
+        }
+
     }
 
     // Update is called once per frame
@@ -111,7 +133,6 @@ public class DataHandler : MonoBehaviour
     {
         return sanityBuffer;
     }
-
     //
     public int GetCheckpointStack()
     {

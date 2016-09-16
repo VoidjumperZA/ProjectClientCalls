@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class AddHighscoreScript : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class AddHighscoreScript : MonoBehaviour
 
     [SerializeField]
     private Text[] _uiTexts;
+
+    [SerializeField]
+    private Text _newScore;
+    private int _score;
 
     //NEED TO HIGHLIGHT THIS SOMEHOW. HOW?? make it bold maybe?
     private Text _selectedText;
@@ -43,6 +48,8 @@ public class AddHighscoreScript : MonoBehaviour
         {
             _selectedText = _uiTexts[0];
         }
+        _score = PlayerPrefs.GetInt("score");
+        _newScore.text = "Score: " + _score;
     }
 
     private void SelectText()
@@ -253,10 +260,11 @@ public class AddHighscoreScript : MonoBehaviour
         }
         //THE IDEA IS WHEN YOU FINISH THE GAME. IT CALCULATES THE SCORE THEN USES PLAYERPREFS.SETPREFS to save it and load it here.
         //also it uses the static IsItHighscore bool to check if a new score achieved if it is then loads this scene
-        int score = PlayerPrefs.GetInt("score");
 
-        HighscoreScript.AddScore(name, score);
+        HighscoreScript.AddScore(name, _score);
         //How do you make it select replay button though?
 
+        PlayerPrefs.SetString("Replay", "True");
+        SceneManager.LoadScene(5);
     }
 }
