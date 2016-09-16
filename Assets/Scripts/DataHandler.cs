@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class DataHandler : MonoBehaviour
 {
@@ -91,6 +92,17 @@ public class DataHandler : MonoBehaviour
         if (currentSanity >= fullSanity)
         {
             fullSanityAchieved = true;
+            /*if (HighscoreScript.IsItHighscore(score))
+            {
+                PlayerPrefs.SetInt("score", score);
+                SceneManager.LoadScene(6);
+            }
+            else
+            {
+                PlayerPrefs.SetInt("score", score);
+                PlayerPrefs.SetString("Replay", "True");
+                SceneManager.LoadScene(5);
+            }*/
         }
         if (currentSanity < 1)
         {

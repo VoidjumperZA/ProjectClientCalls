@@ -161,7 +161,7 @@ public class HighscoreScript : MonoBehaviour {
 
     private static void LoadList()
     {
-        FileStream stream = new FileStream(Application.persistentDataPath + "/highscore.txt", FileMode.Open);
+        FileStream stream = new FileStream(Application.persistentDataPath + "/highscore.dat", FileMode.Open);
 
         try
         {
