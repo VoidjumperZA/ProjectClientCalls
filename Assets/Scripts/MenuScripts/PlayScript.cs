@@ -113,6 +113,7 @@ public class PlayScript : MenuScreen
                 break;
             case Levels.TRAINING_GROUND:
                 print("selected TRAINING_GROUND");
+                SceneManager.LoadScene("Dominick - Testbench");
                 break;
             case Levels.BACK_TO_MENU:
                 print("selected BACK_TO_MENU");

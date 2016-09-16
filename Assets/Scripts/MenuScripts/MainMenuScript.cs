@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
 
@@ -16,7 +17,7 @@ public class MainMenuScript : MenuScreen
     private bool yAxisInUse = false;
     private bool selectionAxisInUse = false;
     private bool returnAxisInUse = false;
-    private enum MenuOption { PLAY, OPTIONS, CREDITS, EXIT }
+    private enum MenuOption { PLAY, OPTIONS, HIGH_SCORES, CREDITS, EXIT }
     private MenuOption _highlightedMenuOption = MenuOption.PLAY;
 
     private bool _reset = false;
@@ -112,6 +113,10 @@ public class MainMenuScript : MenuScreen
                 print("Selected Options option");
                 //Camera animation towards the options camera position
                 _menuHandler.SetScreen(_menuHandler._optionsScreen, true);
+                break;
+            case MenuOption.HIGH_SCORES:
+                print("Selected High Scores option");
+                SceneManager.LoadScene("HighscoreScene");
                 break;
             case MenuOption.CREDITS:
                 print("Selected Credits option");
