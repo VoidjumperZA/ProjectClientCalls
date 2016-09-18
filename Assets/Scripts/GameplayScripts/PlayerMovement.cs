@@ -91,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
         speedUpSoundSource.playOnAwake = false;
         speedUpSoundSource.clip = speedUpSound;
         speedUpSoundSource.loop = false;
+        speedUpSoundSource.pitch = 2.0f; //speeds up how fast the sound will be played. I feel it's better double the speed.
 
         //collect firefly
         collectFireflySoundSource = gameObject.AddComponent<AudioSource>();
@@ -125,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (forceMovement == true)
         {
-            Debug.Log("moving");
+            //Debug.Log("moving");
             transform.Translate(new Vector3(0, 0, _gameManager.PlayerMovementSpeed) * Time.deltaTime, Space.Self);
         }
     }
@@ -162,7 +163,8 @@ public class PlayerMovement : MonoBehaviour
         if (Time.timeScale > _gameManager.SlowDownScale)
         {
             playerInput.SetInputToggle(false); //switch to raw movement, more precise when in slowmo
-            slowDownSoundSource.Play();
+            if (!slowDownSoundSource.isPlaying)
+                slowDownSoundSource.PlayOneShot(slowDownSound);
             Time.timeScale -= _gameManager.SlowDownInterpolationValue;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
         }
@@ -198,7 +200,8 @@ public class PlayerMovement : MonoBehaviour
 
 
             }
-            speedUpSoundSource.Play();
+            if (!speedUpSoundSource.isPlaying)
+                speedUpSoundSource.PlayOneShot(speedUpSound);
             Time.timeScale += _gameManager.SlowDownInterpolationValue;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
         }
