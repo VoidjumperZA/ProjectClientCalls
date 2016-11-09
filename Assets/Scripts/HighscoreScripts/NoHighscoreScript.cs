@@ -34,9 +34,11 @@ public class NoHighscoreScript : MonoBehaviour {
                 {
                     case "Jump":
                         PlayerPrefs.SetString("Replay", "True");
-                        SceneManager.LoadScene(5);
+                        Time.timeScale = 1f;
+                        SceneManager.LoadScene(7);
                         break;
                     case "Fire1":
+                        Time.timeScale = 1f;
                         SceneManager.LoadScene(0);
                         break;
                 }

@@ -180,7 +180,7 @@ public class AddHighscoreScript : MonoBehaviour
     {
         print("selectionAxisCommands");
         string name = "";
-        for (int i = 0; i < _uiTexts.Length - 1; i++)
+        for (int i = 0; i < _uiTexts.Length; i++)
         {
             name += _uiTexts[i].text;
         }
@@ -189,8 +189,10 @@ public class AddHighscoreScript : MonoBehaviour
 
         HighscoreScript.AddScore(name, _score);
         //How do you make it select replay button though?
+        print("it gets here");
 
         PlayerPrefs.SetString("Replay", "True");
-        SceneManager.LoadScene(5);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(7);
     }
 }
