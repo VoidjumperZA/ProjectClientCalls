@@ -15,7 +15,6 @@ public class AddHighscoreScript : MonoBehaviour
     private Text _newScore;
     private int _score;
 
-    //NEED TO HIGHLIGHT THIS SOMEHOW. HOW?? make it bold maybe?
     private Text _selectedText;
     private int _index = 0;
 
@@ -50,97 +49,10 @@ public class AddHighscoreScript : MonoBehaviour
         }
         _score = PlayerPrefs.GetInt("score");
         _newScore.text = "Score: " + _score;
+        HighlightText();
     }
 
-    private void SelectText()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            if (_index == 0)
-            {
-                _index = _uiTexts.Length - 1;
-            }
-            else
-            {
-                _index--;
-            }
-            _selectedText = _uiTexts[_index];
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            if (_index == _uiTexts.Length - 1)
-            {
-                _index = 0;
-            }
-            else
-            {
-                _index++;
-            }
-            _selectedText = _uiTexts[_index];
-        }
-    }
 
-    private void SelectLetter()
-    {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            for (int i = 0; i < _letters.Length; i++)
-            {
-                if (_letters[i] == _selectedText.text)
-                {
-                    if (i == _letters.Length - 1)
-                    {
-                        _selectedText.text = _letters[0];
-                        break;
-                    }
-                    else
-                    {
-                        _selectedText.text = _letters[i + 1];
-                        break;
-                    }
-                }
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            for (int i = 0; i < _letters.Length; i++)
-            {
-                if (_letters[i] == _selectedText.text)
-                {
-                    if (i == 0)
-                    {
-                        _selectedText.text = _letters[_letters.Length - 1];
-                        break;
-                    }
-                    else
-                    {
-                        _selectedText.text = _letters[i - 1];
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
-    //over here to change the input for submitting
-    private void SubmitScore()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            string name = "";
-            for (int i = 0; i < _uiTexts.Length - 1; i++)
-            {
-                name += _uiTexts[i].text;
-            }
-            //THE IDEA IS WHEN YOU FINISH THE GAME. IT CALCULATES THE SCORE THEN USES PLAYERPREFS.SETPREFS to save it and load it here.
-            //also it uses the static IsItHighscore bool to check if a new score achieved if it is then loads this scene
-            int score = PlayerPrefs.GetInt("score");
-
-            HighscoreScript.AddScore(name, score);
-            //How do you make it select replay button though?
-        }
-
-    }
 
     //generic command check list, scanning all command axes at once
     //feed it the axis and bool that controls it's "KeyDown" status
@@ -177,7 +89,6 @@ public class AddHighscoreScript : MonoBehaviour
     {
         if (Input.GetAxisRaw("Horizontal") == -1)//left
         {
-            print("LEFT");
             if (_index == 0)
             {
                 _index = _uiTexts.Length - 1;
@@ -187,10 +98,10 @@ public class AddHighscoreScript : MonoBehaviour
                 _index--;
             }
             _selectedText = _uiTexts[_index];
+            HighlightText();
         }
         else if (Input.GetAxisRaw("Horizontal") == 1)//right
         {
-            print("RIGHT");
             if (_index == _uiTexts.Length - 1)
             {
                 _index = 0;
@@ -200,6 +111,23 @@ public class AddHighscoreScript : MonoBehaviour
                 _index++;
             }
             _selectedText = _uiTexts[_index];
+            HighlightText();
+        }
+
+    }
+
+    private void HighlightText()
+    {
+        for (int i = 0; i < _uiTexts.Length; i++)
+        {
+            if (_uiTexts[i] == _selectedText)
+            {
+                _uiTexts[i].color = Color.cyan;
+            }
+            else
+            {
+                _uiTexts[i].color = Color.white;
+            }
         }
     }
 
@@ -208,7 +136,6 @@ public class AddHighscoreScript : MonoBehaviour
     {
         if (Input.GetAxisRaw("Vertical") == -1)//Down
         {
-            print("Down");
             for (int i = 0; i < _letters.Length; i++)
             {
                 if (_letters[i] == _selectedText.text)
@@ -228,7 +155,6 @@ public class AddHighscoreScript : MonoBehaviour
         }
         else if (Input.GetAxisRaw("Vertical") == 1)//Up
         {
-            print("Up");
             for (int i = 0; i < _letters.Length; i++)
             {
                 if (_letters[i] == _selectedText.text)
@@ -254,7 +180,7 @@ public class AddHighscoreScript : MonoBehaviour
     {
         print("selectionAxisCommands");
         string name = "";
-        for (int i = 0; i < _uiTexts.Length - 1; i++)
+        for (int i = 0; i < _uiTexts.Length; i++)
         {
             name += _uiTexts[i].text;
         }
@@ -263,8 +189,10 @@ public class AddHighscoreScript : MonoBehaviour
 
         HighscoreScript.AddScore(name, _score);
         //How do you make it select replay button though?
+        print("it gets here");
 
         PlayerPrefs.SetString("Replay", "True");
-        SceneManager.LoadScene(5);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(7);
     }
 }
