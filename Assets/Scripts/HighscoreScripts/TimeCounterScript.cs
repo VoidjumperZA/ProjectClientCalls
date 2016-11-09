@@ -7,6 +7,8 @@ public class TimeCounterScript : MonoBehaviour {
     [SerializeField]
     private Text _timerText;
     private float _timer;
+    private bool _counting = true;
+
 
     private void Start()
     {
@@ -16,8 +18,16 @@ public class TimeCounterScript : MonoBehaviour {
 
     private void Update()
     {
-        _timer += Time.deltaTime;
-        _timerText.text = ((int)_timer).ToString();
+        if (_counting)
+        {
+            _timer += Time.deltaTime;
+            _timerText.text = ((int)_timer).ToString();
+        }
+    }
+
+    public void SetCounting(bool value)
+    {
+        _counting = value;
     }
 
     public int GetTimerInInt()
