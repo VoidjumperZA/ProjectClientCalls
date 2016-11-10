@@ -20,12 +20,8 @@ public class HighscoreScript : MonoBehaviour {
     private static Dictionary<string, int> _highscoreList = new Dictionary<string, int>();
     private static Dictionary<string, int> _sortedList = new Dictionary<string, int>();
 
-    [SerializeField]
-    private Button _replayButton;
-    [SerializeField]
-    private Button _quitButton;
 
-    private Button _selectedButton;
+    private bool returnAxisInUse = false;
 
     private void Start()
     {
@@ -42,39 +38,43 @@ public class HighscoreScript : MonoBehaviour {
         Init();
     }
 
+    private void Update()
+    {
+        checkAxisCommands("Fire1", ref returnAxisInUse);
+    }
+
+    private void checkAxisCommands(string pAxisName, ref bool pAxisToggle)
+    {
+        if (Input.GetAxisRaw(pAxisName) != 0) //if we've pressed button
+        {
+            if (pAxisToggle == false) //if the key is not pressed down
+            {
+                switch (pAxisName)
+                {
+                    case "Fire1":
+                        selectionAxisCommands();
+                        break;
+                }
+                pAxisToggle = true; //key is now 'down'
+            }
+        }
+        //key has now been lifted up
+        if (Input.GetAxisRaw(pAxisName) == 0)
+        {
+            pAxisToggle = false;
+        }
+    }
+
+    private void selectionAxisCommands()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(0);
+    }
+
     private void Init()
     {
         string activateReplayButton = PlayerPrefs.GetString("Replay");
         PlayerPrefs.SetInt("score", 0);
-        if (activateReplayButton != "True")
-        {
-            _replayButton.gameObject.SetActive(false);
-            _selectedButton = _quitButton;
-        }
-        else
-        {
-            _selectedButton = _replayButton;
-        }
-        //_selectedButton.Select();
-    }
-
-    private void CheckInputs()
-    {
-        //check for input,
-        //check if replayButton is active
-        //if it is then switch to other button if it was horizontal input
-        //if not then it can only select the quit button
-        //check for Fire input and call the method below depending what it was selected
-    }
-
-    private void ReplayLevel()
-    {
-        SceneManager.LoadScene(7);
-    }
-
-    private void OnQuitClick()
-    {
-        SceneManager.LoadScene(0);
     }
 
     private void DisplayScores()
@@ -92,6 +92,14 @@ public class HighscoreScript : MonoBehaviour {
 
     public static void AddScore(string pName, int pScore)
     {
+        try
+        {
+            LoadList();
+        }
+        catch
+        {
+            print("List not found");
+        }
         if (_highscoreList.ContainsKey(pName) && pScore > _highscoreList[pName])
         {
             _highscoreList[pName] = pScore;
