@@ -197,6 +197,8 @@ public class PlayerMovement : MonoBehaviour
                 {
                     dataHandler.SetSanityBuffer((int)Mathf.Floor(dataHandler.GetCurrentSanity()));
                 }
+
+
             }
             if (!speedUpSoundSource.isPlaying)
                 speedUpSoundSource.PlayOneShot(speedUpSound);

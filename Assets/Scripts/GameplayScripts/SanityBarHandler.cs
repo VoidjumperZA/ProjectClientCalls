@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 
 public class SanityBarHandler : MonoBehaviour
@@ -8,8 +7,6 @@ public class SanityBarHandler : MonoBehaviour
     private GameObject _gameManagerObject;
     [SerializeField]
     private Color _sanityBarColour;
-    [SerializeField]
-    private Text checkpointNumberUI;
 
     private DataHandler dataHandler;
 
@@ -40,6 +37,6 @@ public class SanityBarHandler : MonoBehaviour
     private void OnGUI()
     {
         //Debug.Log("GUI sanity: " + dataHandler.GetCurrentSanity());
-        GUI.DrawTexture(new Rect(gameObject.transform.position.x + checkpointNumberUI.transform.position.x, gameObject.transform.position.y + checkpointNumberUI.transform.position.y, (dataHandler.GetCurrentSanity() * 1.6f), 20), _sanityTexture);
+        GUI.DrawTexture(new Rect(Screen.width / 2, Screen.height / 2, (dataHandler.GetCurrentSanity() * 1.6f), 20), _sanityTexture);
     }
 }
