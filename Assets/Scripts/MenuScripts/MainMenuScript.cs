@@ -107,15 +107,12 @@ public class MainMenuScript : MenuScreen
             case MenuOption.PLAY:
                 print("Selected Play option");
                 //Camera animation towards the level select camera position
-                _menuHandler.SetScreen(_menuHandler._playScreen, true);
-                //GameObject.Find("Camera2").SetActive(true);
-                //GameObject.Find("Camera3").SetActive(false);
-                //Camera.main.gameObject.SetActive(false);
+                StartCoroutine(Menu2Play());
                 break;
             case MenuOption.OPTIONS:
                 print("Selected Options option");
                 //Camera animation towards the options camera position
-                _menuHandler.SetScreen(_menuHandler._optionsScreen, true);
+                //_menuHandler.SetScreen(_menuHandler._optionsScreen, true);
                 break;
             case MenuOption.HIGH_SCORES:
                 print("Selected High Scores option");
@@ -124,11 +121,12 @@ public class MainMenuScript : MenuScreen
             case MenuOption.CREDITS:
                 print("Selected Credits option");
                 //Camera animation towards the credits camera position
-                _menuHandler.SetScreen(_menuHandler._creditsScreen, true);
+                //_menuHandler.SetScreen(_menuHandler._creditsScreen, true);
                 break;
             case MenuOption.EXIT:
                 print("Selected Exit option");
                 //Maybe a exit game camera animation?? if time left ofcourse
+                //If you need to wait untill animation is over. Start couroutine and waitforseconds. example in unity sheets.
                 Application.Quit();
                 break;
         }
@@ -139,7 +137,27 @@ public class MainMenuScript : MenuScreen
     {
         if (_reset == true){ return; }
         print("Currently inside menu, pressed right shift, going to startScreen");
+        StartCoroutine(Start2Menu());
+    }
+
+    private IEnumerator Start2Menu()
+    {
+        if (_animator == null) { _animator = Camera.main.GetComponent<Animator>(); }
+        _animator.SetBool("Start2Menu", false);
+        _menuHandler.Freeze(true);
+        yield return new WaitForSeconds(1.0f);
         _menuHandler.SetScreen(_menuHandler._startScreen, true);
+        _menuHandler.Freeze(false);
+    }
+
+    private IEnumerator Menu2Play()
+    {
+        if (_animator == null) { _animator = Camera.main.GetComponent<Animator>(); }
+        _animator.SetBool("Menu2Play", true);
+        _menuHandler.Freeze(true);
+        yield return new WaitForSeconds(1.0f);
+        _menuHandler.SetScreen(_menuHandler._playScreen, true);
+        _menuHandler.Freeze(false);
     }
 
     public override void ResetCall()

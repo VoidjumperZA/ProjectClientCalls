@@ -13,6 +13,8 @@ public class MenuHandler : MonoBehaviour
     public MenuScreen _optionsScreen;
     public MenuScreen _creditsScreen;
 
+    private bool _freeze = false;
+
     private void Awake()
     {
         _currentScreen = _startScreen;
@@ -26,7 +28,10 @@ public class MenuHandler : MonoBehaviour
 
     private void Update()
     {
-        _currentScreen.MenuUpdate();
+        if (_freeze == false)
+        {
+            _currentScreen.MenuUpdate();
+        }
     }
 
     public void SetScreen(MenuScreen pScreen, bool pReset)
@@ -34,6 +39,11 @@ public class MenuHandler : MonoBehaviour
         print("Setting screen to: " + pScreen.GetType().Name);
         _currentScreen = pScreen;
         if (pReset) { pScreen.ResetCall(); }
+    }
+
+    public void Freeze(bool state)
+    {
+        _freeze = state;
     }
 
     public void ResetScreen(MenuScreen pScreen)

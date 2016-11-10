@@ -101,14 +101,14 @@ public class DifficultyScreen : MenuScreen
     //each increment is a further submenu down
     private void selectionAxisCommands()
     {
-        if(_reset) { return;}
+        if (_reset) { return; }
         print("selectionAxisCommands, selected an option in the MenuOptions");
         //Camera animations
         switch (_highlightedDifficulty)
         {
             case Difficulty.EASY:
                 PlayerPrefs.SetString("Difficulty", "Easy");
-                switch(_playScript._highlightedLevel)
+                switch (_playScript._highlightedLevel)
                 {
                     case PlayScript.Levels.TUTORIAL:
                         print("LOADING TUTORIAL");
@@ -135,8 +135,19 @@ public class DifficultyScreen : MenuScreen
     //
     private void returnAxisCommands()
     {
-            print("returnAxisCommands, we were highlighting so now we will go back to the mainMenu");
-            _menuHandler.SetScreen(_menuHandler._startScreen, true);
+        print("returnAxisCommands, we were highlighting so now we will go back to the mainMenu");
+        //_menuHandler.SetScreen(_menuHandler._playScreen, true);
+        StartCoroutine(Diff2Play());
+    }
+
+    private IEnumerator Diff2Play()
+    {
+        if (_animator == null) { _animator = Camera.main.GetComponent<Animator>(); }
+        _animator.SetBool("Play2Diff", false);
+        _menuHandler.Freeze(true);
+        yield return new WaitForSeconds(1.0f);
+        _menuHandler.SetScreen(_menuHandler._playScreen, true);
+        _menuHandler.Freeze(false);
     }
 
     public override void ResetCall()

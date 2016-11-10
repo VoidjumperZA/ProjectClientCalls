@@ -92,14 +92,6 @@ public class HighscoreScript : MonoBehaviour {
 
     public static void AddScore(string pName, int pScore)
     {
-        try
-        {
-            LoadList();
-        }
-        catch
-        {
-            print("List not found");
-        }
         if (_highscoreList.ContainsKey(pName) && pScore > _highscoreList[pName])
         {
             _highscoreList[pName] = pScore;

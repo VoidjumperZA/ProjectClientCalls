@@ -116,7 +116,7 @@ public class GameOverScript : MonoBehaviour {
         if (_selectedText == _optionTexts[0])
         {
             PlayerPrefs.SetString("Replay", "True");
-            SceneManager.LoadScene(5);
+            SceneManager.LoadScene(6);
         }
         else
         {

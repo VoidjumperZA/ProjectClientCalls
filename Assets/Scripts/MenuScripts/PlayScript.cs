@@ -106,18 +106,19 @@ public class PlayScript : MenuScreen
             case Levels.TUTORIAL:
                 print("selected TUTORIAL");
                 //SceneManager.LoadScene("Test Scene");
-                _menuHandler.SetScreen(_menuHandler._difficultyScreen, true);
+                //_menuHandler.SetScreen(_menuHandler._difficultyScreen, true);
                 PlayerPrefs.SetString("Difficulty", "Tutorial");
                 break;
             case Levels.MAIN_LEVEL:
                 print("selected MAIN_LEVEL");
                 //SceneManager.LoadScene("Testplay Scene");
-                _menuHandler.SetScreen(_menuHandler._difficultyScreen, true);
+                StartCoroutine(Play2Diff());
+                //_menuHandler.SetScreen(_menuHandler._difficultyScreen, true);
                 break;
             case Levels.TRAINING_GROUND:
                 print("selected TRAINING_GROUND");
                 //SceneManager.LoadScene("Dominick - Testbench");
-                _menuHandler.SetScreen(_menuHandler._difficultyScreen, true);
+                //_menuHandler.SetScreen(_menuHandler._difficultyScreen, true);
                 break;
             case Levels.BACK_TO_MENU:
                 print("selected BACK_TO_MENU");
@@ -130,7 +131,27 @@ public class PlayScript : MenuScreen
     private void returnAxisCommands()
     {
         print("Returning to the Menu");
+        StartCoroutine(Play2Menu());
+    }
+
+    private IEnumerator Play2Menu()
+    {
+        if (_animator == null) { _animator = Camera.main.GetComponent<Animator>(); }
+        _animator.SetBool("Menu2Play", false);
+        _menuHandler.Freeze(true);
+        yield return new WaitForSeconds(1.0f);
         _menuHandler.SetScreen(_menuHandler._mainMenuScreen, true);
+        _menuHandler.Freeze(false);
+    }
+
+    private IEnumerator Play2Diff()
+    {
+        if (_animator == null) { _animator = Camera.main.GetComponent<Animator>(); }
+        _animator.SetBool("Play2Diff", true);
+        _menuHandler.Freeze(true);
+        yield return new WaitForSeconds(1.0f);
+        _menuHandler.SetScreen(_menuHandler._difficultyScreen, true);
+        _menuHandler.Freeze(false);
     }
 
     public override void ResetCall()

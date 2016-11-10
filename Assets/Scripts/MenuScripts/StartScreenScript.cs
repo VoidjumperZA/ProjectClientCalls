@@ -44,8 +44,18 @@ public class StartScreenScript : MenuScreen
         if (_reset == true){ return; }
         if (Input.GetAxisRaw(pAxisName) != 0) //if we've pressed button
         {
-            _menuHandler.SetScreen(_menuHandler._mainMenuScreen, true);
+            StartCoroutine(startAnimation());
         }
+    }
+
+    private IEnumerator startAnimation()
+    {
+        if (_animator == null) { _animator = Camera.main.GetComponent<Animator>(); }
+        _animator.SetBool("Start2Menu", true);
+        _menuHandler.Freeze(true);
+        yield return new WaitForSecondsRealtime(1.0f);
+        _menuHandler.SetScreen(_menuHandler._mainMenuScreen, true);
+        _menuHandler.Freeze(false);
     }
 
     public override void ResetCall()

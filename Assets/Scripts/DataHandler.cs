@@ -35,18 +35,9 @@ public class DataHandler : MonoBehaviour
     private float sanityBuffer;
     private bool fullSanityAchieved = false;
     private int checkpointStack;
-    
 
     public enum DifficultyLevel { Easy, Medium, Hard, Tutorial };
     public DifficultyLevel difficulty = new DifficultyLevel();
-
-    [SerializeField]
-    private Canvas _addHighscoreCanvas;
-    [SerializeField]
-    private Canvas _noHighscoreCanvas;
-    [SerializeField]
-    private TimeCounterScript _counter;
-    private int _score;
 
     // Use this for initialization
     void Start()
@@ -98,25 +89,20 @@ public class DataHandler : MonoBehaviour
     void Update()
     {
         EmptySanityBuffer(true);
-        if (currentSanity >= fullSanity && !fullSanityAchieved)
+        if (currentSanity >= fullSanity)
         {
             fullSanityAchieved = true;
-            _counter.SetCounting(false);
-            _score = 10000 / _counter.GetTimerInInt(); // check this and set it properly
-            if (HighscoreScript.IsItHighscore(_score))
+            /*if (HighscoreScript.IsItHighscore(score))
             {
-                print("got here");
-                PlayerPrefs.SetInt("score", _score);
-                _addHighscoreCanvas.gameObject.SetActive(true);
-                Time.timeScale = 0f; //have to disable player movement instead
+                PlayerPrefs.SetInt("score", score);
+                SceneManager.LoadScene(6);
             }
             else
             {
-                PlayerPrefs.SetInt("score", _score);
-                _noHighscoreCanvas.gameObject.SetActive(true);
-                Time.timeScale = 0f; //have to disable player movement instead
-                
-            }
+                PlayerPrefs.SetInt("score", score);
+                PlayerPrefs.SetString("Replay", "True");
+                SceneManager.LoadScene(5);
+            }*/
         }
         if (currentSanity < 1)
         {

@@ -3,12 +3,8 @@ using System.Collections;
 
 abstract public class MenuScreen : MonoBehaviour
 {
-
+    protected Animator _animator;
     // Use this for initialization
-    void Start()
-    {
-
-    }
 
     public abstract void ResetCall();
     public abstract void Reset();
